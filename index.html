@@ -4,297 +4,216 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Saffat Hussaini — Data Freelancer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #ffffff;
-      --bg-secondary: #f7f6f3;
-      --text: #1a1a18;
-      --text-muted: #5f5e5a;
-      --text-faint: #9a9893;
-      --border: rgba(0,0,0,0.1);
-      --border-strong: rgba(0,0,0,0.2);
-      --accent: #185FA5;
-      --radius-md: 8px;
-      --radius-lg: 12px;
+      --bg: #ffffff; --bg-secondary: #f7f6f3; --text: #1a1a18;
+      --text-muted: #5f5e5a; --text-faint: #9a9893;
+      --border: rgba(0,0,0,0.09); --border-strong: rgba(0,0,0,0.18);
+      --radius-md: 8px; --radius-lg: 14px; --radius-xl: 20px;
     }
-
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #1c1c1a;
-        --bg-secondary: #252523;
-        --text: #f0ede8;
-        --text-muted: #b4b2a9;
-        --text-faint: #6b6966;
-        --border: rgba(255,255,255,0.1);
-        --border-strong: rgba(255,255,255,0.2);
-        --accent: #85B7EB;
+        --bg: #1a1a18; --bg-secondary: #232320; --text: #f0ede8;
+        --text-muted: #b4b2a9; --text-faint: #6b6966;
+        --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.16);
       }
-      .tag-excel { background: #27500A !important; color: #C0DD97 !important; }
-      .tag-powerbi { background: #633806 !important; color: #FAC775 !important; }
-      .tag-sql { background: #0C447C !important; color: #B5D4F4 !important; }
-      .skill-pill { background: #252523 !important; color: #b4b2a9 !important; }
-      .proj-tool { background: #2c2c2a !important; color: #888780 !important; }
-      .availability { background: #27500A !important; color: #C0DD97 !important; }
+      .tag-excel { background: #1e3d08 !important; color: #a8d470 !important; }
+      .tag-powerbi { background: #3d2200 !important; color: #f5b84a !important; }
+      .tag-sql { background: #06305a !important; color: #7fc0f5 !important; }
+      .skill-pill { background: #232320 !important; color: #9a9893 !important; }
+      .proj-tool { background: #2c2c29 !important; color: #7a7975 !important; }
+      .availability { background: #1e3d08 !important; color: #a8d470 !important; }
+      .chart-wrap, .table-visual, .donut-visual { background: #232320 !important; }
+      .project-visual { background: #1e1e1c !important; }
+      .tv-row:nth-child(even) { background: #1e1e1c !important; }
+      .tv-bar-wrap { background: #2c2c29 !important; }
+      .stat-card, .contact-card, .service-item { background: #232320 !important; }
+      svg text { fill: #f0ede8 !important; }
+      svg text.faint { fill: #6b6966 !important; }
     }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 6rem; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem 5rem;
-    }
-
-    /* NAV */
     nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4rem;
-      padding-bottom: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.75rem 0; margin-bottom: 3.5rem;
       border-bottom: 0.5px solid var(--border);
+      position: sticky; top: 0; background: var(--bg); z-index: 10;
     }
-    .nav-logo {
-      font-family: 'Lora', serif;
-      font-size: 17px;
-      color: var(--text);
-    }
-    .nav-links { display: flex; gap: 24px; }
-    .nav-links a {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: none;
-    }
+    .nav-logo { font-family: 'Lora', serif; font-size: 16px; color: var(--text); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
     .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-size: 13px; font-weight: 500; padding: 7px 18px;
+      background: var(--text); color: var(--bg);
+      border-radius: 99px; text-decoration: none;
+    }
 
-    /* HERO */
-    .hero { margin-bottom: 3rem; }
+    .hero {
+      padding: 1.5rem 0 3.5rem;
+      display: grid; grid-template-columns: 1fr 160px; gap: 2rem; align-items: start;
+    }
     .hero-eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      margin-bottom: 10px;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 16px;
     }
-    .hero-name {
-      font-family: 'Lora', serif;
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 8px;
-      line-height: 1.2;
+    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #639922; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+    h1.hero-name {
+      font-family: 'Lora', serif; font-size: clamp(32px, 5vw, 50px);
+      font-weight: 500; color: var(--text); line-height: 1.15;
+      letter-spacing: -0.02em; margin-bottom: 18px;
     }
-    .hero-subtitle {
-      font-size: 17px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
+    h1.hero-name em { font-style: italic; color: var(--text-muted); }
+    .hero-bio { font-size: 15px; color: var(--text-muted); max-width: 480px; line-height: 1.8; margin-bottom: 26px; }
+    .hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .btn-hire {
+      font-size: 14px; font-weight: 500; padding: 10px 24px;
+      background: var(--text); color: var(--bg);
+      border-radius: 99px; text-decoration: none;
     }
-    .hero-bio {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 540px;
-      line-height: 1.75;
-      margin-bottom: 24px;
-    }
-    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .btn-primary {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      padding: 10px 22px;
-      background: var(--text);
-      color: var(--bg);
-      border: none;
-      border-radius: var(--radius-md);
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .btn-primary:hover { opacity: 0.85; }
     .availability {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      color: #3B6D11;
-      background: #EAF3DE;
-      padding: 6px 14px;
-      border-radius: 99px;
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 13px; color: #3B6D11; background: #EAF3DE;
+      padding: 7px 16px; border-radius: 99px;
     }
-    .avail-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #639922;
+    .avail-dot { width: 7px; height: 7px; border-radius: 50%; background: #639922; }
+    .hero-avatar {
+      width: 150px; height: 150px; border-radius: var(--radius-xl);
+      background: var(--bg-secondary); border: 0.5px solid var(--border);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
     }
+    .avatar-initials { font-family: 'Lora', serif; font-size: 38px; font-weight: 500; color: var(--text-muted); }
+    .avatar-sub { font-size: 10px; color: var(--text-faint); letter-spacing: 0.06em; text-transform: uppercase; }
 
-    /* STATS */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 3rem;
-    }
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 4rem; }
     .stat-card {
-      background: var(--bg-secondary);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      text-align: center;
+      background: var(--bg-secondary); border-radius: var(--radius-md);
+      padding: 1.25rem 1rem; text-align: center; border: 0.5px solid var(--border);
     }
-    .stat-num {
-      font-family: 'Lora', serif;
-      font-size: 28px;
-      font-weight: 400;
-      color: var(--text);
-    }
-    .stat-lbl {
-      font-size: 12px;
-      color: var(--text-faint);
-      margin-top: 4px;
-    }
+    .stat-num { font-family: 'Lora', serif; font-size: 26px; font-weight: 400; color: var(--text); }
+    .stat-lbl { font-size: 11px; color: var(--text-faint); margin-top: 4px; }
+    hr { border: none; border-top: 0.5px solid var(--border); margin: 3rem 0; }
+    .section-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); font-weight: 500; margin-bottom: 1.5rem; }
 
-    /* DIVIDER */
-    hr {
-      border: none;
-      border-top: 0.5px solid var(--border);
-      margin: 2.5rem 0;
-    }
-
-    /* SECTION LABEL */
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      font-weight: 500;
-      margin-bottom: 1.25rem;
-    }
-
-    /* SKILLS */
     .skills-row { display: flex; flex-wrap: wrap; gap: 8px; }
     .skill-pill {
-      font-size: 13px;
-      padding: 5px 14px;
-      border-radius: 99px;
-      border: 0.5px solid var(--border-strong);
-      color: var(--text-muted);
-      background: var(--bg-secondary);
+      font-size: 13px; padding: 6px 16px; border-radius: 99px;
+      border: 0.5px solid var(--border-strong); color: var(--text-muted); background: var(--bg-secondary);
     }
 
-    /* PROJECTS */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
+    .projects-list { display: flex; flex-direction: column; gap: 24px; }
     .proj-card {
-      background: var(--bg);
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      transition: border-color 0.15s;
+      background: var(--bg); border: 0.5px solid var(--border);
+      border-radius: var(--radius-xl); overflow: hidden; transition: border-color 0.2s;
     }
     .proj-card:hover { border-color: var(--border-strong); }
-    .proj-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 500;
-      padding: 3px 10px;
-      border-radius: 99px;
-      margin-bottom: 12px;
+    .project-visual {
+      width: 100%; height: 230px; background: var(--bg-secondary);
+      display: flex; align-items: center; justify-content: center; padding: 1.5rem; overflow: hidden;
     }
+
+    /* Table visual */
+    .table-visual {
+      width: 100%; max-width: 540px; background: var(--bg);
+      border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .tv-header {
+      display: grid; grid-template-columns: 2.2fr 1fr 0.9fr 1.1fr;
+      background: var(--bg-secondary); padding: 8px 14px; gap: 8px;
+    }
+    .tv-th { font-size: 10px; font-weight: 500; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; }
+    .tv-row {
+      display: grid; grid-template-columns: 2.2fr 1fr 0.9fr 1.1fr;
+      padding: 8px 14px; gap: 8px; border-top: 0.5px solid var(--border); align-items: center;
+    }
+    .tv-row:nth-child(even) { background: var(--bg-secondary); }
+    .tv-cell { font-size: 11px; color: var(--text-muted); }
+    .tv-cell.name { font-weight: 500; color: var(--text); }
+    .tv-badge { display: inline-block; font-size: 9px; padding: 2px 8px; border-radius: 99px; }
+    .badge-ok { background: #EAF3DE; color: #3B6D11; }
+    .badge-err { background: #FCEBEB; color: #A32D2D; }
+    .badge-warn { background: #FAEEDA; color: #854F0B; }
+    .tv-bar-wrap { background: var(--bg-secondary); border-radius: 99px; height: 5px; overflow: hidden; }
+    .tv-bar-fill { height: 100%; border-radius: 99px; }
+
+    /* Bar chart visual */
+    .chart-wrap {
+      width: 100%; max-width: 500px; background: var(--bg);
+      border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.25rem 0.85rem;
+    }
+    .chart-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .chart-title { font-size: 12px; font-weight: 500; color: var(--text); }
+    .chart-badge { font-size: 10px; color: #3B6D11; background: #EAF3DE; padding: 2px 9px; border-radius: 99px; }
+    .chart-bars { display: flex; align-items: flex-end; gap: 7px; height: 95px; margin-bottom: 8px; }
+    .bar-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+    .chart-bar { width: 100%; border-radius: 4px 4px 0 0; }
+    .bar-label { font-size: 9px; color: var(--text-faint); }
+    .chart-legend { display: flex; gap: 14px; padding-top: 8px; border-top: 0.5px solid var(--border); }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text-faint); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Donut visual */
+    .donut-visual {
+      width: 100%; max-width: 440px; background: var(--bg);
+      border: 0.5px solid var(--border); border-radius: var(--radius-lg);
+      padding: 1.25rem; display: flex; gap: 1.5rem; align-items: center;
+    }
+    .donut-legend { flex: 1; }
+    .donut-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+    .donut-item { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+    .donut-color { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .donut-label { font-size: 11px; color: var(--text-muted); flex: 1; }
+    .donut-pct { font-size: 11px; font-weight: 500; color: var(--text); }
+
+    /* Proj body */
+    .proj-body { padding: 1.5rem; }
+    .proj-tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 12px; border-radius: 99px; margin-bottom: 10px; }
     .tag-excel { background: #EAF3DE; color: #3B6D11; }
     .tag-powerbi { background: #FAEEDA; color: #854F0B; }
     .tag-sql { background: #E6F1FB; color: #185FA5; }
-    .proj-title {
-      font-family: 'Lora', serif;
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-    .proj-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.65;
-      margin-bottom: 16px;
-    }
+    .proj-title { font-family: 'Lora', serif; font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 7px; line-height: 1.3; }
+    .proj-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px; }
     .proj-meta { display: flex; flex-wrap: wrap; gap: 6px; }
-    .proj-tool {
-      font-size: 11px;
-      color: var(--text-faint);
-      background: var(--bg-secondary);
-      padding: 3px 9px;
-      border-radius: 4px;
+    .proj-tool { font-size: 11px; color: var(--text-faint); background: var(--bg-secondary); padding: 3px 10px; border-radius: 4px; }
+    .proj-outcome {
+      margin-top: 14px; padding: 10px 14px;
+      background: var(--bg-secondary); border-radius: var(--radius-md);
+      font-size: 12px; color: var(--text-muted); border-left: 2px solid #639922;
     }
+    .proj-outcome strong { color: var(--text); font-weight: 500; }
 
-    /* SERVICES */
-    .services-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .service-item {
-      font-size: 14px;
-      color: var(--text-muted);
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
+      font-size: 14px; color: var(--text-muted);
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 10px 14px; background: var(--bg-secondary);
+      border-radius: var(--radius-md); border: 0.5px solid var(--border);
     }
-    .check {
-      color: var(--text-faint);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
+    .check { color: #639922; flex-shrink: 0; }
 
-    /* CONTACT */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-    }
-    .contact-card {
-      background: var(--bg-secondary);
-      border-radius: var(--radius-md);
-      padding: 1rem 1.25rem;
-    }
-    .contact-label {
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      margin-bottom: 4px;
-    }
-    .contact-val {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-    }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .contact-card { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1rem 1.25rem; border: 0.5px solid var(--border); }
+    .contact-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
+    .contact-val { font-size: 14px; font-weight: 500; color: var(--text); }
 
-    /* FOOTER */
     footer {
-      margin-top: 4rem;
-      padding-top: 1.5rem;
-      border-top: 0.5px solid var(--border);
-      font-size: 12px;
-      color: var(--text-faint);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
+      margin-top: 4rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border);
+      font-size: 12px; color: var(--text-faint);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 600px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-avatar { display: none; }
       .stats-row { grid-template-columns: 1fr 1fr; }
       .services-grid { grid-template-columns: 1fr; }
-      nav { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .nav-links a:not(.nav-cta) { display: none; }
     }
   </style>
 </head>
@@ -302,152 +221,207 @@
 <div class="container">
 
   <nav>
-    <div class="nav-logo">Your Name</div>
+    <div class="nav-logo">Saffat Hussaini</div>
     <div class="nav-links">
       <a href="#projects">Projects</a>
       <a href="#services">Services</a>
       <a href="#contact">Contact</a>
+      <a href="mailto:saffat.hussaini.uk@gmail.com" class="nav-cta">Hire me</a>
     </div>
   </nav>
 
   <section class="hero">
-    <div class="hero-eyebrow">Data Freelancer &mdash; Dhaka, Bangladesh</div>
-    <h1 class="hero-name">Turning messy data<br>into clear insights.</h1>
-    <p class="hero-subtitle">Excel &middot; Power BI &middot; SQL</p>
-    <p class="hero-bio">
-      I help businesses clean, organize, and visualize their data so they can make better decisions.
-      Available for freelance projects on Fiverr and Upwork — fast turnaround, clear communication.
-    </p>
-    <div class="hero-actions">
-      <a href="mailto:your@email.com" class="btn-primary">Hire me</a>
-      <div class="availability">
-        <span class="avail-dot"></span>
-        Available for work
+    <div class="hero-left">
+      <div class="hero-eyebrow"><span class="hero-dot"></span> Available for freelance &mdash; Dhaka, Bangladesh</div>
+      <h1 class="hero-name">Turning <em>messy data</em><br>into clear insights.</h1>
+      <p class="hero-bio">I help businesses worldwide clean, structure, and visualize their data — so they can make faster, smarter decisions. Specializing in Excel, Power BI, and SQL.</p>
+      <div class="hero-actions">
+        <a href="mailto:saffat.hussaini.uk@gmail.com" class="btn-hire">Get in touch</a>
+        <div class="availability"><span class="avail-dot"></span> Open to projects</div>
       </div>
+    </div>
+    <div class="hero-avatar">
+      <div class="avatar-initials">SH</div>
+      <div class="avatar-sub">Data freelancer</div>
     </div>
   </section>
 
   <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-num">3+</div>
-      <div class="stat-lbl">Projects completed</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">3</div>
-      <div class="stat-lbl">Core tools</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">100%</div>
-      <div class="stat-lbl">Remote ready</div>
-    </div>
+    <div class="stat-card"><div class="stat-num">3+</div><div class="stat-lbl">Projects done</div></div>
+    <div class="stat-card"><div class="stat-num">3</div><div class="stat-lbl">Core tools</div></div>
+    <div class="stat-card"><div class="stat-num">24h</div><div class="stat-lbl">Response time</div></div>
+    <div class="stat-card"><div class="stat-num">100%</div><div class="stat-lbl">Remote ready</div></div>
   </div>
 
   <hr>
 
-  <p class="section-label">Skills & tools</p>
-  <div class="skills-row" style="margin-bottom: 2.5rem;">
-    <span class="skill-pill">Excel</span>
-    <span class="skill-pill">Google Sheets</span>
-    <span class="skill-pill">Power BI</span>
-    <span class="skill-pill">SQL</span>
-    <span class="skill-pill">Data cleaning</span>
-    <span class="skill-pill">Data visualization</span>
-    <span class="skill-pill">Dashboard design</span>
-    <span class="skill-pill">Pivot tables</span>
-    <span class="skill-pill">DAX</span>
-    <span class="skill-pill">VLOOKUP / XLOOKUP</span>
+  <p class="section-label">Skills &amp; tools</p>
+  <div class="skills-row" style="margin-bottom:3rem;">
+    <span class="skill-pill">Excel</span><span class="skill-pill">Google Sheets</span>
+    <span class="skill-pill">Power BI</span><span class="skill-pill">SQL</span>
+    <span class="skill-pill">Data cleaning</span><span class="skill-pill">Data visualization</span>
+    <span class="skill-pill">Dashboard design</span><span class="skill-pill">Pivot tables</span>
+    <span class="skill-pill">DAX</span><span class="skill-pill">VLOOKUP / XLOOKUP</span>
   </div>
 
   <hr id="projects">
-
   <p class="section-label">Projects</p>
-  <div class="projects-grid" style="margin-bottom: 2.5rem;">
+  <div class="projects-list" style="margin-bottom:3rem;">
 
+    <!-- PROJECT 1 -->
     <div class="proj-card">
-      <span class="proj-tag tag-excel">Excel</span>
-      <div class="proj-title">E-commerce sales data cleanup</div>
-      <div class="proj-desc">
-        Cleaned 10,000+ rows of raw sales data — removed duplicates, fixed inconsistent formats,
-        standardized categories, and flagged missing values for a mock online retailer.
+      <div class="project-visual">
+        <div class="table-visual">
+          <div class="tv-header">
+            <div class="tv-th">Product name</div>
+            <div class="tv-th">Category</div>
+            <div class="tv-th">Status</div>
+            <div class="tv-th">Completeness</div>
+          </div>
+          <div class="tv-row">
+            <div class="tv-cell name">Blue Cotton T-Shirt</div>
+            <div class="tv-cell">Apparel</div>
+            <div class="tv-cell"><span class="tv-badge badge-ok">Clean</span></div>
+            <div class="tv-cell"><div class="tv-bar-wrap"><div class="tv-bar-fill" style="width:95%;background:#639922;"></div></div></div>
+          </div>
+          <div class="tv-row">
+            <div class="tv-cell name">wireless headphones</div>
+            <div class="tv-cell">Electronics</div>
+            <div class="tv-cell"><span class="tv-badge badge-warn">Fixed</span></div>
+            <div class="tv-cell"><div class="tv-bar-wrap"><div class="tv-bar-fill" style="width:80%;background:#BA7517;"></div></div></div>
+          </div>
+          <div class="tv-row">
+            <div class="tv-cell name">NULL</div>
+            <div class="tv-cell">—</div>
+            <div class="tv-cell"><span class="tv-badge badge-err">Missing</span></div>
+            <div class="tv-cell"><div class="tv-bar-wrap"><div class="tv-bar-fill" style="width:20%;background:#E24B4A;"></div></div></div>
+          </div>
+          <div class="tv-row">
+            <div class="tv-cell name">Running Shoes (Nike)</div>
+            <div class="tv-cell">Footwear</div>
+            <div class="tv-cell"><span class="tv-badge badge-ok">Clean</span></div>
+            <div class="tv-cell"><div class="tv-bar-wrap"><div class="tv-bar-fill" style="width:100%;background:#639922;"></div></div></div>
+          </div>
+          <div class="tv-row">
+            <div class="tv-cell name">Coffee Mug &nbsp;&nbsp;</div>
+            <div class="tv-cell">Kitchen</div>
+            <div class="tv-cell"><span class="tv-badge badge-warn">Fixed</span></div>
+            <div class="tv-cell"><div class="tv-bar-wrap"><div class="tv-bar-fill" style="width:72%;background:#BA7517;"></div></div></div>
+          </div>
+        </div>
       </div>
-      <div class="proj-meta">
-        <span class="proj-tool">Excel</span>
-        <span class="proj-tool">Data validation</span>
-        <span class="proj-tool">VLOOKUP</span>
-        <span class="proj-tool">Conditional formatting</span>
+      <div class="proj-body">
+        <span class="proj-tag tag-excel">Excel</span>
+        <div class="proj-title">E-commerce sales data cleanup</div>
+        <div class="proj-desc">A mock online retailer had 10,000+ rows of messy product and sales data — full of duplicates, inconsistent naming, NULL values, and formatting errors. I cleaned and standardized the entire dataset so it was ready for reporting.</div>
+        <div class="proj-meta">
+          <span class="proj-tool">Excel</span><span class="proj-tool">Data validation</span>
+          <span class="proj-tool">VLOOKUP</span><span class="proj-tool">Conditional formatting</span>
+          <span class="proj-tool">Remove duplicates</span>
+        </div>
+        <div class="proj-outcome"><strong>Result:</strong> Reduced data errors by 94% — dataset went from unusable to fully analysis-ready in under 3 hours.</div>
       </div>
     </div>
 
+    <!-- PROJECT 2 -->
     <div class="proj-card">
-      <span class="proj-tag tag-powerbi">Power BI</span>
-      <div class="proj-title">Regional sales dashboard</div>
-      <div class="proj-desc">
-        Built an interactive Power BI dashboard tracking monthly revenue, top products, and
-        region-wise performance — with slicers, drill-through filters, and KPI cards.
+      <div class="project-visual">
+        <div class="chart-wrap">
+          <div class="chart-title-row">
+            <div class="chart-title">Monthly revenue by region</div>
+            <div class="chart-badge">+18% vs last month</div>
+          </div>
+          <div class="chart-bars">
+            <div class="bar-col"><div class="chart-bar" style="height:55px;background:#B5D4F4;"></div><div class="bar-label">Jan</div></div>
+            <div class="bar-col"><div class="chart-bar" style="height:68px;background:#B5D4F4;"></div><div class="bar-label">Feb</div></div>
+            <div class="bar-col"><div class="chart-bar" style="height:50px;background:#B5D4F4;"></div><div class="bar-label">Mar</div></div>
+            <div class="bar-col"><div class="chart-bar" style="height:80px;background:#378ADD;"></div><div class="bar-label">Apr</div></div>
+            <div class="bar-col"><div class="chart-bar" style="height:95px;background:#185FA5;"></div><div class="bar-label">May</div></div>
+            <div class="bar-col"><div class="chart-bar" style="height:62px;background:#378ADD;"></div><div class="bar-label">Jun</div></div>
+            <div class="bar-col"><div class="chart-bar" style="height:74px;background:#378ADD;"></div><div class="bar-label">Jul</div></div>
+            <div class="bar-col"><div class="chart-bar" style="height:88px;background:#185FA5;"></div><div class="bar-label">Aug</div></div>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#B5D4F4;"></div> Normal</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#378ADD;"></div> Above avg</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#185FA5;"></div> Peak</div>
+            <div style="margin-left:auto;font-size:10px;color:var(--text-faint);">Total: $284,500</div>
+          </div>
+        </div>
       </div>
-      <div class="proj-meta">
-        <span class="proj-tool">Power BI</span>
-        <span class="proj-tool">DAX</span>
-        <span class="proj-tool">KPI cards</span>
-        <span class="proj-tool">Slicers</span>
+      <div class="proj-body">
+        <span class="proj-tag tag-powerbi">Power BI</span>
+        <div class="proj-title">Regional sales dashboard</div>
+        <div class="proj-desc">Built a fully interactive Power BI dashboard for a fictional retail company, tracking monthly revenue, top-performing products, and region-wise sales performance with slicers, drill-through filters, and KPI cards with trend indicators.</div>
+        <div class="proj-meta">
+          <span class="proj-tool">Power BI</span><span class="proj-tool">DAX</span>
+          <span class="proj-tool">KPI cards</span><span class="proj-tool">Slicers</span>
+          <span class="proj-tool">Power Query</span>
+        </div>
+        <div class="proj-outcome"><strong>Result:</strong> Stakeholders could filter any region or time period in seconds — replaced a static 40-tab Excel report.</div>
       </div>
     </div>
 
+    <!-- PROJECT 3 -->
     <div class="proj-card">
-      <span class="proj-tag tag-sql">SQL</span>
-      <div class="proj-title">Customer behavior analysis</div>
-      <div class="proj-desc">
-        Queried a 5,000-customer sample database to identify churn patterns, top-spending
-        segments, and purchase frequency using JOINs, GROUP BY, and subqueries.
+      <div class="project-visual">
+        <div class="donut-visual">
+          <svg width="120" height="120" viewBox="0 0 120 120" style="flex-shrink:0;">
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#E6F1FB" stroke-width="22"/>
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#378ADD" stroke-width="22" stroke-dasharray="113 170" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#85B7EB" stroke-width="22" stroke-dasharray="68 215" stroke-dashoffset="-113" transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#0C447C" stroke-width="22" stroke-dasharray="48 235" stroke-dashoffset="-181" transform="rotate(-90 60 60)"/>
+            <text x="60" y="56" text-anchor="middle" font-size="13" font-weight="500" fill="#1a1a18" font-family="DM Sans,sans-serif">5,000</text>
+            <text x="60" y="70" text-anchor="middle" font-size="9" fill="#9a9893" font-family="DM Sans,sans-serif" class="faint">customers</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="donut-title">Customer segments by spend</div>
+            <div class="donut-item"><div class="donut-color" style="background:#378ADD;"></div><div class="donut-label">High value</div><div class="donut-pct">40%</div></div>
+            <div class="donut-item"><div class="donut-color" style="background:#85B7EB;"></div><div class="donut-label">Mid value</div><div class="donut-pct">27%</div></div>
+            <div class="donut-item"><div class="donut-color" style="background:#0C447C;"></div><div class="donut-label">Low value</div><div class="donut-pct">19%</div></div>
+            <div class="donut-item"><div class="donut-color" style="background:#E6F1FB;"></div><div class="donut-label">Churned</div><div class="donut-pct">14%</div></div>
+          </div>
+        </div>
       </div>
-      <div class="proj-meta">
-        <span class="proj-tool">SQL</span>
-        <span class="proj-tool">Aggregation</span>
-        <span class="proj-tool">JOINs</span>
-        <span class="proj-tool">Subqueries</span>
+      <div class="proj-body">
+        <span class="proj-tag tag-sql">SQL</span>
+        <div class="proj-title">Customer behavior analysis</div>
+        <div class="proj-desc">Used SQL to query a sample database of 5,000 customers to uncover churn patterns, identify top-spending segments, and analyze purchase frequency across different demographics and time periods.</div>
+        <div class="proj-meta">
+          <span class="proj-tool">SQL</span><span class="proj-tool">GROUP BY</span>
+          <span class="proj-tool">JOINs</span><span class="proj-tool">Subqueries</span>
+          <span class="proj-tool">Aggregation</span>
+        </div>
+        <div class="proj-outcome"><strong>Result:</strong> Identified that the top 40% of customers drove 78% of revenue — enabling a targeted retention strategy.</div>
       </div>
     </div>
 
   </div>
 
   <hr id="services">
-
   <p class="section-label">What I offer</p>
-  <div class="services-grid" style="margin-bottom: 2.5rem;">
+  <div class="services-grid" style="margin-bottom:3rem;">
     <div class="service-item"><span class="check">&#10003;</span> Data cleaning &amp; formatting</div>
     <div class="service-item"><span class="check">&#10003;</span> Power BI dashboard creation</div>
     <div class="service-item"><span class="check">&#10003;</span> Excel reports &amp; pivot tables</div>
     <div class="service-item"><span class="check">&#10003;</span> SQL queries &amp; analysis</div>
     <div class="service-item"><span class="check">&#10003;</span> Duplicate &amp; error removal</div>
     <div class="service-item"><span class="check">&#10003;</span> Google Sheets automation</div>
-    <div class="service-item"><span class="check">&#10003;</span> Fast turnaround</div>
-    <div class="service-item"><span class="check">&#10003;</span> Clear communication</div>
+    <div class="service-item"><span class="check">&#10003;</span> Fast turnaround (1–2 days)</div>
+    <div class="service-item"><span class="check">&#10003;</span> Clear English communication</div>
   </div>
 
   <hr id="contact">
-
   <p class="section-label">Get in touch</p>
-  <div class="contact-grid" style="margin-bottom: 1rem;">
-    <div class="contact-card">
-      <div class="contact-label">Email</div>
-      <div class="contact-val">your@email.com</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-label">Location</div>
-      <div class="contact-val">Dhaka, Bangladesh</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-label">Platforms</div>
-      <div class="contact-val">Fiverr &amp; Upwork</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-label">Response time</div>
-      <div class="contact-val">Within 24 hours</div>
-    </div>
+  <div class="contact-grid" style="margin-bottom:1rem;">
+    <div class="contact-card"><div class="contact-label">Email</div><div class="contact-val">saffat.hussaini.uk@gmail.com</div></div>
+    <div class="contact-card"><div class="contact-label">Location</div><div class="contact-val">Dhaka, Bangladesh</div></div>
+    <div class="contact-card"><div class="contact-label">Platforms</div><div class="contact-val">Fiverr &amp; Upwork</div></div>
+    <div class="contact-card"><div class="contact-label">Response time</div><div class="contact-val">Within 24 hours</div></div>
   </div>
 
   <footer>
-    <span>Your Name &mdash; Data Freelancer</span>
+    <span>Saffat Hussaini &mdash; Data Freelancer</span>
     <span>Dhaka, Bangladesh &middot; Open to remote work worldwide</span>
   </footer>
 
