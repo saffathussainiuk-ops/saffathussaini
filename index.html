@@ -4,427 +4,656 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Saffat Hussaini — Data Freelancer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
   <style>
+    /* ── RESET & BASE ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #ffffff; --bg-secondary: #f7f6f3; --text: #1a1a18;
-      --text-muted: #5f5e5a; --text-faint: #9a9893;
-      --border: rgba(0,0,0,0.09); --border-strong: rgba(0,0,0,0.18);
-      --radius-md: 8px; --radius-lg: 14px; --radius-xl: 20px;
-    }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #1a1a18; --bg-secondary: #232320; --text: #f0ede8;
-        --text-muted: #b4b2a9; --text-faint: #6b6966;
-        --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.16);
-      }
-      .tag-excel { background: #1e3d08 !important; color: #a8d470 !important; }
-      .tag-powerbi { background: #3d2200 !important; color: #f5b84a !important; }
-      .tag-sql { background: #06305a !important; color: #7fc0f5 !important; }
-      .skill-pill { background: #232320 !important; color: #9a9893 !important; }
-      .proj-tool { background: #2c2c29 !important; color: #7a7975 !important; }
-      .availability { background: #1e3d08 !important; color: #a8d470 !important; }
-      .chart-wrap, .table-visual, .donut-visual { background: #232320 !important; }
-      .project-visual { background: #1e1e1c !important; }
-      .tv-row:nth-child(even) { background: #1e1e1c !important; }
-      .tv-bar-wrap { background: #2c2c29 !important; }
-      .stat-card, .contact-card, .service-item { background: #232320 !important; }
-      svg text { fill: #f0ede8 !important; }
-      svg text.faint { fill: #6b6966 !important; }
+      --bg: #0F172A;
+      --cyan: #22D3EE;
+      --purple: #A855F7;
+      --pink: #EC4899;
+      --green: #10B981;
+      --yellow: #F59E0B;
+      --white: #F1F5F9;
+      --muted: #94A3B8;
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
-    .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 6rem; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
 
+    /* ── CUSTOM CURSOR ── */
+    #cursor-dot {
+      width: 8px; height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--cyan);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.35s cubic-bezier(.25,.46,.45,.94),
+                  height 0.35s cubic-bezier(.25,.46,.45,.94),
+                  border-color 0.2s, opacity 0.2s;
+    }
+    body.cursor-expand #cursor-ring {
+      width: 64px; height: 64px;
+      border-color: var(--purple);
+      opacity: 0.7;
+    }
+    body.cursor-expand #cursor-dot {
+      width: 6px; height: 6px;
+      background: var(--purple);
+    }
+
+    /* ── ANIMATED BLOBS ── */
+    .blob-container {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.18;
+      animation: blobDrift linear infinite;
+    }
+    .blob-1 { width: 600px; height: 600px; background: var(--cyan); top: -100px; left: -150px; animation-duration: 28s; }
+    .blob-2 { width: 500px; height: 500px; background: var(--purple); bottom: -100px; right: -100px; animation-duration: 34s; animation-delay: -12s; }
+    .blob-3 { width: 380px; height: 380px; background: var(--pink); top: 40%; left: 50%; animation-duration: 22s; animation-delay: -6s; }
+    @keyframes blobDrift {
+      0%   { transform: translate(0,0) scale(1); }
+      25%  { transform: translate(60px,-40px) scale(1.08); }
+      50%  { transform: translate(-40px,60px) scale(0.94); }
+      75%  { transform: translate(30px,30px) scale(1.04); }
+      100% { transform: translate(0,0) scale(1); }
+    }
+
+    /* ── LAYOUT ── */
+    .wrapper { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── NAV ── */
     nav {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1.75rem 0; margin-bottom: 3.5rem;
-      border-bottom: 0.5px solid var(--border);
-      position: sticky; top: 0; background: var(--bg); z-index: 10;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--card-border);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,23,42,0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
-    .nav-logo { font-family: 'Lora', serif; font-size: 16px; color: var(--text); }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
-    .nav-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-cta {
-      font-size: 13px; font-weight: 500; padding: 7px 18px;
-      background: var(--text); color: var(--bg);
-      border-radius: 99px; text-decoration: none;
-    }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .nav-logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
 
-    .hero {
-      padding: 1.5rem 0 3.5rem;
-      display: grid; grid-template-columns: 1fr 160px; gap: 2rem; align-items: start;
+    /* ── FLOATING HIRE ME ── */
+    #hire-float {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+      display: flex; align-items: center; gap: 8px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #0F172A; font-weight: 700; font-size: 14px;
+      border-radius: 99px; text-decoration: none;
+      box-shadow: 0 0 30px rgba(34,211,238,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: 'Syne', sans-serif;
     }
+    #hire-float:hover { transform: scale(1.06); box-shadow: 0 0 50px rgba(168,85,247,0.5); }
+    #hire-float .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #0F172A;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1; transform:scale(1)} 50%{opacity:0.5; transform:scale(1.4)} }
+
+    /* ── HERO ── */
+    .hero { padding: 7rem 0 5rem; }
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--text-faint); margin-bottom: 16px;
+      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan);
+      background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.2);
+      padding: 6px 16px; border-radius: 99px; margin-bottom: 2rem;
     }
-    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #639922; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
-    h1.hero-name {
-      font-family: 'Lora', serif; font-size: clamp(32px, 5vw, 50px);
-      font-weight: 500; color: var(--text); line-height: 1.15;
-      letter-spacing: -0.02em; margin-bottom: 18px;
+    .hero-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; }
+    h1.kinetic {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 800; line-height: 1.0;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      will-change: transform;
     }
-    h1.hero-name em { font-style: italic; color: var(--text-muted); }
-    .hero-bio { font-size: 15px; color: var(--text-muted); max-width: 480px; line-height: 1.8; margin-bottom: 26px; }
-    .hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .btn-hire {
-      font-size: 14px; font-weight: 500; padding: 10px 24px;
-      background: var(--text); color: var(--bg);
-      border-radius: 99px; text-decoration: none;
+    .kinetic .line-1 { display: block; color: var(--white); }
+    .kinetic .line-2 {
+      display: block;
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 60%, var(--pink) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .availability {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: 13px; color: #3B6D11; background: #EAF3DE;
-      padding: 7px 16px; border-radius: 99px;
+    .kinetic .line-3 { display: block; color: var(--muted); font-size: 0.65em; font-weight: 400; font-family: 'Inter', sans-serif; margin-top: 1rem; line-height: 1.6; max-width: 540px; -webkit-text-fill-color: var(--muted); }
+    .hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 2.5rem; }
+    .btn-primary {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px;
+      padding: 14px 30px; border-radius: 99px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #0F172A; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 24px rgba(34,211,238,0.35);
     }
-    .avail-dot { width: 7px; height: 7px; border-radius: 50%; background: #639922; }
-    .hero-avatar {
-      width: 150px; height: 150px; border-radius: var(--radius-xl);
-      background: var(--bg-secondary); border: 0.5px solid var(--border);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    .btn-primary:hover { transform: scale(1.04); box-shadow: 0 0 40px rgba(168,85,247,0.45); }
+    .btn-ghost {
+      font-size: 14px; padding: 13px 28px; border-radius: 99px;
+      border: 1px solid var(--card-border);
+      color: var(--muted); text-decoration: none;
+      background: var(--card-bg); backdrop-filter: blur(10px);
+      transition: border-color 0.2s, color 0.2s;
     }
-    .avatar-initials { font-family: 'Lora', serif; font-size: 38px; font-weight: 500; color: var(--text-muted); }
-    .avatar-sub { font-size: 10px; color: var(--text-faint); letter-spacing: 0.06em; text-transform: uppercase; }
+    .btn-ghost:hover { border-color: var(--cyan); color: var(--white); }
 
-    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 4rem; }
+    /* ── STATS ── */
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 5rem 0; }
     .stat-card {
-      background: var(--bg-secondary); border-radius: var(--radius-md);
-      padding: 1.25rem 1rem; text-align: center; border: 0.5px solid var(--border);
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 1.5rem; text-align: center;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s, transform 0.3s;
     }
-    .stat-num { font-family: 'Lora', serif; font-size: 26px; font-weight: 400; color: var(--text); }
-    .stat-lbl { font-size: 11px; color: var(--text-faint); margin-top: 4px; }
-    hr { border: none; border-top: 0.5px solid var(--border); margin: 3rem 0; }
-    .section-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); font-weight: 500; margin-bottom: 1.5rem; }
+    .stat-card:hover { border-color: rgba(34,211,238,0.3); transform: translateY(-4px); }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
 
-    .skills-row { display: flex; flex-wrap: wrap; gap: 8px; }
-    .skill-pill {
-      font-size: 13px; padding: 6px 16px; border-radius: 99px;
-      border: 0.5px solid var(--border-strong); color: var(--text-muted); background: var(--bg-secondary);
-    }
+    /* ── SECTION HEADER ── */
+    .section-header { margin-bottom: 2.5rem; }
+    .section-tag { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: clamp(28px,4vw,42px); font-weight: 800; color: var(--white); }
 
-    .projects-list { display: flex; flex-direction: column; gap: 24px; }
-    .proj-card {
-      background: var(--bg); border: 0.5px solid var(--border);
-      border-radius: var(--radius-xl); overflow: hidden; transition: border-color 0.2s;
+    /* ── SKILLS ── */
+    .skills-section { margin: 5rem 0; }
+    .skills-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill-tag {
+      font-size: 13px; font-weight: 500; padding: 9px 18px;
+      border-radius: 99px; border: 1px solid;
+      cursor: default; transition: transform 0.2s, box-shadow 0.25s, background 0.25s;
+      backdrop-filter: blur(8px);
     }
-    .proj-card:hover { border-color: var(--border-strong); }
-    .project-visual {
-      width: 100%; height: 230px; background: var(--bg-secondary);
-      display: flex; align-items: center; justify-content: center; padding: 1.5rem; overflow: hidden;
-    }
+    .skill-tag:hover { transform: translateY(-4px) scale(1.05); }
+    .sk-excel   { color: #10B981; border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.08); }
+    .sk-excel:hover   { background: rgba(16,185,129,0.18); box-shadow: 0 0 20px rgba(16,185,129,0.3); }
+    .sk-sheets  { color: #34D399; border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.08); }
+    .sk-sheets:hover  { background: rgba(52,211,153,0.18); box-shadow: 0 0 20px rgba(52,211,153,0.3); }
+    .sk-powerbi { color: #F59E0B; border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.08); }
+    .sk-powerbi:hover { background: rgba(245,158,11,0.18); box-shadow: 0 0 20px rgba(245,158,11,0.3); }
+    .sk-sql     { color: #22D3EE; border-color: rgba(34,211,238,0.3); background: rgba(34,211,238,0.08); }
+    .sk-sql:hover     { background: rgba(34,211,238,0.18); box-shadow: 0 0 20px rgba(34,211,238,0.3); }
+    .sk-clean   { color: #A855F7; border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.08); }
+    .sk-clean:hover   { background: rgba(168,85,247,0.18); box-shadow: 0 0 20px rgba(168,85,247,0.3); }
+    .sk-viz     { color: #EC4899; border-color: rgba(236,72,153,0.3); background: rgba(236,72,153,0.08); }
+    .sk-viz:hover     { background: rgba(236,72,153,0.18); box-shadow: 0 0 20px rgba(236,72,153,0.3); }
+    .sk-dash    { color: #60A5FA; border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.08); }
+    .sk-dash:hover    { background: rgba(96,165,250,0.18); box-shadow: 0 0 20px rgba(96,165,250,0.3); }
+    .sk-pivot   { color: #34D399; border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.08); }
+    .sk-pivot:hover   { background: rgba(52,211,153,0.18); box-shadow: 0 0 20px rgba(52,211,153,0.3); }
+    .sk-dax     { color: #F59E0B; border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.08); }
+    .sk-dax:hover     { background: rgba(245,158,11,0.18); box-shadow: 0 0 20px rgba(245,158,11,0.3); }
+    .sk-vlookup { color: #22D3EE; border-color: rgba(34,211,238,0.3); background: rgba(34,211,238,0.08); }
+    .sk-vlookup:hover { background: rgba(34,211,238,0.18); box-shadow: 0 0 20px rgba(34,211,238,0.3); }
 
-    /* Table visual */
-    .table-visual {
-      width: 100%; max-width: 540px; background: var(--bg);
-      border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+    /* ── BENTO GRID ── */
+    .projects-section { margin: 5rem 0; }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 16px;
     }
-    .tv-header {
-      display: grid; grid-template-columns: 2.2fr 1fr 0.9fr 1.1fr;
-      background: var(--bg-secondary); padding: 8px 14px; gap: 8px;
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px; overflow: hidden;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      position: relative;
     }
-    .tv-th { font-size: 10px; font-weight: 500; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; }
-    .tv-row {
-      display: grid; grid-template-columns: 2.2fr 1fr 0.9fr 1.1fr;
-      padding: 8px 14px; gap: 8px; border-top: 0.5px solid var(--border); align-items: center;
+    .bento-card::before {
+      content: ''; position: absolute; inset: 0;
+      border-radius: 20px; opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
     }
-    .tv-row:nth-child(even) { background: var(--bg-secondary); }
-    .tv-cell { font-size: 11px; color: var(--text-muted); }
-    .tv-cell.name { font-weight: 500; color: var(--text); }
-    .tv-badge { display: inline-block; font-size: 9px; padding: 2px 8px; border-radius: 99px; }
-    .badge-ok { background: #EAF3DE; color: #3B6D11; }
-    .badge-err { background: #FCEBEB; color: #A32D2D; }
-    .badge-warn { background: #FAEEDA; color: #854F0B; }
-    .tv-bar-wrap { background: var(--bg-secondary); border-radius: 99px; height: 5px; overflow: hidden; }
-    .tv-bar-fill { height: 100%; border-radius: 99px; }
+    .bento-card:hover { box-shadow: 0 0 40px rgba(34,211,238,0.12); }
+    .bento-card:hover::before { opacity: 1; }
 
-    /* Bar chart visual */
-    .chart-wrap {
-      width: 100%; max-width: 500px; background: var(--bg);
-      border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.25rem 0.85rem;
-    }
-    .chart-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    .chart-title { font-size: 12px; font-weight: 500; color: var(--text); }
-    .chart-badge { font-size: 10px; color: #3B6D11; background: #EAF3DE; padding: 2px 9px; border-radius: 99px; }
-    .chart-bars { display: flex; align-items: flex-end; gap: 7px; height: 95px; margin-bottom: 8px; }
-    .bar-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
-    .chart-bar { width: 100%; border-radius: 4px 4px 0 0; }
-    .bar-label { font-size: 9px; color: var(--text-faint); }
-    .chart-legend { display: flex; gap: 14px; padding-top: 8px; border-top: 0.5px solid var(--border); }
-    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text-faint); }
-    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .bento-1 { grid-column: span 7; border-color: rgba(34,211,238,0.2); }
+    .bento-1:hover { border-color: rgba(34,211,238,0.5); box-shadow: 0 0 40px rgba(34,211,238,0.15); }
+    .bento-2 { grid-column: span 5; border-color: rgba(245,158,11,0.2); }
+    .bento-2:hover { border-color: rgba(245,158,11,0.5); box-shadow: 0 0 40px rgba(245,158,11,0.15); }
+    .bento-3 { grid-column: span 5; border-color: rgba(168,85,247,0.2); }
+    .bento-3:hover { border-color: rgba(168,85,247,0.5); box-shadow: 0 0 40px rgba(168,85,247,0.15); }
+    .bento-4 { grid-column: span 7; border-color: rgba(236,72,153,0.2); }
+    .bento-4:hover { border-color: rgba(236,72,153,0.5); box-shadow: 0 0 40px rgba(236,72,153,0.15); }
 
-    /* Donut visual */
-    .donut-visual {
-      width: 100%; max-width: 440px; background: var(--bg);
-      border: 0.5px solid var(--border); border-radius: var(--radius-lg);
-      padding: 1.25rem; display: flex; gap: 1.5rem; align-items: center;
+    .bento-visual {
+      height: 200px; overflow: hidden; position: relative;
+      display: flex; align-items: center; justify-content: center; padding: 1.5rem;
     }
-    .donut-legend { flex: 1; }
-    .donut-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
-    .donut-item { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
-    .donut-color { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-    .donut-label { font-size: 11px; color: var(--text-muted); flex: 1; }
-    .donut-pct { font-size: 11px; font-weight: 500; color: var(--text); }
-
-    /* Proj body */
-    .proj-body { padding: 1.5rem; }
-    .proj-tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 12px; border-radius: 99px; margin-bottom: 10px; }
-    .tag-excel { background: #EAF3DE; color: #3B6D11; }
-    .tag-powerbi { background: #FAEEDA; color: #854F0B; }
-    .tag-sql { background: #E6F1FB; color: #185FA5; }
-    .proj-title { font-family: 'Lora', serif; font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 7px; line-height: 1.3; }
-    .proj-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px; }
-    .proj-meta { display: flex; flex-wrap: wrap; gap: 6px; }
-    .proj-tool { font-size: 11px; color: var(--text-faint); background: var(--bg-secondary); padding: 3px 10px; border-radius: 4px; }
-    .proj-outcome {
-      margin-top: 14px; padding: 10px 14px;
-      background: var(--bg-secondary); border-radius: var(--radius-md);
-      font-size: 12px; color: var(--text-muted); border-left: 2px solid #639922;
+    .bento-body { padding: 1.5rem; }
+    .bento-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 99px; margin-bottom: 10px; letter-spacing: 0.04em; }
+    .tag-cyan   { background: rgba(34,211,238,0.15); color: var(--cyan); border: 1px solid rgba(34,211,238,0.3); }
+    .tag-amber  { background: rgba(245,158,11,0.15); color: var(--yellow); border: 1px solid rgba(245,158,11,0.3); }
+    .tag-purple { background: rgba(168,85,247,0.15); color: var(--purple); border: 1px solid rgba(168,85,247,0.3); }
+    .tag-pink   { background: rgba(236,72,153,0.15); color: var(--pink); border: 1px solid rgba(236,72,153,0.3); }
+    .bento-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .bento-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+    .bento-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+    .bento-tool { font-size: 11px; color: var(--muted); background: rgba(255,255,255,0.06); padding: 3px 10px; border-radius: 4px; }
+    .bento-result {
+      margin-top: 12px; padding: 10px 14px;
+      background: rgba(255,255,255,0.04); border-radius: 10px;
+      font-size: 12px; color: var(--muted);
+      border-left: 2px solid var(--green);
     }
-    .proj-outcome strong { color: var(--text); font-weight: 500; }
+    .bento-result strong { color: var(--white); font-weight: 500; }
 
-    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    /* Mini chart inside bento */
+    .mini-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .mini-table th { color: var(--muted); font-weight: 500; padding: 5px 8px; text-align: left; border-bottom: 1px solid var(--card-border); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .mini-table td { padding: 6px 8px; border-bottom: 1px solid var(--card-border); color: #CBD5E1; }
+    .mini-table tr:last-child td { border-bottom: none; }
+    .badge-ok   { background: rgba(16,185,129,0.15); color: #10B981; padding: 2px 8px; border-radius: 99px; font-size: 10px; }
+    .badge-warn { background: rgba(245,158,11,0.15); color: #F59E0B; padding: 2px 8px; border-radius: 99px; font-size: 10px; }
+    .badge-err  { background: rgba(239,68,68,0.15);  color: #EF4444; padding: 2px 8px; border-radius: 99px; font-size: 10px; }
+
+    .mini-bars { display: flex; align-items: flex-end; gap: 6px; height: 100px; width: 100%; }
+    .mbar { flex: 1; border-radius: 6px 6px 0 0; position: relative; }
+    .mbar-label { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 9px; color: var(--muted); white-space: nowrap; }
+    .mbar-val { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 9px; color: var(--white); white-space: nowrap; }
+
+    .mini-donut { display: flex; gap: 1rem; align-items: center; width: 100%; }
+    .donut-items { flex: 1; }
+    .donut-row { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
+    .donut-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .donut-lbl { font-size: 11px; color: var(--muted); flex: 1; }
+    .donut-pct { font-size: 11px; font-weight: 600; color: var(--white); }
+
+    /* ── SERVICES ── */
+    .services-section { margin: 5rem 0; }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .service-item {
-      font-size: 14px; color: var(--text-muted);
-      display: flex; gap: 10px; align-items: flex-start;
-      padding: 10px 14px; background: var(--bg-secondary);
-      border-radius: var(--radius-md); border: 0.5px solid var(--border);
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 16px;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 14px; backdrop-filter: blur(10px);
+      transition: border-color 0.2s, transform 0.2s;
+      font-size: 14px; color: var(--muted);
     }
-    .check { color: #639922; flex-shrink: 0; }
+    .service-item:hover { border-color: rgba(168,85,247,0.4); transform: translateX(4px); color: var(--white); }
+    .service-icon { font-size: 18px; flex-shrink: 0; }
 
-    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
-    .contact-card { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1rem 1.25rem; border: 0.5px solid var(--border); }
-    .contact-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
-    .contact-val { font-size: 14px; font-weight: 500; color: var(--text); }
+    /* ── CONTACT ── */
+    .contact-section { margin: 5rem 0; }
+    .contact-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-top: 2rem; }
+    .contact-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 1.25rem 1.5rem; backdrop-filter: blur(12px);
+      transition: border-color 0.2s;
+    }
+    .contact-card:hover { border-color: rgba(34,211,238,0.3); }
+    .contact-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .contact-val { font-size: 15px; font-weight: 500; color: var(--white); }
+    .contact-val.email-copy {
+      cursor: pointer; display: flex; align-items: center; gap: 8px;
+      transition: color 0.2s;
+    }
+    .contact-val.email-copy:hover { color: var(--cyan); }
+    .copy-icon { font-size: 14px; opacity: 0.5; }
+    .copy-toast {
+      display: inline-block; font-size: 11px; color: var(--green);
+      background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3);
+      padding: 2px 10px; border-radius: 99px; margin-left: 8px;
+      opacity: 0; transform: translateY(4px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+    }
+    .copy-toast.show { opacity: 1; transform: translateY(0); }
 
+    /* ── FOOTER ── */
     footer {
-      margin-top: 4rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border);
-      font-size: 12px; color: var(--text-faint);
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+      border-top: 1px solid var(--card-border);
+      padding: 2rem 0; margin-top: 4rem;
+      display: flex; justify-content: space-between;
+      font-size: 12px; color: var(--muted); flex-wrap: wrap; gap: 8px;
     }
+    footer span a { color: var(--cyan); text-decoration: none; }
 
-    @media (max-width: 600px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-avatar { display: none; }
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94), transform 0.7s cubic-bezier(.25,.46,.45,.94);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .bento-1, .bento-2, .bento-3, .bento-4 { grid-column: span 12; }
       .stats-row { grid-template-columns: 1fr 1fr; }
       .services-grid { grid-template-columns: 1fr; }
-      .nav-links a:not(.nav-cta) { display: none; }
+      .contact-grid { grid-template-columns: 1fr; }
+      h1.kinetic { font-size: clamp(38px, 10vw, 64px); }
+      #hire-float { bottom: 1rem; right: 1rem; padding: 11px 18px; font-size: 13px; }
+    }
+    @media (max-width: 480px) {
+      .bento-grid { gap: 12px; }
+      .nav-links a:not(:last-child) { display: none; }
     }
   </style>
 </head>
 <body>
-<div class="container">
 
-  <nav>
+<!-- CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- BLOBS -->
+<div class="blob-container">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<!-- FLOATING HIRE ME -->
+<a href="mailto:saffat.hussaini.uk@gmail.com" id="hire-float">
+  <span class="pulse-dot"></span> Hire Me
+</a>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
     <div class="nav-logo">Saffat Hussaini</div>
     <div class="nav-links">
       <a href="#projects">Projects</a>
-      <a href="#services">Services</a>
+      <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
-      <a href="mailto:saffat.hussaini.uk@gmail.com" class="nav-cta">Hire me</a>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <section class="hero">
-    <div class="hero-left">
-      <div class="hero-eyebrow"><span class="hero-dot"></span> Available for freelance &mdash; Dhaka, Bangladesh</div>
-      <h1 class="hero-name">Turning <em>messy data</em><br>into clear insights.</h1>
-      <p class="hero-bio">I help businesses worldwide clean, structure, and visualize their data — so they can make faster, smarter decisions. Specializing in Excel, Power BI, and SQL.</p>
-      <div class="hero-actions">
-        <a href="mailto:saffat.hussaini.uk@gmail.com" class="btn-hire">Get in touch</a>
-        <div class="availability"><span class="avail-dot"></span> Open to projects</div>
-      </div>
+<!-- HERO -->
+<div class="wrapper">
+  <section class="hero reveal">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Available for freelance &mdash; Dhaka, Bangladesh
     </div>
-    <div class="hero-avatar">
-      <div class="avatar-initials">SH</div>
-      <div class="avatar-sub">Data freelancer</div>
+    <h1 class="kinetic" id="kinetic-hero">
+      <span class="line-1">Turning messy</span>
+      <span class="line-2">data into gold.</span>
+      <span class="line-3">
+        I help businesses worldwide clean, structure, and visualize their data so they can make faster, smarter decisions. Specializing in Excel, Power BI &amp; SQL.
+      </span>
+    </h1>
+    <div class="hero-cta-row">
+      <a href="mailto:saffat.hussaini.uk@gmail.com" class="btn-primary magnetic">Get in touch</a>
+      <a href="#projects" class="btn-ghost magnetic">See my work</a>
     </div>
   </section>
 
-  <div class="stats-row">
+  <!-- STATS -->
+  <div class="stats-row reveal">
     <div class="stat-card"><div class="stat-num">3+</div><div class="stat-lbl">Projects done</div></div>
     <div class="stat-card"><div class="stat-num">3</div><div class="stat-lbl">Core tools</div></div>
     <div class="stat-card"><div class="stat-num">24h</div><div class="stat-lbl">Response time</div></div>
     <div class="stat-card"><div class="stat-num">100%</div><div class="stat-lbl">Remote ready</div></div>
   </div>
 
-  <hr>
+  <!-- SKILLS -->
+  <section class="skills-section" id="skills">
+    <div class="section-header reveal">
+      <div class="section-tag">// capabilities</div>
+      <div class="section-title">Skills &amp; tools</div>
+    </div>
+    <div class="skills-cloud reveal">
+      <span class="skill-tag sk-excel">&#9654; Excel</span>
+      <span class="skill-tag sk-sheets">&#9654; Google Sheets</span>
+      <span class="skill-tag sk-powerbi">&#9654; Power BI</span>
+      <span class="skill-tag sk-sql">&#9654; SQL</span>
+      <span class="skill-tag sk-clean">&#9654; Data cleaning</span>
+      <span class="skill-tag sk-viz">&#9654; Data visualization</span>
+      <span class="skill-tag sk-dash">&#9654; Dashboard design</span>
+      <span class="skill-tag sk-pivot">&#9654; Pivot tables</span>
+      <span class="skill-tag sk-dax">&#9654; DAX</span>
+      <span class="skill-tag sk-vlookup">&#9654; VLOOKUP / XLOOKUP</span>
+    </div>
+  </section>
 
-  <p class="section-label">Skills &amp; tools</p>
-  <div class="skills-row" style="margin-bottom:3rem;">
-    <span class="skill-pill">Excel</span><span class="skill-pill">Google Sheets</span>
-    <span class="skill-pill">Power BI</span><span class="skill-pill">SQL</span>
-    <span class="skill-pill">Data cleaning</span><span class="skill-pill">Data visualization</span>
-    <span class="skill-pill">Dashboard design</span><span class="skill-pill">Pivot tables</span>
-    <span class="skill-pill">DAX</span><span class="skill-pill">VLOOKUP / XLOOKUP</span>
-  </div>
-
-  <hr id="projects">
-  <p class="section-label">Projects</p>
-  <div class="projects-list" style="margin-bottom:3rem;">
-
-    <!-- PROJECT 1 -->
-    <div class="proj-card">
-      <div class="project-visual">
-        <div class="table-visual">
-          <div class="tv-header">
-            <div class="tv-th">Product name</div>
-            <div class="tv-th">Category</div>
-            <div class="tv-th">Status</div>
-            <div class="tv-th">Completeness</div>
-          </div>
-          <div class="tv-row">
-            <div class="tv-cell name">Blue Cotton T-Shirt</div>
-            <div class="tv-cell">Apparel</div>
-            <div class="tv-cell"><span class="tv-badge badge-ok">Clean</span></div>
-            <div class="tv-cell"><div class="tv-bar-wrap"><div class="tv-bar-fill" style="width:95%;background:#639922;"></div></div></div>
-          </div>
-          <div class="tv-row">
-            <div class="tv-cell name">wireless headphones</div>
-            <div class="tv-cell">Electronics</div>
-            <div class="tv-cell"><span class="tv-badge badge-warn">Fixed</span></div>
-            <div class="tv-cell"><div class="tv-bar-wrap"><div class="tv-bar-fill" style="width:80%;background:#BA7517;"></div></div></div>
-          </div>
-          <div class="tv-row">
-            <div class="tv-cell name">NULL</div>
-            <div class="tv-cell">—</div>
-            <div class="tv-cell"><span class="tv-badge badge-err">Missing</span></div>
-            <div class="tv-cell"><div class="tv-bar-wrap"><div class="tv-bar-fill" style="width:20%;background:#E24B4A;"></div></div></div>
-          </div>
-          <div class="tv-row">
-            <div class="tv-cell name">Running Shoes (Nike)</div>
-            <div class="tv-cell">Footwear</div>
-            <div class="tv-cell"><span class="tv-badge badge-ok">Clean</span></div>
-            <div class="tv-cell"><div class="tv-bar-wrap"><div class="tv-bar-fill" style="width:100%;background:#639922;"></div></div></div>
-          </div>
-          <div class="tv-row">
-            <div class="tv-cell name">Coffee Mug &nbsp;&nbsp;</div>
-            <div class="tv-cell">Kitchen</div>
-            <div class="tv-cell"><span class="tv-badge badge-warn">Fixed</span></div>
-            <div class="tv-cell"><div class="tv-bar-wrap"><div class="tv-bar-fill" style="width:72%;background:#BA7517;"></div></div></div>
-          </div>
-        </div>
-      </div>
-      <div class="proj-body">
-        <span class="proj-tag tag-excel">Excel</span>
-        <div class="proj-title">E-commerce sales data cleanup</div>
-        <div class="proj-desc">A mock online retailer had 10,000+ rows of messy product and sales data — full of duplicates, inconsistent naming, NULL values, and formatting errors. I cleaned and standardized the entire dataset so it was ready for reporting.</div>
-        <div class="proj-meta">
-          <span class="proj-tool">Excel</span><span class="proj-tool">Data validation</span>
-          <span class="proj-tool">VLOOKUP</span><span class="proj-tool">Conditional formatting</span>
-          <span class="proj-tool">Remove duplicates</span>
-        </div>
-        <div class="proj-outcome"><strong>Result:</strong> Reduced data errors by 94% — dataset went from unusable to fully analysis-ready in under 3 hours.</div>
-      </div>
+  <!-- BENTO PROJECTS -->
+  <section class="projects-section" id="projects">
+    <div class="section-header reveal">
+      <div class="section-tag">// selected work</div>
+      <div class="section-title">Projects</div>
     </div>
 
-    <!-- PROJECT 2 -->
-    <div class="proj-card">
-      <div class="project-visual">
-        <div class="chart-wrap">
-          <div class="chart-title-row">
-            <div class="chart-title">Monthly revenue by region</div>
-            <div class="chart-badge">+18% vs last month</div>
+    <div class="bento-grid">
+
+      <!-- CARD 1: Excel — Large left -->
+      <div class="bento-card bento-1 reveal magnetic-card" data-tilt data-tilt-max="6" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.08">
+        <div class="bento-visual">
+          <table class="mini-table" style="width:100%;">
+            <thead>
+              <tr><th>Product</th><th>Category</th><th>Status</th><th>Score</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Blue Cotton T-Shirt</td><td>Apparel</td><td><span class="badge-ok">Clean</span></td><td>95%</td></tr>
+              <tr><td>wireless headphones</td><td>Electronics</td><td><span class="badge-warn">Fixed</span></td><td>80%</td></tr>
+              <tr><td>NULL</td><td>—</td><td><span class="badge-err">Missing</span></td><td>20%</td></tr>
+              <tr><td>Running Shoes (Nike)</td><td>Footwear</td><td><span class="badge-ok">Clean</span></td><td>100%</td></tr>
+              <tr><td>Coffee Mug &nbsp;</td><td>Kitchen</td><td><span class="badge-warn">Fixed</span></td><td>72%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bento-body">
+          <span class="bento-tag tag-cyan">Excel</span>
+          <div class="bento-title">E-commerce sales data cleanup</div>
+          <div class="bento-desc">Cleaned 10,000+ rows — removed duplicates, fixed formats, standardized categories and flagged all missing values for a mock retailer.</div>
+          <div class="bento-tools">
+            <span class="bento-tool">Excel</span><span class="bento-tool">VLOOKUP</span>
+            <span class="bento-tool">Data validation</span><span class="bento-tool">Conditional formatting</span>
           </div>
-          <div class="chart-bars">
-            <div class="bar-col"><div class="chart-bar" style="height:55px;background:#B5D4F4;"></div><div class="bar-label">Jan</div></div>
-            <div class="bar-col"><div class="chart-bar" style="height:68px;background:#B5D4F4;"></div><div class="bar-label">Feb</div></div>
-            <div class="bar-col"><div class="chart-bar" style="height:50px;background:#B5D4F4;"></div><div class="bar-label">Mar</div></div>
-            <div class="bar-col"><div class="chart-bar" style="height:80px;background:#378ADD;"></div><div class="bar-label">Apr</div></div>
-            <div class="bar-col"><div class="chart-bar" style="height:95px;background:#185FA5;"></div><div class="bar-label">May</div></div>
-            <div class="bar-col"><div class="chart-bar" style="height:62px;background:#378ADD;"></div><div class="bar-label">Jun</div></div>
-            <div class="bar-col"><div class="chart-bar" style="height:74px;background:#378ADD;"></div><div class="bar-label">Jul</div></div>
-            <div class="bar-col"><div class="chart-bar" style="height:88px;background:#185FA5;"></div><div class="bar-label">Aug</div></div>
-          </div>
-          <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#B5D4F4;"></div> Normal</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#378ADD;"></div> Above avg</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#185FA5;"></div> Peak</div>
-            <div style="margin-left:auto;font-size:10px;color:var(--text-faint);">Total: $284,500</div>
-          </div>
+          <div class="bento-result"><strong>Result:</strong> Reduced data errors by 94% — fully analysis-ready in under 3 hours.</div>
         </div>
       </div>
-      <div class="proj-body">
-        <span class="proj-tag tag-powerbi">Power BI</span>
-        <div class="proj-title">Regional sales dashboard</div>
-        <div class="proj-desc">Built a fully interactive Power BI dashboard for a fictional retail company, tracking monthly revenue, top-performing products, and region-wise sales performance with slicers, drill-through filters, and KPI cards with trend indicators.</div>
-        <div class="proj-meta">
-          <span class="proj-tool">Power BI</span><span class="proj-tool">DAX</span>
-          <span class="proj-tool">KPI cards</span><span class="proj-tool">Slicers</span>
-          <span class="proj-tool">Power Query</span>
+
+      <!-- CARD 2: Power BI — Smaller right -->
+      <div class="bento-card bento-2 reveal magnetic-card" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+        <div class="bento-visual" style="padding:1.25rem 1.25rem 0.5rem;">
+          <div style="width:100%;">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:500;">Monthly revenue</div>
+            <div class="mini-bars" style="padding-bottom:24px;">
+              <div class="mbar" style="height:52%;background:rgba(245,158,11,0.3);"><span class="mbar-label">Jan</span></div>
+              <div class="mbar" style="height:65%;background:rgba(245,158,11,0.4);"><span class="mbar-label">Feb</span></div>
+              <div class="mbar" style="height:48%;background:rgba(245,158,11,0.3);"><span class="mbar-label">Mar</span></div>
+              <div class="mbar" style="height:78%;background:rgba(245,158,11,0.5);"><span class="mbar-label">Apr</span></div>
+              <div class="mbar" style="height:100%;background:rgba(245,158,11,0.85);"><span class="mbar-label">May</span><span class="mbar-val">Peak</span></div>
+              <div class="mbar" style="height:60%;background:rgba(245,158,11,0.4);"><span class="mbar-label">Jun</span></div>
+              <div class="mbar" style="height:72%;background:rgba(245,158,11,0.45);"><span class="mbar-label">Jul</span></div>
+              <div class="mbar" style="height:88%;background:rgba(245,158,11,0.65);"><span class="mbar-label">Aug</span></div>
+            </div>
+          </div>
         </div>
-        <div class="proj-outcome"><strong>Result:</strong> Stakeholders could filter any region or time period in seconds — replaced a static 40-tab Excel report.</div>
+        <div class="bento-body">
+          <span class="bento-tag tag-amber">Power BI</span>
+          <div class="bento-title">Regional sales dashboard</div>
+          <div class="bento-desc">Interactive dashboard with slicers, drill-through filters and KPI cards tracking monthly revenue &amp; top products.</div>
+          <div class="bento-tools">
+            <span class="bento-tool">Power BI</span><span class="bento-tool">DAX</span><span class="bento-tool">Power Query</span>
+          </div>
+          <div class="bento-result"><strong>Result:</strong> Replaced a 40-tab static Excel report.</div>
+        </div>
+      </div>
+
+      <!-- CARD 3: SQL — Smaller left -->
+      <div class="bento-card bento-3 reveal magnetic-card" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+        <div class="bento-visual">
+          <div class="mini-donut" style="width:100%;">
+            <svg width="110" height="110" viewBox="0 0 110 110" style="flex-shrink:0;">
+              <circle cx="55" cy="55" r="40" fill="none" stroke="rgba(168,85,247,0.15)" stroke-width="20"/>
+              <circle cx="55" cy="55" r="40" fill="none" stroke="#A855F7" stroke-width="20"
+                stroke-dasharray="100 151" stroke-dashoffset="0" transform="rotate(-90 55 55)"/>
+              <circle cx="55" cy="55" r="40" fill="none" stroke="#C084FC" stroke-width="20"
+                stroke-dasharray="60 191" stroke-dashoffset="-100" transform="rotate(-90 55 55)"/>
+              <circle cx="55" cy="55" r="40" fill="none" stroke="#7C3AED" stroke-width="20"
+                stroke-dasharray="42 209" stroke-dashoffset="-160" transform="rotate(-90 55 55)"/>
+              <text x="55" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#F1F5F9" font-family="Syne,sans-serif">5,000</text>
+              <text x="55" y="64" text-anchor="middle" font-size="9" fill="#94A3B8" font-family="Inter,sans-serif">customers</text>
+            </svg>
+            <div class="donut-items">
+              <div class="donut-row"><div class="donut-swatch" style="background:#A855F7;"></div><div class="donut-lbl">High value</div><div class="donut-pct">40%</div></div>
+              <div class="donut-row"><div class="donut-swatch" style="background:#C084FC;"></div><div class="donut-lbl">Mid value</div><div class="donut-pct">27%</div></div>
+              <div class="donut-row"><div class="donut-swatch" style="background:#7C3AED;"></div><div class="donut-lbl">Low value</div><div class="donut-pct">19%</div></div>
+              <div class="donut-row"><div class="donut-swatch" style="background:rgba(168,85,247,0.2);"></div><div class="donut-lbl">Churned</div><div class="donut-pct">14%</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="bento-body">
+          <span class="bento-tag tag-purple">SQL</span>
+          <div class="bento-title">Customer behavior analysis</div>
+          <div class="bento-desc">Queried 5,000-customer database to uncover churn patterns and top-spending segments using JOINs &amp; subqueries.</div>
+          <div class="bento-tools">
+            <span class="bento-tool">SQL</span><span class="bento-tool">GROUP BY</span><span class="bento-tool">JOINs</span>
+          </div>
+          <div class="bento-result"><strong>Result:</strong> Top 40% of customers drove 78% of revenue.</div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Services — Large right -->
+      <div class="bento-card bento-4 reveal" style="display:flex; flex-direction:column; justify-content:center; padding:2rem;">
+        <span class="bento-tag tag-pink" style="margin-bottom:16px;">What I offer</span>
+        <div class="bento-title" style="font-size:22px; margin-bottom:16px;">Everything you need,<br>nothing you don't.</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div class="service-item" style="border-radius:10px; font-size:13px;"><span>✦</span> Data cleaning</div>
+          <div class="service-item" style="border-radius:10px; font-size:13px;"><span>✦</span> Power BI dashboards</div>
+          <div class="service-item" style="border-radius:10px; font-size:13px;"><span>✦</span> Excel automation</div>
+          <div class="service-item" style="border-radius:10px; font-size:13px;"><span>✦</span> SQL analysis</div>
+          <div class="service-item" style="border-radius:10px; font-size:13px;"><span>✦</span> Error removal</div>
+          <div class="service-item" style="border-radius:10px; font-size:13px;"><span>✦</span> Google Sheets</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section reveal" id="contact">
+    <div class="section-header">
+      <div class="section-tag">// let's work together</div>
+      <div class="section-title">Get in touch</div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-label">Email</div>
+        <div class="contact-val email-copy" id="email-copy" onclick="copyEmail()">
+          saffat.hussaini.uk@gmail.com
+          <span class="copy-icon">&#9112;</span>
+          <span class="copy-toast" id="copy-toast">Copied!</span>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Location</div>
+        <div class="contact-val">Dhaka, Bangladesh</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Platforms</div>
+        <div class="contact-val">Fiverr &amp; Upwork</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Response time</div>
+        <div class="contact-val">Within 24 hours</div>
       </div>
     </div>
-
-    <!-- PROJECT 3 -->
-    <div class="proj-card">
-      <div class="project-visual">
-        <div class="donut-visual">
-          <svg width="120" height="120" viewBox="0 0 120 120" style="flex-shrink:0;">
-            <circle cx="60" cy="60" r="45" fill="none" stroke="#E6F1FB" stroke-width="22"/>
-            <circle cx="60" cy="60" r="45" fill="none" stroke="#378ADD" stroke-width="22" stroke-dasharray="113 170" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
-            <circle cx="60" cy="60" r="45" fill="none" stroke="#85B7EB" stroke-width="22" stroke-dasharray="68 215" stroke-dashoffset="-113" transform="rotate(-90 60 60)"/>
-            <circle cx="60" cy="60" r="45" fill="none" stroke="#0C447C" stroke-width="22" stroke-dasharray="48 235" stroke-dashoffset="-181" transform="rotate(-90 60 60)"/>
-            <text x="60" y="56" text-anchor="middle" font-size="13" font-weight="500" fill="#1a1a18" font-family="DM Sans,sans-serif">5,000</text>
-            <text x="60" y="70" text-anchor="middle" font-size="9" fill="#9a9893" font-family="DM Sans,sans-serif" class="faint">customers</text>
-          </svg>
-          <div class="donut-legend">
-            <div class="donut-title">Customer segments by spend</div>
-            <div class="donut-item"><div class="donut-color" style="background:#378ADD;"></div><div class="donut-label">High value</div><div class="donut-pct">40%</div></div>
-            <div class="donut-item"><div class="donut-color" style="background:#85B7EB;"></div><div class="donut-label">Mid value</div><div class="donut-pct">27%</div></div>
-            <div class="donut-item"><div class="donut-color" style="background:#0C447C;"></div><div class="donut-label">Low value</div><div class="donut-pct">19%</div></div>
-            <div class="donut-item"><div class="donut-color" style="background:#E6F1FB;"></div><div class="donut-label">Churned</div><div class="donut-pct">14%</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="proj-body">
-        <span class="proj-tag tag-sql">SQL</span>
-        <div class="proj-title">Customer behavior analysis</div>
-        <div class="proj-desc">Used SQL to query a sample database of 5,000 customers to uncover churn patterns, identify top-spending segments, and analyze purchase frequency across different demographics and time periods.</div>
-        <div class="proj-meta">
-          <span class="proj-tool">SQL</span><span class="proj-tool">GROUP BY</span>
-          <span class="proj-tool">JOINs</span><span class="proj-tool">Subqueries</span>
-          <span class="proj-tool">Aggregation</span>
-        </div>
-        <div class="proj-outcome"><strong>Result:</strong> Identified that the top 40% of customers drove 78% of revenue — enabling a targeted retention strategy.</div>
-      </div>
-    </div>
-
-  </div>
-
-  <hr id="services">
-  <p class="section-label">What I offer</p>
-  <div class="services-grid" style="margin-bottom:3rem;">
-    <div class="service-item"><span class="check">&#10003;</span> Data cleaning &amp; formatting</div>
-    <div class="service-item"><span class="check">&#10003;</span> Power BI dashboard creation</div>
-    <div class="service-item"><span class="check">&#10003;</span> Excel reports &amp; pivot tables</div>
-    <div class="service-item"><span class="check">&#10003;</span> SQL queries &amp; analysis</div>
-    <div class="service-item"><span class="check">&#10003;</span> Duplicate &amp; error removal</div>
-    <div class="service-item"><span class="check">&#10003;</span> Google Sheets automation</div>
-    <div class="service-item"><span class="check">&#10003;</span> Fast turnaround (1–2 days)</div>
-    <div class="service-item"><span class="check">&#10003;</span> Clear English communication</div>
-  </div>
-
-  <hr id="contact">
-  <p class="section-label">Get in touch</p>
-  <div class="contact-grid" style="margin-bottom:1rem;">
-    <div class="contact-card"><div class="contact-label">Email</div><div class="contact-val">saffat.hussaini.uk@gmail.com</div></div>
-    <div class="contact-card"><div class="contact-label">Location</div><div class="contact-val">Dhaka, Bangladesh</div></div>
-    <div class="contact-card"><div class="contact-label">Platforms</div><div class="contact-val">Fiverr &amp; Upwork</div></div>
-    <div class="contact-card"><div class="contact-label">Response time</div><div class="contact-val">Within 24 hours</div></div>
-  </div>
+  </section>
 
   <footer>
     <span>Saffat Hussaini &mdash; Data Freelancer</span>
     <span>Dhaka, Bangladesh &middot; Open to remote work worldwide</span>
   </footer>
-
 </div>
+
+<script>
+  /* ── CUSTOM CURSOR ── */
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('.magnetic-card, .magnetic, a, button, .skill-tag, .email-copy').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-expand'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-expand'));
+  });
+
+  /* ── SCROLL REVEAL ── */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  /* ── KINETIC HERO SCROLL ── */
+  const hero = document.getElementById('kinetic-hero');
+  window.addEventListener('scroll', () => {
+    const s = window.scrollY;
+    if (s < 600 && hero) {
+      hero.style.transform = `translateY(${s * 0.12}px) scale(${1 - s * 0.0001})`;
+      hero.style.opacity = 1 - s / 500;
+    }
+  });
+
+  /* ── COPY EMAIL ── */
+  function copyEmail() {
+    navigator.clipboard.writeText('saffat.hussaini.uk@gmail.com').then(() => {
+      const toast = document.getElementById('copy-toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    });
+  }
+
+  /* ── VANILLA TILT init (CDN loaded) ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.VanillaTilt) {
+      VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
+        max: 7, speed: 400, glare: true, 'max-glare': 0.08
+      });
+    }
+  });
+</script>
 </body>
 </html>
