@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Name — Data Freelancer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f7f6f3;
+      --text: #1a1a18;
+      --text-muted: #5f5e5a;
+      --text-faint: #9a9893;
+      --border: rgba(0,0,0,0.1);
+      --border-strong: rgba(0,0,0,0.2);
+      --accent: #185FA5;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1c1c1a;
+        --bg-secondary: #252523;
+        --text: #f0ede8;
+        --text-muted: #b4b2a9;
+        --text-faint: #6b6966;
+        --border: rgba(255,255,255,0.1);
+        --border-strong: rgba(255,255,255,0.2);
+        --accent: #85B7EB;
+      }
+      .tag-excel { background: #27500A !important; color: #C0DD97 !important; }
+      .tag-powerbi { background: #633806 !important; color: #FAC775 !important; }
+      .tag-sql { background: #0C447C !important; color: #B5D4F4 !important; }
+      .skill-pill { background: #252523 !important; color: #b4b2a9 !important; }
+      .proj-tool { background: #2c2c2a !important; color: #888780 !important; }
+      .availability { background: #27500A !important; color: #C0DD97 !important; }
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      color: var(--text);
+    }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero { margin-bottom: 3rem; }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 10px;
+    }
+    .hero-name {
+      font-family: 'Lora', serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .hero-subtitle {
+      font-size: 17px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .hero-bio {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 22px;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #3B6D11;
+      background: #EAF3DE;
+      padding: 6px 14px;
+      border-radius: 99px;
+    }
+    .avail-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #639922;
+    }
+
+    /* STATS */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 3rem;
+    }
+    .stat-card {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Lora', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--text);
+    }
+    .stat-lbl {
+      font-size: 12px;
+      color: var(--text-faint);
+      margin-top: 4px;
+    }
+
+    /* DIVIDER */
+    hr {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    /* SKILLS */
+    .skills-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-pill {
+      font-size: 13px;
+      padding: 5px 14px;
+      border-radius: 99px;
+      border: 0.5px solid var(--border-strong);
+      color: var(--text-muted);
+      background: var(--bg-secondary);
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .proj-card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: border-color 0.15s;
+    }
+    .proj-card:hover { border-color: var(--border-strong); }
+    .proj-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+    }
+    .tag-excel { background: #EAF3DE; color: #3B6D11; }
+    .tag-powerbi { background: #FAEEDA; color: #854F0B; }
+    .tag-sql { background: #E6F1FB; color: #185FA5; }
+    .proj-title {
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .proj-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .proj-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+    .proj-tool {
+      font-size: 11px;
+      color: var(--text-faint);
+      background: var(--bg-secondary);
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .service-item {
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .check {
+      color: var(--text-faint);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .contact-card {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+    .contact-label {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 4px;
+    }
+    .contact-val {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 0.5px solid var(--border);
+      font-size: 12px;
+      color: var(--text-faint);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    @media (max-width: 520px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      nav { flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <nav>
+    <div class="nav-logo">Your Name</div>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-eyebrow">Data Freelancer &mdash; Dhaka, Bangladesh</div>
+    <h1 class="hero-name">Turning messy data<br>into clear insights.</h1>
+    <p class="hero-subtitle">Excel &middot; Power BI &middot; SQL</p>
+    <p class="hero-bio">
+      I help businesses clean, organize, and visualize their data so they can make better decisions.
+      Available for freelance projects on Fiverr and Upwork — fast turnaround, clear communication.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:your@email.com" class="btn-primary">Hire me</a>
+      <div class="availability">
+        <span class="avail-dot"></span>
+        Available for work
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num">3+</div>
+      <div class="stat-lbl">Projects completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3</div>
+      <div class="stat-lbl">Core tools</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">100%</div>
+      <div class="stat-lbl">Remote ready</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <p class="section-label">Skills & tools</p>
+  <div class="skills-row" style="margin-bottom: 2.5rem;">
+    <span class="skill-pill">Excel</span>
+    <span class="skill-pill">Google Sheets</span>
+    <span class="skill-pill">Power BI</span>
+    <span class="skill-pill">SQL</span>
+    <span class="skill-pill">Data cleaning</span>
+    <span class="skill-pill">Data visualization</span>
+    <span class="skill-pill">Dashboard design</span>
+    <span class="skill-pill">Pivot tables</span>
+    <span class="skill-pill">DAX</span>
+    <span class="skill-pill">VLOOKUP / XLOOKUP</span>
+  </div>
+
+  <hr id="projects">
+
+  <p class="section-label">Projects</p>
+  <div class="projects-grid" style="margin-bottom: 2.5rem;">
+
+    <div class="proj-card">
+      <span class="proj-tag tag-excel">Excel</span>
+      <div class="proj-title">E-commerce sales data cleanup</div>
+      <div class="proj-desc">
+        Cleaned 10,000+ rows of raw sales data — removed duplicates, fixed inconsistent formats,
+        standardized categories, and flagged missing values for a mock online retailer.
+      </div>
+      <div class="proj-meta">
+        <span class="proj-tool">Excel</span>
+        <span class="proj-tool">Data validation</span>
+        <span class="proj-tool">VLOOKUP</span>
+        <span class="proj-tool">Conditional formatting</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <span class="proj-tag tag-powerbi">Power BI</span>
+      <div class="proj-title">Regional sales dashboard</div>
+      <div class="proj-desc">
+        Built an interactive Power BI dashboard tracking monthly revenue, top products, and
+        region-wise performance — with slicers, drill-through filters, and KPI cards.
+      </div>
+      <div class="proj-meta">
+        <span class="proj-tool">Power BI</span>
+        <span class="proj-tool">DAX</span>
+        <span class="proj-tool">KPI cards</span>
+        <span class="proj-tool">Slicers</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <span class="proj-tag tag-sql">SQL</span>
+      <div class="proj-title">Customer behavior analysis</div>
+      <div class="proj-desc">
+        Queried a 5,000-customer sample database to identify churn patterns, top-spending
+        segments, and purchase frequency using JOINs, GROUP BY, and subqueries.
+      </div>
+      <div class="proj-meta">
+        <span class="proj-tool">SQL</span>
+        <span class="proj-tool">Aggregation</span>
+        <span class="proj-tool">JOINs</span>
+        <span class="proj-tool">Subqueries</span>
+      </div>
+    </div>
+
+  </div>
+
+  <hr id="services">
+
+  <p class="section-label">What I offer</p>
+  <div class="services-grid" style="margin-bottom: 2.5rem;">
+    <div class="service-item"><span class="check">&#10003;</span> Data cleaning &amp; formatting</div>
+    <div class="service-item"><span class="check">&#10003;</span> Power BI dashboard creation</div>
+    <div class="service-item"><span class="check">&#10003;</span> Excel reports &amp; pivot tables</div>
+    <div class="service-item"><span class="check">&#10003;</span> SQL queries &amp; analysis</div>
+    <div class="service-item"><span class="check">&#10003;</span> Duplicate &amp; error removal</div>
+    <div class="service-item"><span class="check">&#10003;</span> Google Sheets automation</div>
+    <div class="service-item"><span class="check">&#10003;</span> Fast turnaround</div>
+    <div class="service-item"><span class="check">&#10003;</span> Clear communication</div>
+  </div>
+
+  <hr id="contact">
+
+  <p class="section-label">Get in touch</p>
+  <div class="contact-grid" style="margin-bottom: 1rem;">
+    <div class="contact-card">
+      <div class="contact-label">Email</div>
+      <div class="contact-val">your@email.com</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-label">Location</div>
+      <div class="contact-val">Dhaka, Bangladesh</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-label">Platforms</div>
+      <div class="contact-val">Fiverr &amp; Upwork</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-label">Response time</div>
+      <div class="contact-val">Within 24 hours</div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Your Name &mdash; Data Freelancer</span>
+    <span>Dhaka, Bangladesh &middot; Open to remote work worldwide</span>
+  </footer>
+
+</div>
+</body>
+</html>
