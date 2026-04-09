@@ -1,0 +1,86 @@
+
+<style>
+  .ae { font-family: 'Segoe UI', sans-serif; background: #1e1e1e; border-radius: 8px; overflow: hidden; border: 1px solid #444; }
+  .ae-bar { background: #2b2b2b; padding: 6px 14px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #444; }
+  .ae-title { color: #ccc; font-size:12px; font-weight:500; }
+  .ae-btns { display:flex; gap:8px; }
+  .ae-btn { padding: 3px 14px; border-radius:3px; font-size:11px; cursor:default; }
+  .ae-btn.done { background:#007acc; color:#fff; }
+  .ae-btn.cancel { background:#3c3c3c; color:#ccc; }
+  .ae-editor { padding: 14px 0; background:#1e1e1e; overflow:hidden; }
+  .ae-line { display:flex; min-height:18px; }
+  .ae-ln { width:36px; text-align:right; padding-right:10px; color:#555; font-size:11px; font-family:'Consolas',monospace; flex-shrink:0; user-select:none; }
+  .ae-code { font-family:'Consolas',monospace; font-size:11px; line-height:1.6; white-space:pre; padding-right:14px; }
+  .kw { color:#569cd6; }
+  .fn { color:#dcdcaa; }
+  .str { color:#ce9178; }
+  .cmt { color:#608b4e; font-style:italic; }
+  .var { color:#9cdcfe; }
+  .op { color:#d4d4d4; }
+  .num { color:#b5cea8; }
+  .type { color:#4ec9b0; }
+  .ae-footer { background:#007acc; padding:3px 14px; display:flex; justify-content:space-between; }
+  .ae-footer span { color:#fff; font-size:10px; }
+</style>
+
+<div class="ae">
+  <div class="ae-bar">
+    <div class="ae-title">Advanced Editor — SuperStore Cleaned</div>
+    <div class="ae-btns">
+      <div class="ae-btn cancel">Cancel</div>
+      <div class="ae-btn done">Done</div>
+    </div>
+  </div>
+  <div class="ae-editor">
+    <div class="ae-line"><div class="ae-ln">1</div><div class="ae-code"><span class="cmt">// SuperStore Data Cleaning — by Saffat Hussaini</span></div></div>
+    <div class="ae-line"><div class="ae-ln">2</div><div class="ae-code"><span class="cmt">// 18 cleaning steps: types, trim, dedup, calculated columns</span></div></div>
+    <div class="ae-line"><div class="ae-ln">3</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">4</div><div class="ae-code"><span class="kw">let</span></div></div>
+    <div class="ae-line"><div class="ae-ln">5</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">6</div><div class="ae-code">    <span class="var">Source</span> <span class="op">=</span> <span class="fn">Csv.Document</span><span class="op">(</span><span class="fn">File.Contents</span><span class="op">(</span><span class="str">"SuperStoreOrders.csv"</span><span class="op">),</span></div></div>
+    <div class="ae-line"><div class="ae-ln">7</div><div class="ae-code">        <span class="op">[</span><span class="var">Delimiter</span><span class="op">=</span><span class="str">","</span><span class="op">,</span> <span class="var">Encoding</span><span class="op">=</span><span class="num">65001</span><span class="op">,</span> <span class="var">QuoteStyle</span><span class="op">=</span><span class="type">QuoteStyle.Csv</span><span class="op">]),</span></div></div>
+    <div class="ae-line"><div class="ae-ln">8</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">9</div><div class="ae-code">    <span class="var">Promote_Headers</span> <span class="op">=</span> <span class="fn">Table.PromoteHeaders</span><span class="op">(</span><span class="var">Source</span><span class="op">,</span></div></div>
+    <div class="ae-line"><div class="ae-ln">10</div><div class="ae-code">        <span class="op">[</span><span class="var">PromoteAllScalars</span><span class="op">=</span><span class="kw">true</span><span class="op">]),</span></div></div>
+    <div class="ae-line"><div class="ae-ln">11</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">12</div><div class="ae-code">    <span class="var">Rename_Columns</span> <span class="op">=</span> <span class="fn">Table.RenameColumns</span><span class="op">(</span><span class="var">Promote_Headers</span><span class="op">,</span></div></div>
+    <div class="ae-line"><div class="ae-ln">13</div><div class="ae-code">        <span class="op">{{</span><span class="str">"order_id"</span><span class="op">,</span> <span class="str">"Order ID"</span><span class="op">},</span> <span class="op">{</span><span class="str">"order_date"</span><span class="op">,</span> <span class="str">"Order Date"</span><span class="op">},</span></div></div>
+    <div class="ae-line"><div class="ae-ln">14</div><div class="ae-code">         <span class="op">{</span><span class="str">"customer_name"</span><span class="op">,</span> <span class="str">"Customer Name"</span><span class="op">},</span> <span class="op">{</span><span class="str">"product_name"</span><span class="op">,</span> <span class="str">"Product Name"</span><span class="op">}}),</span></div></div>
+    <div class="ae-line"><div class="ae-ln">15</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">16</div><div class="ae-code">    <span class="var">Set_Data_Types</span> <span class="op">=</span> <span class="fn">Table.TransformColumnTypes</span><span class="op">(</span><span class="var">Rename_Columns</span><span class="op">,</span></div></div>
+    <div class="ae-line"><div class="ae-ln">17</div><div class="ae-code">        <span class="op">{{</span><span class="str">"Order Date"</span><span class="op">,</span> <span class="kw">type</span> <span class="type">date</span><span class="op">},</span> <span class="op">{</span><span class="str">"Ship Date"</span><span class="op">,</span> <span class="kw">type</span> <span class="type">date</span><span class="op">},</span></div></div>
+    <div class="ae-line"><div class="ae-ln">18</div><div class="ae-code">         <span class="op">{</span><span class="str">"Sales"</span><span class="op">,</span> <span class="kw">type</span> <span class="type">number</span><span class="op">},</span> <span class="op">{</span><span class="str">"Profit"</span><span class="op">,</span> <span class="kw">type</span> <span class="type">number</span><span class="op">},</span></div></div>
+    <div class="ae-line"><div class="ae-ln">19</div><div class="ae-code">         <span class="op">{</span><span class="str">"Discount"</span><span class="op">,</span> <span class="kw">type</span> <span class="type">number</span><span class="op">},</span> <span class="op">{</span><span class="str">"Year"</span><span class="op">,</span> <span class="type">Int64.Type</span><span class="op">}}),</span></div></div>
+    <div class="ae-line"><div class="ae-ln">20</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">21</div><div class="ae-code">    <span class="var">Trim_And_Clean_Text</span> <span class="op">=</span> <span class="fn">Table.TransformColumns</span><span class="op">(</span><span class="var">Set_Data_Types</span><span class="op">,</span></div></div>
+    <div class="ae-line"><div class="ae-ln">22</div><div class="ae-code">        <span class="op">{{</span><span class="str">"Product Name"</span><span class="op">,</span> <span class="kw">each</span> <span class="fn">Text.Clean</span><span class="op">(</span><span class="fn">Text.Trim</span><span class="op">(</span><span class="var">_</span><span class="op">)),</span> <span class="kw">type</span> <span class="type">text</span><span class="op">},</span></div></div>
+    <div class="ae-line"><div class="ae-ln">23</div><div class="ae-code">         <span class="op">{</span><span class="str">"Customer Name"</span><span class="op">,</span> <span class="kw">each</span> <span class="fn">Text.Clean</span><span class="op">(</span><span class="fn">Text.Trim</span><span class="op">(</span><span class="var">_</span><span class="op">)),</span> <span class="kw">type</span> <span class="type">text</span><span class="op">}}),</span></div></div>
+    <div class="ae-line"><div class="ae-ln">24</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">25</div><div class="ae-code">    <span class="var">Remove_Duplicate_Rows</span> <span class="op">=</span> <span class="fn">Table.Distinct</span><span class="op">(</span><span class="var">Trim_And_Clean_Text</span><span class="op">,</span></div></div>
+    <div class="ae-line"><div class="ae-ln">26</div><div class="ae-code">        <span class="op">{</span><span class="str">"Order ID"</span><span class="op">,</span> <span class="str">"Product ID"</span><span class="op">}),</span></div></div>
+    <div class="ae-line"><div class="ae-ln">27</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">28</div><div class="ae-code">    <span class="var">Add_Days_To_Ship</span> <span class="op">=</span> <span class="fn">Table.AddColumn</span><span class="op">(</span><span class="var">Remove_Duplicate_Rows</span><span class="op">,</span></div></div>
+    <div class="ae-line"><div class="ae-ln">29</div><div class="ae-code">        <span class="str">"Days to Ship"</span><span class="op">,</span> <span class="kw">each</span> <span class="kw">try</span> <span class="fn">Duration.Days</span><span class="op">([</span><span class="var">Ship Date</span><span class="op">]-[</span><span class="var">Order Date</span><span class="op">])</span></div></div>
+    <div class="ae-line"><div class="ae-ln">30</div><div class="ae-code">        <span class="kw">otherwise</span> <span class="kw">null</span><span class="op">,</span> <span class="type">Int64.Type</span><span class="op">),</span></div></div>
+    <div class="ae-line"><div class="ae-ln">31</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">32</div><div class="ae-code">    <span class="var">Add_Profit_Margin</span> <span class="op">=</span> <span class="fn">Table.AddColumn</span><span class="op">(</span><span class="var">Add_Days_To_Ship</span><span class="op">,</span></div></div>
+    <div class="ae-line"><div class="ae-ln">33</div><div class="ae-code">        <span class="str">"Profit Margin %"</span><span class="op">,</span> <span class="kw">each</span> <span class="kw">if</span> <span class="op">[</span><span class="var">Sales</span><span class="op">]</span> <span class="op">&gt;</span> <span class="num">0</span> <span class="kw">then</span> <span class="op">[</span><span class="var">Profit</span><span class="op">]/[</span><span class="var">Sales</span><span class="op">]</span> <span class="kw">else</span> <span class="num">0</span><span class="op">,</span></div></div>
+    <div class="ae-line"><div class="ae-ln">34</div><div class="ae-code">        <span class="kw">type</span> <span class="type">number</span><span class="op">),</span></div></div>
+    <div class="ae-line"><div class="ae-ln">35</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">36</div><div class="ae-code">    <span class="var">Add_Discount_Band</span> <span class="op">=</span> <span class="fn">Table.AddColumn</span><span class="op">(</span><span class="var">Add_Profit_Margin</span><span class="op">,</span> <span class="str">"Discount Band"</span><span class="op">,</span></div></div>
+    <div class="ae-line"><div class="ae-ln">37</div><div class="ae-code">        <span class="kw">each</span> <span class="kw">if</span> <span class="op">[</span><span class="var">Discount</span><span class="op">]=</span><span class="num">0</span> <span class="kw">then</span> <span class="str">"No Discount"</span></div></div>
+    <div class="ae-line"><div class="ae-ln">38</div><div class="ae-code">        <span class="kw">else if</span> <span class="op">[</span><span class="var">Discount</span><span class="op">]&lt;=</span><span class="num">0.1</span> <span class="kw">then</span> <span class="str">"Low (1-10%)"</span></div></div>
+    <div class="ae-line"><div class="ae-ln">39</div><div class="ae-code">        <span class="kw">else if</span> <span class="op">[</span><span class="var">Discount</span><span class="op">]&lt;=</span><span class="num">0.5</span> <span class="kw">then</span> <span class="str">"High (31-50%)"</span></div></div>
+    <div class="ae-line"><div class="ae-ln">40</div><div class="ae-code">        <span class="kw">else</span> <span class="str">"Very High (&gt;50%)"</span><span class="op">,</span> <span class="kw">type</span> <span class="type">text</span><span class="op">),</span></div></div>
+    <div class="ae-line"><div class="ae-ln">41</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">42</div><div class="ae-code">    <span class="var">Sort_By_Order_Date</span> <span class="op">=</span> <span class="fn">Table.Sort</span><span class="op">(</span><span class="var">Add_Discount_Band</span><span class="op">,</span></div></div>
+    <div class="ae-line"><div class="ae-ln">43</div><div class="ae-code">        <span class="op">{{</span><span class="str">"Order Date"</span><span class="op">,</span> <span class="type">Order.Ascending</span><span class="op">}})</span></div></div>
+    <div class="ae-line"><div class="ae-ln">44</div><div class="ae-code"></div></div>
+    <div class="ae-line"><div class="ae-ln">45</div><div class="ae-code"><span class="kw">in</span></div></div>
+    <div class="ae-line"><div class="ae-ln">46</div><div class="ae-code">    <span class="var">Sort_By_Order_Date</span></div></div>
+  </div>
+  <div class="ae-footer">
+    <span>No syntax errors detected.</span>
+    <span>M Language &nbsp;|&nbsp; SuperStore Cleaned</span>
+  </div>
+</div>

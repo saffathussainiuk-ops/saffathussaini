@@ -1,0 +1,208 @@
+
+<style>
+  .pq { font-family: 'Segoe UI', sans-serif; font-size: 12px; background: #1e1e1e; border-radius: 8px; overflow: hidden; border: 1px solid #444; }
+  .pq-titlebar { background: #2b2b2b; padding: 6px 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #444; }
+  .pq-title { color: #ccc; font-size: 12px; }
+  .pq-tabs { display: flex; border-bottom: 1px solid #444; background: #252526; }
+  .pq-tab { padding: 7px 18px; color: #ccc; font-size: 11px; border-right: 1px solid #333; cursor: default; }
+  .pq-tab.active { background: #1e1e1e; color: #fff; border-bottom: 2px solid #1e7d34; }
+  .pq-body { display: flex; height: 420px; }
+  .pq-sidebar { width: 160px; background: #252526; border-right: 1px solid #3c3c3c; padding: 8px 0; }
+  .pq-sidebar-hdr { padding: 4px 10px; color: #888; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .pq-query { display: flex; align-items: center; gap: 6px; padding: 5px 10px; color: #ddd; font-size: 11px; background: #094771; }
+  .pq-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .pq-formula-bar { background: #2d2d2d; border-bottom: 1px solid #3c3c3c; padding: 4px 10px; color: #9cdcfe; font-size: 10px; font-family: 'Consolas', monospace; white-space: nowrap; overflow: hidden; }
+  .pq-col-headers { display: flex; border-bottom: 1px solid #3c3c3c; background: #2d2d2d; }
+  .pq-col-hdr { flex: 1; padding: 4px 8px; color: #ccc; font-size: 10px; border-right: 1px solid #3c3c3c; min-width: 120px; }
+  .pq-col-hdr.narrow { min-width: 80px; flex: 0 0 80px; }
+  .pq-profile-row { display: flex; border-bottom: 1px solid #2a2a2a; background: #252526; }
+  .pq-profile-cell { flex: 1; padding: 6px 8px; border-right: 1px solid #2a2a2a; min-width: 120px; }
+  .pq-profile-cell.narrow { min-width: 80px; flex: 0 0 80px; }
+  .pq-quality-row { display: flex; gap: 4px; margin-bottom: 2px; }
+  .pq-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 3px; }
+  .dot-valid { background: #1e7d34; }
+  .dot-err { background: #f44747; }
+  .dot-empty { background: #888; }
+  .pq-quality-label { color: #aaa; font-size: 10px; }
+  .pq-quality-pct { color: #ddd; font-size: 10px; margin-left: auto; }
+  .pq-dist-bar { height: 40px; display: flex; align-items: flex-end; gap: 1px; margin: 4px 0; }
+  .pq-bar { background: #1e7d34; border-radius: 1px 1px 0 0; flex: 1; min-width: 3px; }
+  .pq-dist-label { color: #888; font-size: 9px; }
+  .pq-data-rows { flex: 1; overflow: hidden; }
+  .pq-row { display: flex; border-bottom: 1px solid #2a2a2a; }
+  .pq-row:nth-child(odd) { background: #1e1e1e; }
+  .pq-row:nth-child(even) { background: #252526; }
+  .pq-row-num { width: 30px; color: #666; font-size: 10px; padding: 4px 6px; border-right: 1px solid #2a2a2a; text-align: right; flex-shrink: 0; }
+  .pq-cell { flex: 1; padding: 4px 8px; color: #d4d4d4; font-size: 11px; border-right: 1px solid #2a2a2a; min-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pq-cell.narrow { min-width: 80px; flex: 0 0 80px; }
+  .pq-statusbar { background: #007acc; padding: 2px 10px; color: #fff; font-size: 10px; display: flex; justify-content: space-between; }
+  .pq-settings { width: 200px; background: #252526; border-left: 1px solid #3c3c3c; padding: 10px; }
+  .pq-settings-hdr { color: #ccc; font-size: 11px; font-weight: 500; margin-bottom: 10px; border-bottom: 1px solid #3c3c3c; padding-bottom: 6px; }
+  .pq-prop-label { color: #888; font-size: 10px; margin-bottom: 2px; }
+  .pq-prop-val { color: #ddd; font-size: 11px; margin-bottom: 10px; }
+  .pq-steps-hdr { color: #ccc; font-size: 11px; font-weight: 500; margin: 10px 0 6px; border-bottom: 1px solid #3c3c3c; padding-bottom: 4px; }
+  .pq-step { display: flex; align-items: center; gap: 6px; padding: 3px 4px; color: #ccc; font-size: 10px; border-radius: 2px; cursor: default; }
+  .pq-step.active { background: #094771; }
+  .pq-step-dot { width: 5px; height: 5px; border-radius: 50%; background: #888; flex-shrink: 0; }
+  .pq-step.active .pq-step-dot { background: #1e7d34; }
+</style>
+
+<div class="pq">
+  <div class="pq-titlebar">
+    <div style="color:#4ec9b0;font-size:11px;font-weight:500;">Table1 — Power Query Editor</div>
+  </div>
+  <div class="pq-tabs">
+    <div class="pq-tab active">Home</div>
+    <div class="pq-tab">Transform</div>
+    <div class="pq-tab">Add Column</div>
+    <div class="pq-tab">View</div>
+  </div>
+  <div class="pq-body">
+    <div class="pq-sidebar">
+      <div class="pq-sidebar-hdr">Queries [1]</div>
+      <div class="pq-query">
+        <div style="width:10px;height:10px;background:#1e7d34;border-radius:2px;flex-shrink:0;"></div>
+        Table1
+      </div>
+    </div>
+    <div class="pq-main">
+      <div class="pq-formula-bar">= Table.TransformColumnTypes(Source, {{"Order Date", type date}, {"Ship Date", type date}, {"Sales", type number}})</div>
+      <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
+        <div class="pq-col-headers">
+          <div style="width:30px;flex-shrink:0;border-right:1px solid #3c3c3c;"></div>
+          <div class="pq-col-hdr">
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="color:#4ec9b0;font-size:9px;">ABC</span>
+              <span>Order ID</span>
+            </div>
+          </div>
+          <div class="pq-col-hdr">
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="color:#569cd6;font-size:9px;">&#128197;</span>
+              <span>Order Date</span>
+            </div>
+          </div>
+          <div class="pq-col-hdr">
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="color:#4ec9b0;font-size:9px;">ABC</span>
+              <span>Customer Name</span>
+            </div>
+          </div>
+          <div class="pq-col-hdr">
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="color:#4ec9b0;font-size:9px;">ABC</span>
+              <span>Category</span>
+            </div>
+          </div>
+          <div class="pq-col-hdr narrow">
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="color:#b5cea8;font-size:9px;">1.2</span>
+              <span>Sales</span>
+            </div>
+          </div>
+          <div class="pq-col-hdr narrow">
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="color:#b5cea8;font-size:9px;">1.2</span>
+              <span>Profit</span>
+            </div>
+          </div>
+        </div>
+        <div class="pq-profile-row">
+          <div style="width:30px;flex-shrink:0;border-right:1px solid #2a2a2a;"></div>
+          <div class="pq-profile-cell">
+            <div class="pq-quality-row"><span class="pq-dot dot-valid"></span><span class="pq-quality-label">Valid</span><span class="pq-quality-pct">100%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-err"></span><span class="pq-quality-label">Error</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-empty"></span><span class="pq-quality-label">Empty</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-dist-bar">
+              <div class="pq-bar" style="height:60%;"></div><div class="pq-bar" style="height:80%;"></div><div class="pq-bar" style="height:40%;"></div><div class="pq-bar" style="height:90%;"></div><div class="pq-bar" style="height:55%;"></div><div class="pq-bar" style="height:70%;"></div><div class="pq-bar" style="height:45%;"></div><div class="pq-bar" style="height:85%;"></div>
+            </div>
+            <div class="pq-dist-label">51,252 distinct, 51,252 unique</div>
+          </div>
+          <div class="pq-profile-cell">
+            <div class="pq-quality-row"><span class="pq-dot dot-valid"></span><span class="pq-quality-label">Valid</span><span class="pq-quality-pct">100%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-err"></span><span class="pq-quality-label">Error</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-empty"></span><span class="pq-quality-label">Empty</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-dist-bar">
+              <div class="pq-bar" style="height:30%;"></div><div class="pq-bar" style="height:50%;"></div><div class="pq-bar" style="height:75%;"></div><div class="pq-bar" style="height:90%;"></div><div class="pq-bar" style="height:80%;"></div><div class="pq-bar" style="height:60%;"></div><div class="pq-bar" style="height:85%;"></div><div class="pq-bar" style="height:95%;"></div>
+            </div>
+            <div class="pq-dist-label">1,460 distinct, 0 unique</div>
+          </div>
+          <div class="pq-profile-cell">
+            <div class="pq-quality-row"><span class="pq-dot dot-valid"></span><span class="pq-quality-label">Valid</span><span class="pq-quality-pct">100%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-err"></span><span class="pq-quality-label">Error</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-empty"></span><span class="pq-quality-label">Empty</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-dist-bar">
+              <div class="pq-bar" style="height:55%;"></div><div class="pq-bar" style="height:70%;"></div><div class="pq-bar" style="height:85%;"></div><div class="pq-bar" style="height:60%;"></div><div class="pq-bar" style="height:40%;"></div><div class="pq-bar" style="height:75%;"></div><div class="pq-bar" style="height:90%;"></div><div class="pq-bar" style="height:50%;"></div>
+            </div>
+            <div class="pq-dist-label">795 distinct, 0 unique</div>
+          </div>
+          <div class="pq-profile-cell">
+            <div class="pq-quality-row"><span class="pq-dot dot-valid"></span><span class="pq-quality-label">Valid</span><span class="pq-quality-pct">100%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-err"></span><span class="pq-quality-label">Error</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-empty"></span><span class="pq-quality-label">Empty</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-dist-bar">
+              <div class="pq-bar" style="height:100%;background:#217346;"></div><div class="pq-bar" style="height:75%;background:#217346;"></div><div class="pq-bar" style="height:85%;background:#217346;"></div>
+            </div>
+            <div class="pq-dist-label">3 distinct, 0 unique</div>
+          </div>
+          <div class="pq-profile-cell narrow">
+            <div class="pq-quality-row"><span class="pq-dot dot-valid"></span><span class="pq-quality-label">Valid</span><span class="pq-quality-pct">100%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-err"></span><span class="pq-quality-label">Error</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-empty"></span><span class="pq-quality-label">Empty</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-dist-bar">
+              <div class="pq-bar" style="height:20%;"></div><div class="pq-bar" style="height:60%;"></div><div class="pq-bar" style="height:100%;"></div><div class="pq-bar" style="height:45%;"></div><div class="pq-bar" style="height:30%;"></div>
+            </div>
+            <div class="pq-dist-label">936 distinct</div>
+          </div>
+          <div class="pq-profile-cell narrow">
+            <div class="pq-quality-row"><span class="pq-dot dot-valid"></span><span class="pq-quality-label">Valid</span><span class="pq-quality-pct">100%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-err"></span><span class="pq-quality-label">Error</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-quality-row"><span class="pq-dot dot-empty"></span><span class="pq-quality-label">Empty</span><span class="pq-quality-pct">0%</span></div>
+            <div class="pq-dist-bar">
+              <div class="pq-bar" style="height:35%;background:#f44747;"></div><div class="pq-bar" style="height:80%;background:#1e7d34;"></div><div class="pq-bar" style="height:55%;background:#1e7d34;"></div><div class="pq-bar" style="height:100%;background:#1e7d34;"></div>
+            </div>
+            <div class="pq-dist-label">4,218 distinct</div>
+          </div>
+        </div>
+        <div class="pq-data-rows">
+          <div class="pq-row"><div class="pq-row-num">1</div><div class="pq-cell">AG-2011-2040</div><div class="pq-cell">01/01/2011</div><div class="pq-cell">Toby Braunhardt</div><div class="pq-cell">Office Supplies</div><div class="pq-cell narrow">408.00</div><div class="pq-cell narrow">106.14</div></div>
+          <div class="pq-row"><div class="pq-row-num">2</div><div class="pq-cell">IN-2011-47883</div><div class="pq-cell">01/01/2011</div><div class="pq-cell">Joseph Holt</div><div class="pq-cell">Office Supplies</div><div class="pq-cell narrow">120.00</div><div class="pq-cell narrow">36.04</div></div>
+          <div class="pq-row"><div class="pq-row-num">3</div><div class="pq-cell">HU-2011-1220</div><div class="pq-cell">01/01/2011</div><div class="pq-cell">Annie Thurman</div><div class="pq-cell">Office Supplies</div><div class="pq-cell narrow">66.00</div><div class="pq-cell narrow">29.64</div></div>
+          <div class="pq-row"><div class="pq-row-num">4</div><div class="pq-cell">IT-2011-3647632</div><div class="pq-cell">01/01/2011</div><div class="pq-cell">Eugene Moren</div><div class="pq-cell">Office Supplies</div><div class="pq-cell narrow">45.00</div><div class="pq-cell narrow" style="color:#f44747;">-26.06</div></div>
+          <div class="pq-row"><div class="pq-row-num">5</div><div class="pq-cell">IN-2011-47883</div><div class="pq-cell">02/01/2011</div><div class="pq-cell">Joseph Holt</div><div class="pq-cell">Furniture</div><div class="pq-cell narrow">1,706.18</div><div class="pq-cell narrow">85.31</div></div>
+          <div class="pq-row"><div class="pq-row-num">6</div><div class="pq-cell">ES-2011-1525878</div><div class="pq-cell">03/01/2011</div><div class="pq-cell">Carlos Daly</div><div class="pq-cell">Technology</div><div class="pq-cell narrow">911.42</div><div class="pq-cell narrow">113.93</div></div>
+          <div class="pq-row"><div class="pq-row-num">7</div><div class="pq-cell">SG-2011-6720</div><div class="pq-cell">05/01/2011</div><div class="pq-cell">Alejandro Grove</div><div class="pq-cell">Furniture</div><div class="pq-cell narrow">2,808.00</div><div class="pq-cell narrow">501.83</div></div>
+          <div class="pq-row"><div class="pq-row-num">8</div><div class="pq-cell">AU-2011-17326</div><div class="pq-cell">06/01/2011</div><div class="pq-cell">Stella Smith</div><div class="pq-cell">Office Supplies</div><div class="pq-cell narrow">22.72</div><div class="pq-cell narrow" style="color:#f44747;">-5.68</div></div>
+        </div>
+      </div>
+      <div class="pq-statusbar">
+        <span>51,252 ROWS &nbsp;|&nbsp; Column profiling based on entire dataset &nbsp;|&nbsp; 27 COLUMNS</span>
+        <span>PREVIEW DOWNLOADED AT 14:42</span>
+      </div>
+    </div>
+    <div class="pq-settings">
+      <div class="pq-settings-hdr">Query Settings</div>
+      <div class="pq-prop-label">Name</div>
+      <div style="background:#3c3c3c;padding:3px 6px;color:#ddd;font-size:10px;border-radius:2px;margin-bottom:10px;">SuperStore Cleaned</div>
+      <div class="pq-steps-hdr">Applied Steps</div>
+      <div class="pq-step">Source</div>
+      <div class="pq-step">Promote headers</div>
+      <div class="pq-step">Rename all columns</div>
+      <div class="pq-step">Set correct data types</div>
+      <div class="pq-step">Trim & clean text cols</div>
+      <div class="pq-step">Fix double spaces</div>
+      <div class="pq-step">Remove duplicate rows</div>
+      <div class="pq-step">Replace numeric errors</div>
+      <div class="pq-step">Remove missing rows</div>
+      <div class="pq-step">Add Days to Ship col</div>
+      <div class="pq-step">Add Profit Margin col</div>
+      <div class="pq-step">Add Discount Band col</div>
+      <div class="pq-step">Add Profit Status col</div>
+      <div class="pq-step">Add Revenue Band col</div>
+      <div class="pq-step">Add Year-Month col</div>
+      <div class="pq-step">Format margin as %</div>
+      <div class="pq-step">Reorder columns</div>
+      <div class="pq-step active">Sort by Order Date</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,149 @@
+
+<style>
+  .pq2 { font-family: 'Segoe UI', sans-serif; font-size: 12px; background: #1e1e1e; border-radius: 8px; overflow: hidden; border: 1px solid #444; }
+  .pq2-bar { background: #2b2b2b; padding: 6px 12px; border-bottom: 1px solid #444; color: #ccc; font-size: 12px; font-weight: 500; }
+  .pq2-tabs { display: flex; border-bottom: 1px solid #444; background: #252526; }
+  .pq2-tab { padding: 7px 18px; color: #ccc; font-size: 11px; border-right: 1px solid #333; }
+  .pq2-tab.active { background: #1e1e1e; color: #fff; border-bottom: 2px solid #1e7d34; }
+  .pq2-formula { background: #2d2d2d; border-bottom: 1px solid #3c3c3c; padding: 4px 10px; color: #9cdcfe; font-size: 10px; font-family: 'Consolas', monospace; white-space: nowrap; overflow: hidden; }
+  .pq2-body { display: flex; }
+  .pq2-side { width: 160px; background: #252526; border-right: 1px solid #3c3c3c; padding: 8px 0; flex-shrink: 0; }
+  .pq2-main { flex: 1; }
+  .pq2-col-hdr-row { display: flex; background: #2d2d2d; border-bottom: 1px solid #3c3c3c; }
+  .pq2-col-h { padding: 5px 10px; color: #ccc; font-size: 10px; border-right: 1px solid #3c3c3c; }
+  .pq2-profile { display: flex; background: #252526; border-bottom: 1px solid #2a2a2a; }
+  .pq2-pc { padding: 5px 10px; border-right: 1px solid #2a2a2a; }
+  .pq2-qr { display: flex; gap: 4px; margin-bottom: 1px; }
+  .pq2-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+  .pq2-ql { color: #aaa; font-size: 9px; }
+  .pq2-qp { color: #ddd; font-size: 9px; margin-left: auto; }
+  .pq2-bars { display: flex; align-items: flex-end; gap: 2px; height: 35px; margin: 3px 0; }
+  .pq2-b { border-radius: 1px 1px 0 0; flex: 1; }
+  .pq2-dl { color: #888; font-size: 9px; }
+  .pq2-data-row { display: flex; border-bottom: 1px solid #2a2a2a; }
+  .pq2-data-row:nth-child(odd) { background: #1e1e1e; }
+  .pq2-data-row:nth-child(even) { background: #252526; }
+  .pq2-rn { width: 30px; color: #666; font-size: 10px; padding: 5px 6px; border-right: 1px solid #2a2a2a; text-align: right; flex-shrink: 0; }
+  .pq2-cell { padding: 5px 10px; color: #d4d4d4; font-size: 11px; border-right: 1px solid #2a2a2a; }
+  .pq2-settings { width: 200px; background: #252526; border-left: 1px solid #3c3c3c; padding: 10px; flex-shrink: 0; }
+  .pq2-sh { color: #ccc; font-size: 11px; font-weight: 500; border-bottom: 1px solid #3c3c3c; padding-bottom: 4px; margin-bottom: 8px; }
+  .pq2-step { display: flex; align-items: center; gap: 6px; padding: 3px 4px; color: #ccc; font-size: 10px; border-radius: 2px; }
+  .pq2-step.active { background: #094771; }
+  .pq2-sd { width: 5px; height: 5px; border-radius: 50%; background: #888; flex-shrink: 0; }
+  .pq2-step.active .pq2-sd { background: #1e7d34; }
+  .pq2-sb { background: #007acc; padding: 2px 10px; display: flex; justify-content: space-between; }
+  .pq2-sb span { color: #fff; font-size: 10px; }
+  .cat-cell { color: #4ec9b0; font-weight: 500; }
+</style>
+
+<div class="pq2">
+  <div class="pq2-bar">Table1 — Power Query Editor</div>
+  <div class="pq2-tabs">
+    <div class="pq2-tab active">Home</div>
+    <div class="pq2-tab">Transform</div>
+    <div class="pq2-tab">Add Column</div>
+    <div class="pq2-tab">View</div>
+  </div>
+  <div class="pq2-formula">= Table.Group(#"Rename all columns", {"Category"}, {{"Sum Sales", each List.Sum([Sales]), type nullable number}, {"Sum Profit", each List.Sum([Profit]), type nullable number}, {"Order Count", each Table.RowCount(_), Int64.Type}})</div>
+  <div class="pq2-body">
+    <div class="pq2-side">
+      <div style="padding:4px 10px;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;">Queries [1]</div>
+      <div style="display:flex;align-items:center;gap:6px;padding:5px 10px;background:#094771;color:#ddd;font-size:11px;">
+        <div style="width:10px;height:10px;background:#1e7d34;border-radius:2px;flex-shrink:0;"></div>
+        SuperStore Cleaned
+      </div>
+    </div>
+    <div class="pq2-main">
+      <div class="pq2-col-hdr-row">
+        <div style="width:30px;flex-shrink:0;border-right:1px solid #3c3c3c;"></div>
+        <div class="pq2-col-h" style="flex:1;min-width:160px;">
+          <div style="display:flex;align-items:center;gap:4px;"><span style="color:#4ec9b0;font-size:9px;">ABC</span><span>Category</span></div>
+        </div>
+        <div class="pq2-col-h" style="flex:1;min-width:140px;">
+          <div style="display:flex;align-items:center;gap:4px;"><span style="color:#b5cea8;font-size:9px;">1.2</span><span>Sum Sales</span></div>
+        </div>
+        <div class="pq2-col-h" style="flex:1;min-width:140px;">
+          <div style="display:flex;align-items:center;gap:4px;"><span style="color:#b5cea8;font-size:9px;">1.2</span><span>Sum Profit</span></div>
+        </div>
+        <div class="pq2-col-h" style="flex:1;min-width:120px;">
+          <div style="display:flex;align-items:center;gap:4px;"><span style="color:#b5cea8;font-size:9px;">123</span><span>Order Count</span></div>
+        </div>
+      </div>
+      <div class="pq2-profile">
+        <div style="width:30px;flex-shrink:0;border-right:1px solid #2a2a2a;"></div>
+        <div class="pq2-pc" style="flex:1;min-width:160px;">
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#1e7d34;"></div><div class="pq2-ql">Valid</div><div class="pq2-qp">100%</div></div>
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#f44747;"></div><div class="pq2-ql">Error</div><div class="pq2-qp">0%</div></div>
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#888;"></div><div class="pq2-ql">Empty</div><div class="pq2-qp">0%</div></div>
+          <div class="pq2-bars">
+            <div class="pq2-b" style="height:100%;background:#217346;"></div>
+            <div class="pq2-b" style="height:75%;background:#217346;"></div>
+            <div class="pq2-b" style="height:85%;background:#217346;"></div>
+          </div>
+          <div class="pq2-dl">3 distinct, 3 unique</div>
+        </div>
+        <div class="pq2-pc" style="flex:1;min-width:140px;">
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#1e7d34;"></div><div class="pq2-ql">Valid</div><div class="pq2-qp">100%</div></div>
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#f44747;"></div><div class="pq2-ql">Error</div><div class="pq2-qp">0%</div></div>
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#888;"></div><div class="pq2-ql">Empty</div><div class="pq2-qp">0%</div></div>
+          <div class="pq2-bars">
+            <div class="pq2-b" style="height:80%;background:#217346;"></div>
+            <div class="pq2-b" style="height:95%;background:#217346;"></div>
+            <div class="pq2-b" style="height:100%;background:#217346;"></div>
+          </div>
+          <div class="pq2-dl">3 distinct, 3 unique</div>
+        </div>
+        <div class="pq2-pc" style="flex:1;min-width:140px;">
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#1e7d34;"></div><div class="pq2-ql">Valid</div><div class="pq2-qp">100%</div></div>
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#f44747;"></div><div class="pq2-ql">Error</div><div class="pq2-qp">0%</div></div>
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#888;"></div><div class="pq2-ql">Empty</div><div class="pq2-qp">0%</div></div>
+          <div class="pq2-bars">
+            <div class="pq2-b" style="height:55%;background:#217346;"></div>
+            <div class="pq2-b" style="height:75%;background:#217346;"></div>
+            <div class="pq2-b" style="height:100%;background:#217346;"></div>
+          </div>
+          <div class="pq2-dl">3 distinct, 3 unique</div>
+        </div>
+        <div class="pq2-pc" style="flex:1;min-width:120px;">
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#1e7d34;"></div><div class="pq2-ql">Valid</div><div class="pq2-qp">100%</div></div>
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#f44747;"></div><div class="pq2-ql">Error</div><div class="pq2-qp">0%</div></div>
+          <div class="pq2-qr"><div class="pq2-dot" style="background:#888;"></div><div class="pq2-ql">Empty</div><div class="pq2-qp">0%</div></div>
+          <div class="pq2-bars">
+            <div class="pq2-b" style="height:60%;background:#217346;"></div>
+            <div class="pq2-b" style="height:80%;background:#217346;"></div>
+            <div class="pq2-b" style="height:100%;background:#217346;"></div>
+          </div>
+          <div class="pq2-dl">3 distinct, 3 unique</div>
+        </div>
+      </div>
+      <div class="pq2-data-row"><div class="pq2-rn">1</div><div class="pq2-cell cat-cell" style="flex:1;min-width:160px;">Office Supplies</div><div class="pq2-cell" style="flex:1;min-width:140px;">3,787,330</div><div class="pq2-cell" style="flex:1;min-width:140px;">518,473.83</div><div class="pq2-cell" style="flex:1;min-width:120px;">31,247</div></div>
+      <div class="pq2-data-row"><div class="pq2-rn">2</div><div class="pq2-cell cat-cell" style="flex:1;min-width:160px;">Furniture</div><div class="pq2-cell" style="flex:1;min-width:140px;">4,110,884</div><div class="pq2-cell" style="flex:1;min-width:140px;">286,782.25</div><div class="pq2-cell" style="flex:1;min-width:120px;">9,870</div></div>
+      <div class="pq2-data-row"><div class="pq2-rn">3</div><div class="pq2-cell cat-cell" style="flex:1;min-width:160px;">Technology</div><div class="pq2-cell" style="flex:1;min-width:140px;">4,744,691</div><div class="pq2-cell" style="flex:1;min-width:140px;">663,778.73</div><div class="pq2-cell" style="flex:1;min-width:120px;">10,135</div></div>
+    </div>
+    <div class="pq2-settings">
+      <div class="pq2-sh">Query Settings</div>
+      <div style="color:#888;font-size:10px;margin-bottom:2px;">Name</div>
+      <div style="background:#3c3c3c;padding:3px 6px;color:#ddd;font-size:10px;border-radius:2px;margin-bottom:10px;">SuperStore Cleaned</div>
+      <div style="color:#ccc;font-size:11px;font-weight:500;border-bottom:1px solid #3c3c3c;padding-bottom:4px;margin-bottom:8px;">Applied Steps</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Source</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Promote headers</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Rename all columns</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Set correct data types</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Trim & clean text cols</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Fix double spaces</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Remove duplicate rows</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Replace numeric errors</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Add Days to Ship col</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Add Profit Margin col</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Add Discount Band col</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Add Profit Status col</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Reorder columns</div>
+      <div class="pq2-step"><div class="pq2-sd"></div>Sort by Order Date</div>
+      <div class="pq2-step active"><div class="pq2-sd"></div>Group by Category</div>
+    </div>
+  </div>
+  <div class="pq2-sb">
+    <span>3 COLUMNS &nbsp;|&nbsp; 3 ROWS &nbsp;|&nbsp; Column profiling based on entire dataset</span>
+    <span>PREVIEW DOWNLOADED AT 14:45</span>
+  </div>
+</div>
