@@ -137,13 +137,13 @@
     .badge-calc { background:rgba(168,85,247,.12);color:#A855F7;border:1px solid rgba(168,85,247,.2); }
 
     /* MODAL OVERLAY */
-    #pq-modal { display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;overflow-y:auto;padding:2rem; }
+    #pq-modal { display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;overflow-y:auto;padding:1rem; }
     #pq-modal.open { display:flex;align-items:flex-start;justify-content:center; }
     #pq-modal-inner { width:100%;max-width:1000px;background:#1e1e1e;border-radius:14px;border:1px solid rgba(34,211,238,.3);overflow:hidden;position:relative;margin:auto; }
-    #pq-modal-close { position:absolute;top:12px;right:14px;background:rgba(255,255,255,.08);border:none;color:#ccc;font-size:18px;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s; }
-    #pq-modal-close:hover { background:rgba(255,0,0,.3);color:#fff; }
-    #pq-modal-title { font-family:'Syne',sans-serif;font-size:13px;color:#22D3EE;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);letter-spacing:.08em;text-transform:uppercase; }
-    #pq-modal-content { padding:0; }
+    #pq-modal-close { position:absolute;top:10px;right:12px;background:rgba(255,255,255,.1);border:none;color:#ccc;font-size:16px;width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s; }
+    #pq-modal-close:hover { background:rgba(255,0,0,.4);color:#fff; }
+    #pq-modal-title { font-family:'Syne',sans-serif;font-size:12px;color:#22D3EE;padding:10px 44px 10px 14px;border-bottom:1px solid rgba(255,255,255,.08);letter-spacing:.04em; }
+    #pq-modal-content { padding:0;overflow-x:auto; }
 
     /* MINI TABLE */
     .mini-table { width:100%;border-collapse:collapse;font-size:11px; }
@@ -187,7 +187,7 @@
 
     /* PQ MODAL CONTENT STYLES */
     .pq-wrap { font-family:'Segoe UI',sans-serif;font-size:12px;background:#1e1e1e; }
-    .pq-topbar { background:#2b2b2b;padding:6px 12px;border-bottom:1px solid #444;color:#ccc;font-size:11px;font-weight:500; }
+    .pq-topbar { display:none; }
     .pq-tabrow { display:flex;border-bottom:1px solid #444;background:#252526; }
     .pq-tab { padding:6px 16px;color:#ccc;font-size:11px;border-right:1px solid #333; }
     .pq-tab.on { background:#1e1e1e;color:#fff;border-bottom:2px solid #1e7d34; }
@@ -206,8 +206,7 @@
     .pq-step.on { background:#094771; }
     .pq-sd { width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0; }
     .pq-step.on .pq-sd { background:#1e7d34; }
-    .pq-sb { background:#007acc;padding:2px 10px;display:flex;justify-content:space-between; }
-    .pq-sb span { color:#fff;font-size:10px; }
+    .pq-sb { display:none; }
     .pq-colhdr { display:flex;background:#2d2d2d;border-bottom:1px solid #3c3c3c; }
     .pq-ch { padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;white-space:nowrap; }
     .pq-profrow { display:flex;background:#252526;border-bottom:1px solid #2a2a2a; }
@@ -242,11 +241,10 @@
     .kw { color:#569cd6; } .fn { color:#dcdcaa; } .str { color:#ce9178; }
     .cmt { color:#608b4e;font-style:italic; } .vr { color:#9cdcfe; }
     .op { color:#d4d4d4; } .nm { color:#b5cea8; } .tp { color:#4ec9b0; }
-    .ae-foot { background:#007acc;padding:3px 14px;display:flex;justify-content:space-between; }
-    .ae-foot span { color:#fff;font-size:10px; }
+    .ae-foot { display:none; }
 
     @media (max-width:768px) {
-      .bento-1,.bento-2,.bento-3,.bento-4 { grid-column:span 12; }
+      .bento-1,.bento-2,.bento-3,.bento-4,.bento-5,.bento-6 { grid-column:span 12; }
       .stats-row { grid-template-columns:1fr 1fr; }
       .services-grid,.contact-grid { grid-template-columns:1fr; }
       h1.kinetic { font-size:clamp(38px,10vw,64px); }
@@ -270,7 +268,7 @@
   <div class="blob blob-3"></div>
 </div>
 
-<a href="mailto:saffat.hussaini.uk@gmail.com" id="hire-float">
+<a href="/cdn-cgi/l/email-protection#631002050502174d0b161010020a0d0a4d160823040e020a0f4d000c0e" id="hire-float">
   <span class="pulse-dot"></span> Hire Me
 </a>
 
@@ -306,7 +304,7 @@
       <span class="line-3">I help businesses worldwide clean, structure, and visualize their data so they can make faster, smarter decisions. Specializing in Excel, Power BI &amp; SQL.</span>
     </h1>
     <div class="hero-cta-row">
-      <a href="mailto:saffat.hussaini.uk@gmail.com" class="btn-primary magnetic">Get in touch</a>
+      <a href="/cdn-cgi/l/email-protection#403321262621346e2835333321292e296e352b00272d21292c6e232f2d" class="btn-primary magnetic">Get in touch</a>
       <a href="#projects" class="btn-ghost magnetic">See my work</a>
     </div>
   </section>
@@ -481,6 +479,103 @@ Technology    4,744,691</div>
         </div>
       </div>
 
+      <!-- CARD 5: Chime MFS — full width -->
+      <div class="bento-card bento-5 reveal magnetic-card" data-tilt data-tilt-max="4" data-tilt-speed="400">
+        <div class="bento-visual" style="height:160px;background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(34,211,238,.04));flex-direction:column;align-items:flex-start;padding:1.25rem 1.5rem;">
+          <div style="font-size:10px;color:#10B981;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">Live survey data · n=417 respondents · Dhaka &amp; Chittagong</div>
+          <div class="chime-kpi-row" style="width:100%;">
+            <div class="chime-kpi"><div class="chime-kpi-num">43.2%</div><div class="chime-kpi-lbl">Chime market share</div></div>
+            <div class="chime-kpi"><div class="chime-kpi-num">+697%</div><div class="chime-kpi-lbl">Merchant payments growth</div></div>
+            <div class="chime-kpi"><div class="chime-kpi-num">85%</div><div class="chime-kpi-lbl">DFS adoption intent</div></div>
+            <div class="chime-kpi"><div class="chime-kpi-num">ASD 4.43Bn</div><div class="chime-kpi-lbl">Chime free cash flow</div></div>
+          </div>
+        </div>
+        <div class="bento-body">
+          <span class="bento-tag tag-green">Strategy &amp; Analysis</span>
+          <div class="bento-title">Chime MFS — Competitive Strategy Report</div>
+          <div class="bento-desc">Full competitive analysis for Chime MFS in the Asgard mobile financial services market. Commissioned by LightCastle Partners. Includes primary survey (n=417), market share breakdown, service line growth ranking, customer segmentation (4 economic tiers × 4 personas), and 5 strategic recommendations to defend against SnapTap's G2P monopoly.</div>
+          <div class="bento-tools">
+            <span class="bento-tool">Excel analysis</span><span class="bento-tool">Primary survey</span>
+            <span class="bento-tool">Segmentation</span><span class="bento-tool">Strategy</span>
+            <span class="bento-tool">Data visualization</span>
+          </div>
+          <div class="bento-result"><strong>Key finding:</strong> Chime leads financially (NPM 3.28% vs 2.63%) but faces a structural threat — SnapTap holds 75% of G2P via government mandate. Merchant payments (+697%) is the highest-conviction growth bet.</div>
+          <div class="slide-thumbs">
+            <a class="slide-thumb" onclick="openSlide('market')" href="javascript:void(0)">
+              <div class="slide-thumb-label">Market share analysis <span>&#8599;</span></div>
+              <div class="slide-thumb-preview">Chime 43.2% · SnapTap 35.3%
+NPM 3.28% vs 2.63%
+FCF ASD 4.43Bn vs 0.89Bn</div>
+              <span class="slide-thumb-badge badge-green">Q1 · n=417</span>
+            </a>
+            <a class="slide-thumb" onclick="openSlide('growth')" href="javascript:void(0)">
+              <div class="slide-thumb-label">Service line growth <span>&#8599;</span></div>
+              <div class="slide-thumb-preview">Merchant +697% · P2P +458%
+Priority score ranking
+5-year strategic direction</div>
+              <span class="slide-thumb-badge badge-blue">Q2 · 2019–2023</span>
+            </a>
+            <a class="slide-thumb" onclick="openSlide('segments')" href="javascript:void(0)">
+              <div class="slide-thumb-label">Customer segmentation <span>&#8599;</span></div>
+              <div class="slide-thumb-preview">4 economic tiers × 4 personas
+Emerging 45% · Aspirant 31%
+Chime leads every segment</div>
+              <span class="slide-thumb-badge badge-green">Q3 · 4×4 matrix</span>
+            </a>
+            <a class="slide-thumb" onclick="openSlide('strategy')" href="javascript:void(0)">
+              <div class="slide-thumb-label">Strategic recommendations <span>&#8599;</span></div>
+              <div class="slide-thumb-preview">5 data-backed moves
+Banking licence moat
+G2P reclaim path</div>
+              <span class="slide-thumb-badge badge-blue">Q4 · 5 recommendations</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 6: Strategy PDF slide deck -->
+      <div class="bento-card bento-6 reveal magnetic-card" data-tilt data-tilt-max="5" data-tilt-speed="400">
+        <div class="bento-visual" style="height:160px;background:linear-gradient(135deg,rgba(96,165,250,.06),rgba(168,85,247,.04));flex-direction:column;align-items:flex-start;padding:1.25rem 1.5rem;">
+          <div style="font-size:10px;color:#60A5FA;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">LightCastle Partners · Confidential · April 2023</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <div style="background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2);border-radius:8px;padding:8px 12px;text-align:center;">
+              <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#60A5FA;">9</div>
+              <div style="font-size:9px;color:var(--muted);">Slide deck pages</div>
+            </div>
+            <div style="background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2);border-radius:8px;padding:8px 12px;text-align:center;">
+              <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#60A5FA;">417</div>
+              <div style="font-size:9px;color:var(--muted);">Survey respondents</div>
+            </div>
+            <div style="background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2);border-radius:8px;padding:8px 12px;text-align:center;">
+              <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#60A5FA;">5</div>
+              <div style="font-size:9px;color:var(--muted);">Strategic moves</div>
+            </div>
+            <div style="background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2);border-radius:8px;padding:8px 12px;text-align:center;">
+              <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#60A5FA;">5</div>
+              <div style="font-size:9px;color:var(--muted);">Policy interventions</div>
+            </div>
+          </div>
+        </div>
+        <div class="bento-body">
+          <span class="bento-tag tag-blue">Consulting Deck</span>
+          <div class="bento-title">Strategy presentation slides</div>
+          <div class="bento-desc">Executive-ready strategy deck built for the Chime CEO. Covers competitive landscape, service line prioritization, customer personas, 5 strategic recommendations and 5 policy intervention priorities — all data-backed from the primary survey.</div>
+          <div class="bento-tools">
+            <span class="bento-tool">Slide design</span><span class="bento-tool">Executive communication</span>
+            <span class="bento-tool">Consulting framework</span>
+          </div>
+          <div class="bento-result"><strong>Deliverable:</strong> 9-page confidential strategy deck — from CEO pre-meeting questions to policy lobbying priorities.</div>
+          <div style="margin-top:14px;">
+            <a class="slide-thumb" onclick="openSlide('deck')" href="javascript:void(0)" style="border-color:rgba(96,165,250,.3);">
+              <div class="slide-thumb-label" style="color:#60A5FA;">View strategy deck <span>&#8599;</span></div>
+              <div class="slide-thumb-preview">Market share · Service line growth · Customer segments
+Strategic recommendations · Policy interventions · Survey highlights</div>
+              <span class="slide-thumb-badge badge-blue">9 slides · Full deck</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -493,7 +588,7 @@ Technology    4,744,691</div>
       <div class="contact-card">
         <div class="contact-label">Email</div>
         <div class="contact-val email-copy" onclick="copyEmail()">
-          saffat.hussaini.uk@gmail.com
+          <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="493a282f2f283d67213c3a3a28202720673c22092e24282025672a2624">[email&#160;protected]</a>
           <span style="font-size:14px;opacity:0.5;">&#9112;</span>
           <span class="copy-toast" id="copy-toast">Copied!</span>
         </div>
@@ -519,7 +614,7 @@ Technology    4,744,691</div>
   </footer>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* CURSOR */
 const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
@@ -548,7 +643,7 @@ document.addEventListener('DOMContentLoaded',()=>{if(window.VanillaTilt)VanillaT
 /* PQ MODAL */
 const pqContent = {
   profile: {
-    title: 'Power Query — Column quality profile (18 applied steps)',
+    title: 'Power Query — column quality profile & applied steps',
     html: `<div class="pq-wrap">
   <div class="pq-topbar">Table1 — Power Query Editor</div>
   <div class="pq-tabrow"><div class="pq-tab on">Home</div><div class="pq-tab">Transform</div><div class="pq-tab">Add Column</div><div class="pq-tab">View</div></div>
@@ -612,7 +707,7 @@ const pqContent = {
 </div>`
   },
   mcode: {
-    title: 'Power Query — Advanced Editor (M code)',
+    title: 'Power Query — advanced editor (M code)',
     html: `<div class="ae-wrap">
   <div class="ae-bar"><div class="ae-title">Advanced Editor — SuperStore Cleaned</div><div class="ae-btns"><div class="ae-btn ae-cancel">Cancel</div><div class="ae-btn ae-done">Done</div></div></div>
   <div class="ae-code">
@@ -644,7 +739,7 @@ const pqContent = {
 </div>`
   },
   groupby: {
-    title: 'Power Query — Group By category summary',
+    title: 'Power Query — group by category summary',
     html: `<div class="pq-wrap">
   <div class="pq-topbar">Table1 — Power Query Editor</div>
   <div class="pq-tabrow"><div class="pq-tab on">Home</div><div class="pq-tab">Transform</div><div class="pq-tab">Add Column</div><div class="pq-tab">View</div></div>
@@ -692,7 +787,7 @@ const pqContent = {
 </div>`
   },
   calccols: {
-    title: 'Power Query — Calculated columns (Days to Ship, Profit Margin, Discount Band)',
+    title: 'Power Query — calculated columns (Days to Ship, Profit Margin, Discount Band)',
     html: `<div class="pq-wrap">
   <div class="pq-topbar">Table1 — Power Query Editor</div>
   <div class="pq-tabrow"><div class="pq-tab">Home</div><div class="pq-tab">Transform</div><div class="pq-tab on">Add Column</div><div class="pq-tab">View</div></div>
@@ -745,14 +840,4 @@ function openPQ(key) {
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function closePQ() {
-  document.getElementById('pq-modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.getElementById('pq-modal').addEventListener('click', function(e) {
-  if (e.target === this) closePQ();
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePQ(); });
-</script>
-</body>
-</html>
+function
