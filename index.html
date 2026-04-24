@@ -1,672 +1,1509 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Saffat Hussaini — Data Freelancer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --bg:#FAF7F2;
-      --bg2:#F3EDE3;
-      --bg3:#EDE4D6;
-      --gold:#C9933A;
-      --gold-dark:#A3721C;
-      --gold-light:#E8C07A;
-      --gold-pale:#F5E8CC;
-      --ink:#1C1710;
-      --ink2:#3D3526;
-      --muted:#7A6E5F;
-      --card-bg:rgba(255,251,244,0.85);
-      --card-border:rgba(201,147,58,0.18);
-      --card-border-hover:rgba(201,147,58,0.45);
-      --serif:'Playfair Display',Georgia,serif;
-      --body:'DM Sans',sans-serif;
-      --lora:'Lora',Georgia,serif;
-    }
-    html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--ink);font-family:var(--body);overflow-x:hidden;cursor:none}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>S M Saffat Hussaini — Business Analyst & Data Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0C0E14;
+  --bg2: #12141C;
+  --bg3: #181B24;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --gold: #D4A843;
+  --gold2: #F0C96B;
+  --gold-dim: rgba(212,168,67,0.12);
+  --gold-glow: rgba(212,168,67,0.25);
+  --text: #EDE9E0;
+  --text2: #9A9585;
+  --text3: #5E5B54;
+  --white: #F5F2EC;
+  --radius: 14px;
+  --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-    /* Grain texture overlay */
-    body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px 200px}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    #cursor-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
-    #cursor-ring{width:32px;height:32px;border:1.5px solid var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s,border-color .2s,opacity .2s}
-    body.cursor-expand #cursor-ring{width:56px;height:56px;border-color:var(--gold-dark);opacity:.6}
-    body.cursor-expand #cursor-dot{width:5px;height:5px}
+html { scroll-behavior: smooth; }
 
-    /* Decorative blobs — soft warm */
-    .blob-container{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-    .blob{position:absolute;border-radius:50%;filter:blur(100px);animation:blobDrift linear infinite}
-    .blob-1{width:500px;height:500px;background:#E8C07A;opacity:.10;top:-120px;left:-100px;animation-duration:30s}
-    .blob-2{width:400px;height:400px;background:#C9933A;opacity:.07;bottom:-80px;right:-80px;animation-duration:36s;animation-delay:-14s}
-    .blob-3{width:320px;height:320px;background:#F5E8CC;opacity:.13;top:45%;left:55%;animation-duration:24s;animation-delay:-8s}
-    @keyframes blobDrift{0%{transform:translate(0,0) scale(1)}25%{transform:translate(50px,-35px) scale(1.06)}50%{transform:translate(-35px,55px) scale(.95)}75%{transform:translate(25px,25px) scale(1.03)}100%{transform:translate(0,0) scale(1)}}
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
 
-    .wrapper{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 1.5rem}
+/* ─── CUSTOM CURSOR ─── */
+.cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width 0.3s, height 0.3s, opacity 0.3s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgba(212,168,67,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: all 0.15s var(--transition);
+}
+.cursor.hover { width: 20px; height: 20px; }
+.cursor-ring.hover { width: 60px; height: 60px; border-color: var(--gold); }
 
-    /* NAV */
-    nav{position:sticky;top:0;z-index:100;background:rgba(250,247,242,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--card-border)}
-    .nav-inner{display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto;padding:1.25rem 1.5rem}
-    .nav-logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
-    .nav-logo span{color:var(--gold)}
-    .nav-links{display:flex;gap:28px;align-items:center}
-    .nav-links a{font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:.02em;transition:color .2s}
-    .nav-links a:hover{color:var(--gold)}
+/* ─── NOISE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
 
-    /* HIRE FLOAT */
-    #hire-float{position:fixed;bottom:2rem;right:2rem;z-index:200;display:flex;align-items:center;gap:8px;padding:12px 22px;background:var(--ink);color:var(--gold-light);font-weight:500;font-size:13px;border-radius:99px;text-decoration:none;font-family:var(--body);letter-spacing:.04em;transition:transform .2s,background .2s;border:1px solid transparent}
-    #hire-float:hover{background:var(--gold-dark);color:#fff;transform:scale(1.04)}
-    #hire-float .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--gold-light);animation:pulse 1.8s infinite}
-    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
 
-    /* HERO */
-    .hero{padding:7rem 0 5rem}
-    .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dark);background:var(--gold-pale);border:1px solid rgba(201,147,58,.25);padding:6px 16px;border-radius:99px;margin-bottom:2rem;font-family:var(--body)}
-    .hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  padding: 0 max(24px, calc((100vw - 1200px)/2));
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(12,14,20,0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-hire {
+  background: var(--gold);
+  color: var(--bg) !important;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-weight: 600 !important;
+  color: #0C0E14 !important;
+  transition: background 0.2s, transform 0.2s !important;
+}
+.nav-hire:hover { background: var(--gold2) !important; transform: translateY(-1px); }
 
-    h1.kinetic{font-family:var(--serif);font-size:clamp(46px,7.5vw,90px);font-weight:800;line-height:1.02;letter-spacing:-.025em;margin-bottom:1.5rem}
-    .kinetic .line-1{display:block;color:var(--ink)}
-    .kinetic .line-2{display:block;color:var(--gold)}
-    .kinetic .line-3{display:block;font-family:var(--lora);font-size:.45em;font-weight:400;font-style:italic;color:var(--muted);margin-top:1.1rem;line-height:1.7;max-width:520px}
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px max(24px, calc((100vw - 1200px)/2)) 80px;
+  position: relative;
+  overflow: hidden;
+}
 
-    .hero-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:2.5rem}
-    .btn-primary{font-family:var(--body);font-weight:500;font-size:14px;padding:13px 28px;border-radius:99px;background:var(--ink);color:var(--gold-light);text-decoration:none;letter-spacing:.04em;transition:background .2s,transform .2s}
-    .btn-primary:hover{background:var(--gold-dark);color:#fff;transform:scale(1.03)}
-    .btn-ghost{font-family:var(--body);font-size:13px;padding:12px 26px;border-radius:99px;border:1px solid var(--card-border-hover);color:var(--muted);text-decoration:none;background:transparent;letter-spacing:.03em;transition:border-color .2s,color .2s}
-    .btn-ghost:hover{border-color:var(--gold);color:var(--ink)}
+.hero-glow {
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,168,67,0.08) 0%, transparent 70%);
+  top: -200px; right: -200px;
+  pointer-events: none;
+  animation: drift 8s ease-in-out infinite alternate;
+}
+.hero-glow2 {
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(100,120,200,0.06) 0%, transparent 70%);
+  bottom: -100px; left: -100px;
+  pointer-events: none;
+  animation: drift 10s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift { to { transform: translate(30px, 20px); } }
 
-    /* STATS */
-    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:5rem 0}
-    .stat-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.5rem;text-align:center;backdrop-filter:blur(10px);transition:border-color .3s,transform .3s}
-    .stat-card:hover{border-color:rgba(201,147,58,.4);transform:translateY(-4px)}
-    .stat-num{font-family:var(--serif);font-size:30px;font-weight:800;color:var(--gold)}
-    .stat-lbl{font-size:11px;color:var(--muted);margin-top:5px;letter-spacing:.04em}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(212,168,67,0.2);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+  width: fit-content;
+  animation: fadeUp 0.8s var(--transition) both;
+}
+.badge-dot {
+  width: 7px; height: 7px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(212,168,67,0.4); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(212,168,67,0); }
+}
 
-    /* SECTION HEADER */
-    .section-header{margin-bottom:2.5rem}
-    .section-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:10px;font-family:var(--body)}
-    .section-title{font-family:var(--serif);font-size:clamp(26px,4vw,40px);font-weight:800;color:var(--ink)}
+.hero-name {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  animation: fadeUp 0.8s 0.1s var(--transition) both;
+}
+.hero-name .gold-word { color: var(--gold); font-style: italic; }
 
-    /* SKILLS */
-    .skills-section{margin:5rem 0}
-    .skills-cloud{display:flex;flex-wrap:wrap;gap:10px}
-    .skill-tag{font-size:12px;font-weight:500;padding:8px 18px;border-radius:99px;border:1px solid;cursor:default;transition:transform .2s,background .2s;font-family:var(--body);letter-spacing:.02em}
-    .skill-tag:hover{transform:translateY(-3px)}
-    .sk-excel{color:#6B5B00;border-color:rgba(201,147,58,.4);background:rgba(245,232,204,.5)}
-    .sk-excel:hover{background:rgba(201,147,58,.18)}
-    .sk-sheets{color:#3B5E2A;border-color:rgba(99,153,34,.35);background:rgba(234,243,222,.5)}
-    .sk-sheets:hover{background:rgba(99,153,34,.15)}
-    .sk-powerbi{color:#7A3A00;border-color:rgba(216,90,48,.35);background:rgba(250,236,231,.5)}
-    .sk-powerbi:hover{background:rgba(216,90,48,.15)}
-    .sk-sql{color:#1C3A5E;border-color:rgba(55,138,221,.3);background:rgba(230,241,251,.5)}
-    .sk-sql:hover{background:rgba(55,138,221,.15)}
-    .sk-clean{color:#42215C;border-color:rgba(127,119,221,.3);background:rgba(238,237,254,.5)}
-    .sk-clean:hover{background:rgba(127,119,221,.15)}
-    .sk-viz{color:#4A1528;border-color:rgba(212,83,126,.3);background:rgba(251,234,240,.5)}
-    .sk-viz:hover{background:rgba(212,83,126,.15)}
-    .sk-dash{color:#0C447C;border-color:rgba(55,138,221,.3);background:rgba(230,241,251,.5)}
-    .sk-dash:hover{background:rgba(55,138,221,.15)}
-    .sk-pivot{color:#3B5E2A;border-color:rgba(99,153,34,.3);background:rgba(234,243,222,.5)}
-    .sk-pivot:hover{background:rgba(99,153,34,.15)}
-    .sk-dax{color:#7A3A00;border-color:rgba(186,117,23,.35);background:rgba(250,238,218,.5)}
-    .sk-dax:hover{background:rgba(186,117,23,.15)}
-    .sk-vlookup{color:#6B5B00;border-color:rgba(201,147,58,.4);background:rgba(245,232,204,.5)}
-    .sk-vlookup:hover{background:rgba(201,147,58,.18)}
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.7rem);
+  font-weight: 300;
+  color: var(--text2);
+  margin-bottom: 2rem;
+  letter-spacing: -0.01em;
+  animation: fadeUp 0.8s 0.2s var(--transition) both;
+}
+.hero-title .typed-word {
+  color: var(--gold2);
+  font-style: italic;
+  border-right: 2px solid var(--gold);
+  padding-right: 3px;
+  animation: blink 1s infinite;
+}
+@keyframes blink { 0%,100% { border-color: var(--gold); } 50% { border-color: transparent; } }
 
-    /* PROJECTS */
-    .projects-section{margin:5rem 0}
-    .bento-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .bento-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;overflow:hidden;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:border-color .3s,box-shadow .3s,transform .3s;position:relative}
-    .bento-card:hover{border-color:var(--card-border-hover);box-shadow:0 8px 40px rgba(163,114,28,.08);transform:translateY(-2px)}
-    .bento-1{grid-column:span 7}
-    .bento-2{grid-column:span 5}
-    .bento-3{grid-column:span 5}
-    .bento-4{grid-column:span 7}
-    .bento-5{grid-column:span 7}
-    .bento-6{grid-column:span 5}
+.hero-desc {
+  max-width: 560px;
+  color: var(--text2);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.8s 0.3s var(--transition) both;
+}
 
-    .bento-visual{overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;padding:1.5rem}
-    .bento-body{padding:1.5rem}
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+  animation: fadeUp 0.8s 0.4s var(--transition) both;
+}
+.btn-primary {
+  background: var(--gold);
+  color: #0C0E14;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.btn-primary:hover {
+  background: var(--gold2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(212,168,67,0.3);
+}
+.btn-ghost {
+  border: 1px solid var(--border2);
+  color: var(--text);
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
 
-    .bento-tag{display:inline-block;font-size:10px;font-weight:500;padding:4px 12px;border-radius:99px;margin-bottom:10px;letter-spacing:.06em;text-transform:uppercase;font-family:var(--body)}
-    .tag-gold{background:var(--gold-pale);color:var(--gold-dark);border:1px solid rgba(201,147,58,.3)}
-    .tag-amber{background:#FDF0E0;color:#7A3A00;border:1px solid rgba(216,90,48,.25)}
-    .tag-sage{background:#EDF4E4;color:#3B5E2A;border:1px solid rgba(99,153,34,.3)}
-    .tag-sky{background:#E6F1FB;color:#0C447C;border:1px solid rgba(55,138,221,.25)}
-    .tag-mauve{background:#EEEDFE;color:#42215C;border:1px solid rgba(127,119,221,.25)}
-    .tag-teal{background:#E1F5EE;color:#085041;border:1px solid rgba(29,158,117,.25)}
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.5s var(--transition) both;
+}
+.stat-item { }
+.stat-num {
+  font-family: 'Fraunces', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+  display: block;
+}
+.stat-num .stat-gold { color: var(--gold); }
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text3);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
+}
+.stat-divider {
+  width: 1px;
+  background: var(--border);
+  align-self: stretch;
+}
 
-    .bento-title{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.3}
-    .bento-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;font-family:var(--lora)}
-    .bento-tools{display:flex;flex-wrap:wrap;gap:6px}
-    .bento-tool{font-size:11px;color:var(--muted);background:var(--bg3);padding:3px 10px;border-radius:4px;border:1px solid var(--card-border)}
-    .bento-result{margin-top:12px;padding:10px 14px;background:rgba(201,147,58,.06);border-radius:10px;font-size:12px;color:var(--muted);border-left:2px solid var(--gold);font-family:var(--lora)}
-    .bento-result strong{color:var(--ink2);font-weight:500}
+/* ─── SECTIONS ─── */
+section {
+  padding: 100px max(24px, calc((100vw - 1200px)/2));
+  position: relative;
+}
+section:nth-child(even) { background: var(--bg2); }
 
-    /* Mini table */
-    .mini-table{width:100%;border-collapse:collapse;font-size:11px}
-    .mini-table th{color:var(--muted);font-weight:500;padding:5px 8px;text-align:left;border-bottom:1px solid var(--card-border);font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-family:var(--body)}
-    .mini-table td{padding:6px 8px;border-bottom:1px solid var(--card-border);color:var(--ink2);font-family:var(--body)}
-    .mini-table tr:last-child td{border-bottom:none}
-    .badge-ok{background:rgba(99,153,34,.12);color:#3B5E2A;padding:2px 8px;border-radius:99px;font-size:10px}
-    .badge-warn{background:rgba(186,117,23,.12);color:var(--gold-dark);padding:2px 8px;border-radius:99px;font-size:10px}
-    .badge-err{background:rgba(226,75,74,.12);color:#A32D2D;padding:2px 8px;border-radius:99px;font-size:10px}
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+}
 
-    /* Mini bars */
-    .mini-bars{display:flex;align-items:flex-end;gap:6px;height:100px;width:100%}
-    .mbar{flex:1;border-radius:6px 6px 0 0;position:relative}
-    .mbar-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--muted);white-space:nowrap;font-family:var(--body)}
-    .mbar-val{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--gold-dark);white-space:nowrap;font-family:var(--body)}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+.section-title em { color: var(--gold); font-style: italic; }
+.section-subtitle {
+  color: var(--text2);
+  font-size: 1rem;
+  max-width: 520px;
+  line-height: 1.8;
+  margin-bottom: 3.5rem;
+}
 
-    /* Mini donut */
-    .mini-donut{display:flex;gap:1rem;align-items:center;width:100%}
-    .donut-items{flex:1}
-    .donut-row{display:flex;align-items:center;gap:7px;margin-bottom:8px}
-    .donut-swatch{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-    .donut-lbl{font-size:11px;color:var(--muted);flex:1;font-family:var(--body)}
-    .donut-pct{font-size:11px;font-weight:500;color:var(--ink2);font-family:var(--body)}
+/* ─── REVEAL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s var(--transition), transform 0.7s var(--transition);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
 
-    /* PQ gallery */
-    .pq-gallery{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
-    .pq-thumb{background:#1e1e1e;border:1px solid rgba(201,147,58,.2);border-radius:10px;padding:8px;cursor:pointer;transition:border-color .2s,transform .2s;text-decoration:none;display:block;overflow:hidden}
-    .pq-thumb:hover{border-color:rgba(201,147,58,.5);transform:translateY(-2px)}
-    .pq-thumb-label{font-size:10px;color:var(--gold-light);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;justify-content:space-between;font-family:var(--body)}
-    .pq-thumb-preview{font-family:'Consolas',monospace;font-size:9px;color:#9cdcfe;line-height:1.5;white-space:pre;overflow:hidden;max-height:48px}
-    .pq-thumb-badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:99px;margin-top:5px;font-family:var(--body)}
-    .badge-steps{background:rgba(99,153,34,.12);color:#3B5E2A;border:1px solid rgba(99,153,34,.2)}
-    .badge-mcode{background:rgba(86,156,214,.12);color:#569cd6;border:1px solid rgba(86,156,214,.2)}
-    .badge-group{background:rgba(186,117,23,.12);color:var(--gold-dark);border:1px solid rgba(186,117,23,.2)}
-    .badge-calc{background:rgba(127,119,221,.12);color:#534AB7;border:1px solid rgba(127,119,221,.2)}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
 
-    /* Chime thumbs */
-    .chime-thumbs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-    .chime-thumb{background:rgba(201,147,58,.04);border:1px solid rgba(201,147,58,.2);border-radius:10px;padding:8px;cursor:pointer;transition:border-color .2s,transform .2s;text-decoration:none;display:block}
-    .chime-thumb:hover{border-color:rgba(201,147,58,.5);transform:translateY(-2px)}
-    .chime-thumb-label{font-size:10px;color:var(--gold-dark);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;font-family:var(--body)}
-    .chime-thumb-preview{font-size:9px;color:var(--muted);line-height:1.5;font-family:var(--body)}
-    .chime-thumb-badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:99px;margin-top:5px;background:var(--gold-pale);color:var(--gold-dark);border:1px solid rgba(201,147,58,.25);font-family:var(--body)}
-    .chime-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
-    .chime-kpi{background:rgba(255,251,244,.7);border:1px solid var(--card-border);border-radius:10px;padding:10px;text-align:center;backdrop-filter:blur(8px)}
-    .chime-kpi-num{font-family:var(--serif);font-size:17px;font-weight:800;color:var(--gold)}
-    .chime-kpi-lbl{font-size:9px;color:var(--muted);margin-top:2px;font-family:var(--body)}
+/* ─── WHAT I DO ─── */
+.problems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.problem-card {
+  background: var(--bg);
+  padding: 2rem;
+  transition: background 0.3s;
+  position: relative;
+}
+.problem-card:hover { background: var(--bg3); }
+.problem-icon {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.problem-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.problem-body { font-size: 0.88rem; color: var(--text2); line-height: 1.7; }
+.problem-outcome {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-family: 'DM Mono', monospace;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.problem-outcome::before { content: '→'; }
 
-    /* Services in bento-4 */
-    .service-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--bg2);border:1px solid var(--card-border);border-radius:10px;backdrop-filter:blur(10px);transition:border-color .2s,transform .2s;font-size:13px;color:var(--muted);font-family:var(--body)}
-    .service-item:hover{border-color:rgba(201,147,58,.4);transform:translateX(3px);color:var(--ink)}
-    .service-item span{color:var(--gold);font-size:12px}
+/* ─── EXPERIENCE ─── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2rem;
+  position: relative;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-left { }
+.tl-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text3);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+.tl-company {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+}
+.tl-location {
+  font-size: 0.78rem;
+  color: var(--text3);
+}
+.tl-dot {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin-top: 0.5rem;
+  box-shadow: 0 0 12px var(--gold);
+}
+.tl-right { }
+.tl-role {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+}
+.tl-badge {
+  display: inline-block;
+  background: var(--gold-dim);
+  border: 1px solid rgba(212,168,67,0.2);
+  color: var(--gold);
+  font-size: 0.7rem;
+  padding: 2px 10px;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+}
+.tl-situation {
+  font-size: 0.85rem;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  padding: 1rem;
+  background: var(--bg3);
+  border-left: 2px solid var(--gold-dim);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+.tl-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.tl-bullets li {
+  font-size: 0.88rem;
+  color: var(--text2);
+  padding-left: 1.2rem;
+  position: relative;
+  line-height: 1.65;
+}
+.tl-bullets li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 0.7rem;
+  top: 0.1rem;
+}
+.tl-metrics {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.tl-metric {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  text-align: center;
+}
+.tl-metric-num {
+  font-family: 'Fraunces', serif;
+  font-size: 1.2rem;
+  color: var(--gold);
+  font-weight: 700;
+  display: block;
+  line-height: 1;
+}
+.tl-metric-label {
+  font-size: 0.68rem;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 3px;
+  display: block;
+}
+.tl-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.tl-tag {
+  font-size: 0.72rem;
+  color: var(--text3);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
 
-    /* Modals */
-    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(28,23,16,.8);z-index:500;overflow-y:auto;padding:1rem;align-items:flex-start;justify-content:center}
-    .modal-overlay.open{display:flex}
-    .modal-inner{width:100%;max-width:960px;border-radius:16px;overflow:hidden;position:relative;margin:auto}
-    .modal-close-btn{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.2);border:none;color:#ccc;font-size:15px;width:26px;height:26px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s}
-    .modal-close-btn:hover{background:rgba(226,75,74,.5);color:#fff}
-    .modal-title-bar{font-family:var(--body);font-size:12px;padding:10px 44px 10px 14px;border-bottom:1px solid rgba(255,255,255,.08);letter-spacing:.04em}
+/* ─── PROJECTS ─── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+.proj-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.proj-card:hover {
+  border-color: rgba(212,168,67,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(212,168,67,0.1);
+}
+.proj-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(212,168,67,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+.proj-card.col-8 { grid-column: span 8; }
+.proj-card.col-4 { grid-column: span 4; }
+.proj-card.col-6 { grid-column: span 6; }
+.proj-card.col-12 { grid-column: span 12; }
+.proj-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+.proj-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+}
+.proj-link {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text3);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.proj-link:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.proj-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.proj-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.proj-desc {
+  font-size: 0.85rem;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: auto;
+  padding-bottom: 1.5rem;
+}
+.proj-footer {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.proj-tool {
+  font-size: 0.7rem;
+  color: var(--text2);
+  background: var(--bg3);
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-family: 'DM Mono', monospace;
+}
+.proj-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 0.5rem;
+}
 
-    #pq-modal .modal-inner{background:#1e1e1e;border:1px solid rgba(201,147,58,.3)}
-    #pq-modal .modal-title-bar{color:var(--gold-light)}
-    #chime-modal .modal-inner{background:#f9f5ee;border:1px solid rgba(201,147,58,.3)}
-    #chime-modal .modal-title-bar{color:var(--gold-dark)}
+/* ─── SKILLS ─── */
+.skills-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.skill-cat {
+  background: var(--bg);
+  padding: 2rem;
+}
+.skill-cat-title {
+  font-size: 0.72rem;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.skill-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.skill-bar-item { }
+.skill-bar-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.skill-bar-name { font-size: 0.85rem; color: var(--text); }
+.skill-bar-pct {
+  font-size: 0.75rem;
+  color: var(--text3);
+  font-family: 'DM Mono', monospace;
+}
+.skill-bar-track {
+  height: 3px;
+  background: var(--bg3);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  border-radius: 100px;
+  width: 0;
+  transition: width 1.2s var(--transition);
+}
 
-    /* PQ internal */
-    .pq-tabrow{display:flex;border-bottom:1px solid #444;background:#252526}
-    .pq-tab{padding:6px 16px;color:#ccc;font-size:11px;border-right:1px solid #333}
-    .pq-tab.on{background:#1e1e1e;color:#fff;border-bottom:2px solid #c9933a}
-    .pq-fbar{background:#2d2d2d;border-bottom:1px solid #3c3c3c;padding:4px 10px;color:#9cdcfe;font-size:10px;font-family:'Consolas',monospace;white-space:nowrap;overflow:hidden}
-    .pq-layout{display:flex}
-    .pq-side{width:155px;background:#252526;border-right:1px solid #3c3c3c;padding:8px 0;flex-shrink:0}
-    .pq-side-hdr{padding:3px 10px;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
-    .pq-qname{display:flex;align-items:center;gap:6px;padding:5px 10px;background:#094771;color:#ddd;font-size:11px}
-    .pq-qdot{width:10px;height:10px;background:#c9933a;border-radius:2px;flex-shrink:0}
-    .pq-content{flex:1;overflow:hidden}
-    .pq-settings{width:195px;background:#252526;border-left:1px solid #3c3c3c;padding:10px;flex-shrink:0}
-    .pq-sh{color:#ccc;font-size:11px;font-weight:500;border-bottom:1px solid #3c3c3c;padding-bottom:4px;margin-bottom:8px}
-    .pq-step{display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px;border-radius:2px}
-    .pq-step.on{background:#094771}
-    .pq-sd{width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0}
-    .pq-step.on .pq-sd{background:#c9933a}
-    .pq-colhdr{display:flex;background:#2d2d2d;border-bottom:1px solid #3c3c3c}
-    .pq-ch{padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;white-space:nowrap}
-    .pq-datarow{display:flex;border-bottom:1px solid #2a2a2a}
-    .pq-datarow:nth-child(odd){background:#1e1e1e}
-    .pq-datarow:nth-child(even){background:#252526}
-    .pq-rn{width:26px;color:#666;font-size:9px;padding:4px;border-right:1px solid #2a2a2a;text-align:right;flex-shrink:0}
-    .pq-cell{padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .pq-cell.hi{background:rgba(201,147,58,.12);color:#E8C07A}
-    .pq-cell.loss{color:#f44747}
-    .pq-cell.disc{color:#dcdcaa}
-    .kw{color:#569cd6}.fn{color:#dcdcaa}.str{color:#ce9178}.cmt{color:#608b4e;font-style:italic}.vr{color:#9cdcfe}.nm{color:#b5cea8}.tp{color:#4ec9b0}
+/* ─── EDUCATION ─── */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.edu-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: border-color 0.3s;
+}
+.edu-card:hover { border-color: rgba(212,168,67,0.3); }
+.edu-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+.edu-degree {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+}
+.edu-school { font-size: 0.85rem; color: var(--gold); margin-bottom: 0.5rem; }
+.edu-year { font-size: 0.75rem; color: var(--text3); font-family: 'DM Mono', monospace; margin-bottom: 1rem; }
+.edu-modules {
+  font-size: 0.82rem;
+  color: var(--text2);
+  line-height: 1.7;
+}
+.edu-badge {
+  display: inline-block;
+  background: var(--gold-dim);
+  border: 1px solid rgba(212,168,67,0.2);
+  color: var(--gold);
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-top: 1rem;
+  font-family: 'DM Mono', monospace;
+}
 
-    /* Chime modal internal — light */
-    .cm{background:#f9f5ee;color:var(--ink);font-family:var(--body)}
-    .cm-hdr{background:#f0e8d8;border-bottom:1px solid rgba(201,147,58,.25);padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
-    .cm-logo{font-family:var(--serif);font-size:13px;font-weight:800;color:var(--gold-dark)}
-    .cm-tag{font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
-    .cm-body{padding:20px}
-    .cm-title{font-family:var(--serif);font-size:20px;font-weight:800;color:var(--ink);margin-bottom:4px;line-height:1.2}
-    .cm-sub{font-size:11px;color:var(--muted);margin-bottom:16px;font-family:var(--lora);font-style:italic}
-    .cm-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
-    .cm-kpi{background:#f0e8d8;border:1px solid rgba(201,147,58,.2);border-radius:8px;padding:10px;text-align:center}
-    .cm-kpi-n{font-family:var(--serif);font-size:19px;font-weight:800;color:var(--gold)}
-    .cm-kpi-l{font-size:9px;color:var(--muted);margin-top:2px}
-    .cm-tbl{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:14px}
-    .cm-tbl th{background:#f0e8d8;color:var(--muted);padding:7px 10px;text-align:left;border-bottom:1px solid rgba(201,147,58,.2);font-size:10px;letter-spacing:.05em;text-transform:uppercase}
-    .cm-tbl td{padding:7px 10px;border-bottom:1px solid rgba(201,147,58,.1);color:var(--ink2)}
-    .cm-tbl tr:last-child td{border-bottom:none}
-    .cm-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600}
-    .cm-lead{background:var(--gold-pale);color:var(--gold-dark)}
-    .cm-threat{background:rgba(226,75,74,.12);color:#A32D2D}
-    .cm-minor{background:rgba(122,110,95,.1);color:var(--muted)}
-    .cm-barwrap{display:flex;align-items:center;gap:8px}
-    .cm-barbg{flex:1;background:#e8deca;border-radius:99px;height:6px;overflow:hidden;min-width:50px}
-    .cm-barfill{height:100%;border-radius:99px}
-    .cm-insight{background:#f0e8d8;border:1px solid rgba(201,147,58,.2);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 12px;font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6;font-family:var(--lora);font-style:italic}
-    .cm-insight strong{color:var(--ink2);font-weight:500;font-style:normal}
+/* ─── CONTACT ─── */
+#contact {
+  text-align: center;
+  background: var(--bg2);
+}
+.contact-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  max-width: 720px;
+  margin: 0 auto 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.contact-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,168,67,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.contact-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--white);
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+.contact-title em { color: var(--gold); font-style: italic; }
+.contact-subtitle {
+  color: var(--text2);
+  font-size: 0.95rem;
+  max-width: 420px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+.contact-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.contact-pill:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+.contact-pill .pill-icon { font-size: 1rem; }
 
-    /* Contact */
-    .contact-section{margin:5rem 0}
-    .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:2rem}
-    .contact-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.25rem 1.5rem;backdrop-filter:blur(12px);transition:border-color .2s}
-    .contact-card:hover{border-color:rgba(201,147,58,.3)}
-    .contact-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-family:var(--body)}
-    .contact-val{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--ink)}
-    .contact-val.email-copy{cursor:pointer;display:flex;align-items:center;gap:8px;transition:color .2s}
-    .contact-val.email-copy:hover{color:var(--gold)}
-    .copy-toast{display:inline-block;font-size:11px;color:var(--gold-dark);background:var(--gold-pale);border:1px solid rgba(201,147,58,.3);padding:2px 10px;border-radius:99px;margin-left:8px;opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s;pointer-events:none;font-family:var(--body)}
-    .copy-toast.show{opacity:1;transform:translateY(0)}
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.contact-info-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color 0.3s;
+}
+.contact-info-card:hover { border-color: rgba(212,168,67,0.3); }
+.ci-label {
+  font-size: 0.68rem;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 0.5rem;
+}
+.ci-value {
+  font-size: 0.9rem;
+  color: var(--text);
+}
 
-    /* Divider */
-    .ornament{display:flex;align-items:center;gap:14px;margin:4rem 0 0;opacity:.4}
-    .ornament-line{flex:1;height:1px;background:var(--card-border)}
-    .ornament-diamond{width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+/* ─── FOOTER ─── */
+footer {
+  padding: 2rem max(24px, calc((100vw - 1200px)/2));
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--text3);
+}
+footer a { color: var(--text3); text-decoration: none; }
+footer a:hover { color: var(--gold); }
 
-    footer{border-top:1px solid var(--card-border);padding:2rem 0;margin-top:4rem;display:flex;justify-content:space-between;font-size:12px;color:var(--muted);flex-wrap:wrap;gap:8px;font-family:var(--body)}
-    footer span:first-child{font-family:var(--serif);font-weight:600;color:var(--ink2)}
+/* ─── FLOATING HIRE BTN ─── */
+.hire-float {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 800;
+  background: var(--gold);
+  color: #0C0E14;
+  padding: 14px 24px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 30px rgba(212,168,67,0.4);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  animation: floatUp 1s 1s var(--transition) both;
+}
+.hire-float:hover {
+  background: var(--gold2);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(212,168,67,0.5);
+}
+.hire-pulse {
+  width: 8px; height: 8px;
+  background: #0C0E14;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes floatUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
 
-    .reveal{opacity:0;transform:translateY(36px);transition:opacity .75s cubic-bezier(.25,.46,.45,.94),transform .75s cubic-bezier(.25,.46,.45,.94)}
-    .reveal.visible{opacity:1;transform:translateY(0)}
-
-    @media(max-width:768px){
-      .bento-1,.bento-2,.bento-3,.bento-4,.bento-5,.bento-6{grid-column:span 12}
-      .stats-row{grid-template-columns:1fr 1fr}
-      .contact-grid{grid-template-columns:1fr}
-      h1.kinetic{font-size:clamp(36px,10vw,62px)}
-      #hire-float{bottom:1rem;right:1rem;padding:10px 18px;font-size:12px}
-      .pq-gallery,.chime-thumbs{grid-template-columns:1fr}
-      .cm-kpis{grid-template-columns:1fr 1fr}
-    }
-    @media(max-width:480px){
-      .bento-grid{gap:12px}
-      .nav-links a:not(:last-child){display:none}
-    }
-  </style>
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  .tl-left { display: flex; gap: 1rem; align-items: center; padding-bottom: 0.5rem; }
+  .tl-dot { margin-top: 0; }
+  .skills-wrapper { grid-template-columns: 1fr; }
+  .proj-card.col-8, .proj-card.col-4, .proj-card.col-6 { grid-column: span 12; }
+  .hero-stats { gap: 1.5rem; }
+  .stat-divider { display: none; }
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+}
+</style>
 </head>
 <body>
 
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
-<div class="blob-container">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-</div>
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-<a href="mailto:saffat.hussaini.uk@gmail.com" id="hire-float"><span class="pulse-dot"></span>&nbsp; Hire Me</a>
+<!-- Floating CTA -->
+<a href="#contact" class="hire-float">
+  <span class="hire-pulse"></span> Open to Work
+</a>
 
-<!-- PQ MODAL -->
-<div id="pq-modal" class="modal-overlay">
-  <div class="modal-inner">
-    <button class="modal-close-btn" onclick="closePQ()">&#10005;</button>
-    <div class="modal-title-bar" id="pq-modal-title"></div>
-    <div id="pq-modal-content" style="overflow-x:auto"></div>
-  </div>
-</div>
-
-<!-- CHIME MODAL -->
-<div id="chime-modal" class="modal-overlay">
-  <div class="modal-inner">
-    <button class="modal-close-btn" onclick="closeChime()">&#10005;</button>
-    <div class="modal-title-bar" id="chime-modal-title"></div>
-    <div id="chime-modal-content"></div>
-  </div>
-</div>
-
+<!-- Nav -->
 <nav>
-  <div class="nav-inner">
-    <div class="nav-logo">Saffat <span>Hussaini</span></div>
-    <div class="nav-links">
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
+  <a href="#hero" class="nav-logo">Saffat<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#what-i-do">What I Do</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact" class="nav-hire">Hire Me</a></li>
+  </ul>
 </nav>
 
-<div class="wrapper">
-  <section class="hero reveal">
-    <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span> Available for freelance &mdash; Dhaka, Bangladesh</div>
-    <h1 class="kinetic" id="kinetic-hero">
-      <span class="line-1">Turning messy</span>
-      <span class="line-2">data into gold.</span>
-      <span class="line-3">I help businesses worldwide clean, structure, and visualize their data so they can make faster, smarter decisions. Specializing in Excel, Power BI &amp; SQL.</span>
-    </h1>
-    <div class="hero-cta-row">
-      <a href="mailto:saffat.hussaini.uk@gmail.com" class="btn-primary magnetic">Get in touch</a>
-      <a href="#projects" class="btn-ghost magnetic">See my work</a>
-    </div>
-  </section>
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
 
-  <div class="stats-row reveal">
-    <div class="stat-card"><div class="stat-num">5+</div><div class="stat-lbl">Projects done</div></div>
-    <div class="stat-card"><div class="stat-num">3</div><div class="stat-lbl">Core tools</div></div>
-    <div class="stat-card"><div class="stat-num">24h</div><div class="stat-lbl">Response time</div></div>
-    <div class="stat-card"><div class="stat-num">100%</div><div class="stat-lbl">Remote ready</div></div>
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Available for Full-time &amp; Freelance — Dhaka, BD
   </div>
 
-  <section class="skills-section" id="skills">
-    <div class="section-header reveal">
-      <div class="section-tag">// capabilities</div>
-      <div class="section-title">Skills &amp; tools</div>
+  <h1 class="hero-name">
+    S M Saffat<br><span class="gold-word">Hussaini</span>
+  </h1>
+
+  <p class="hero-title">
+    Business Analyst &amp; <span class="typed-word" id="typed"></span>
+  </p>
+
+  <p class="hero-desc">
+    I turn fragmented business data and operational complexity into clear, 
+    decision-ready insights. MSc from the University of Strathclyde, Glasgow — 
+    backed by 3 years of real-world audit and operations experience at scale.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#projects" class="btn-primary">See My Work ↓</a>
+    <a href="https://www.fiverr.com/saffathussaini" target="_blank" class="btn-ghost">Hire on Fiverr ↗</a>
+    <a href="#contact" class="btn-ghost">Get in Touch</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num"><span class="counter stat-gold" data-target="100">0</span><span class="stat-gold">+</span></span>
+      <span class="stat-label">Audit Findings Resolved</span>
     </div>
-    <div class="skills-cloud reveal">
-      <span class="skill-tag sk-excel">&#9654; Excel</span>
-      <span class="skill-tag sk-sheets">&#9654; Google Sheets</span>
-      <span class="skill-tag sk-powerbi">&#9654; Power BI</span>
-      <span class="skill-tag sk-sql">&#9654; SQL</span>
-      <span class="skill-tag sk-clean">&#9654; Data cleaning</span>
-      <span class="skill-tag sk-viz">&#9654; Data visualization</span>
-      <span class="skill-tag sk-dash">&#9654; Dashboard design</span>
-      <span class="skill-tag sk-pivot">&#9654; Pivot tables</span>
-      <span class="skill-tag sk-dax">&#9654; DAX</span>
-      <span class="skill-tag sk-vlookup">&#9654; VLOOKUP / XLOOKUP</span>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num"><span class="counter stat-gold" data-target="7">0</span></span>
+      <span class="stat-label">Warehouses Managed</span>
     </div>
-  </section>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num"><span class="counter stat-gold" data-target="100">0</span><span class="stat-gold">+</span></span>
+      <span class="stat-label">Personnel Led</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num"><span class="stat-gold">7.5</span></span>
+      <span class="stat-label">IELTS Band (C1)</span>
+    </div>
+  </div>
+</section>
 
-  <section class="projects-section" id="projects">
-    <div class="section-header reveal">
-      <div class="section-tag">// selected work</div>
-      <div class="section-title">Projects</div>
+<!-- ─── WHAT I DO ─── -->
+<section id="what-i-do">
+  <div class="section-eyebrow reveal">01 — Value I Deliver</div>
+  <h2 class="section-title reveal reveal-delay-1">The problems I was <em>built to solve.</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">I work best with teams and organisations that have data — but aren't getting clear decisions from it.</p>
+
+  <div class="problems-grid reveal reveal-delay-2">
+    <div class="problem-card">
+      <span class="problem-icon">📊</span>
+      <div class="problem-title">Messy Data, No Insights</div>
+      <p class="problem-body">Your Excel files are chaotic, reports take days to produce, and nobody trusts the numbers. You're drowning in data but starved for clarity.</p>
+      <div class="problem-outcome">Clean, automated reports that leadership actually uses</div>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">🔍</span>
+      <div class="problem-title">Audit Risk Hiding in Plain Sight</div>
+      <p class="problem-body">Discrepancies in vendor records, inventory counts that never match, compliance gaps discovered only after they become problems.</p>
+      <div class="problem-outcome">Systematic audit cycles that catch issues before they escalate</div>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">⚙️</span>
+      <div class="problem-title">Operations Without Visibility</div>
+      <p class="problem-body">Warehouse throughput is inconsistent, KPIs are tracked on paper, and corrective actions take weeks because no one has a live view.</p>
+      <div class="problem-outcome">Real-time dashboards and SOPs that keep operations on track</div>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">🌍</span>
+      <div class="problem-title">Data Work You Need Done Fast</div>
+      <p class="problem-body">You have a deadline, a messy dataset, and no one in-house to clean it, analyse it, and hand back something usable. You need a reliable freelancer.</p>
+      <div class="problem-outcome">Fast, accurate delivery — Excel, Power BI, SQL, Python</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE ─── -->
+<section id="experience">
+  <div class="section-eyebrow reveal">02 — Career Track</div>
+  <h2 class="section-title reveal reveal-delay-1">3 years. Real companies. <em>Measurable outcomes.</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">Every role: a real business problem, a hands-on solution, and a result that mattered.</p>
+
+  <div class="timeline">
+
+    <!-- ShopUp -->
+    <div class="timeline-item reveal">
+      <div class="timeline-left">
+        <div class="tl-date">Apr 2022 – Oct 2023</div>
+        <div class="tl-company">ShopUp</div>
+        <div class="tl-location">Dhaka, Bangladesh</div>
+        <div class="tl-dot" style="margin-top:1rem;"></div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-role">Internal Audit Executive</div>
+        <span class="tl-badge">B2B Commerce &amp; Fintech · Mokam Portfolio</span>
+        <div class="tl-situation">
+          Finance, supply chain, and operations running with no unified audit cycle. Vendor documentation gaps and inventory discrepancies going undetected for months. Corrective actions taking 10+ days on average.
+        </div>
+        <ul class="tl-bullets">
+          <li>Directed comprehensive internal audits across finance, supply chain, and operations — covering 3 departments with a 2-week cycle per audit, flagging systemic risks before they escalated.</li>
+          <li>Resolved 100+ audit discrepancies through structured cross-departmental coordination; reduced the pending backlog from ~30 open items to zero within 6 months.</li>
+          <li>Authored structured audit and MIS reports for C-level leadership — standardised documentation templates cut report preparation time from 5 days to 3 days.</li>
+          <li>Redesigned audit communication protocols, reducing corrective action turnaround from 10 days to 4 days average.</li>
+          <li>Conducted field market audits across Dhaka and outside Dhaka — engaged distributors, verified inventory records, and assessed supply chain compliance at warehouse level under the Mokam B2B portfolio.</li>
+          <li>Verified financial records, vendor documentation, and transaction data to maintain internal control standards and sustained audit readiness.</li>
+        </ul>
+        <div class="tl-metrics">
+          <div class="tl-metric"><span class="tl-metric-num">100+</span><span class="tl-metric-label">Discrepancies Resolved</span></div>
+          <div class="tl-metric"><span class="tl-metric-num">−40%</span><span class="tl-metric-label">Report Prep Time</span></div>
+          <div class="tl-metric"><span class="tl-metric-num">−60%</span><span class="tl-metric-label">Corrective Turnaround</span></div>
+        </div>
+        <div class="tl-tags">
+          <span class="tl-tag">Internal Audit</span><span class="tl-tag">MIS Reporting</span><span class="tl-tag">Power BI</span><span class="tl-tag">Excel</span><span class="tl-tag">Field Audit</span><span class="tl-tag">Vendor Management</span>
+        </div>
+      </div>
     </div>
 
-    <div class="bento-grid">
-
-      <!-- CARD 1: Excel -->
-      <div class="bento-card bento-1 reveal magnetic-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.05">
-        <div class="bento-visual" style="height:180px;background:var(--bg2)">
-          <table class="mini-table" style="width:100%">
-            <thead><tr><th>Product</th><th>Category</th><th>Status</th><th>Score</th></tr></thead>
-            <tbody>
-              <tr><td>Blue Cotton T-Shirt</td><td>Apparel</td><td><span class="badge-ok">Clean</span></td><td>95%</td></tr>
-              <tr><td>wireless headphones</td><td>Electronics</td><td><span class="badge-warn">Fixed</span></td><td>80%</td></tr>
-              <tr><td>NULL</td><td>—</td><td><span class="badge-err">Missing</span></td><td>20%</td></tr>
-              <tr><td>Running Shoes (Nike)</td><td>Footwear</td><td><span class="badge-ok">Clean</span></td><td>100%</td></tr>
-            </tbody>
-          </table>
+    <!-- Foodpanda -->
+    <div class="timeline-item reveal">
+      <div class="timeline-left">
+        <div class="tl-date">Jun 2021 – Dec 2021</div>
+        <div class="tl-company">Foodpanda Bangladesh</div>
+        <div class="tl-location">Dhaka, Bangladesh</div>
+        <div class="tl-dot" style="margin-top:1rem;"></div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-role">Cluster Executive</div>
+        <span class="tl-badge">Promoted from Warehouse In-Charge · 6 months</span>
+        <div class="tl-situation">
+          7 high-volume warehouses with inconsistent throughput, manual KPI tracking, and no standardised SOPs. Picking accuracy at ~85% was causing delivery errors. Warehouse layout inefficiencies adding time to every outbound cycle.
         </div>
-        <div class="bento-body">
-          <span class="bento-tag tag-gold">Excel + Power Query</span>
-          <div class="bento-title">E-commerce sales data cleanup</div>
-          <div class="bento-desc">Cleaned 51,000+ rows using Power Query — 18 documented steps including type conversion, deduplication, TRIM, and 5 calculated columns including Days to Ship and Profit Margin %.</div>
-          <div class="bento-tools">
-            <span class="bento-tool">Power Query</span><span class="bento-tool">M code</span>
-            <span class="bento-tool">VLOOKUP</span><span class="bento-tool">Data validation</span>
-          </div>
-          <div class="bento-result"><strong>Result:</strong> Reduced errors by 94% — 51,252 clean rows, fully analysis-ready.</div>
-          <div class="pq-gallery">
-            <a class="pq-thumb" onclick="openPQ('profile')" href="javascript:void(0)">
-              <div class="pq-thumb-label">Column quality profile <span>&#8599;</span></div>
-              <div class="pq-thumb-preview">Valid  100%  ██████████
-Error    0%  — 18 applied steps
-51,252 distinct rows</div>
-              <span class="pq-thumb-badge badge-steps">18 applied steps</span>
-            </a>
-            <a class="pq-thumb" onclick="openPQ('mcode')" href="javascript:void(0)">
-              <div class="pq-thumb-label">M code — advanced editor <span>&#8599;</span></div>
-              <div class="pq-thumb-preview">let
-  Source = Csv.Document(
-  Set_Data_Types =</div>
-              <span class="pq-thumb-badge badge-mcode">Syntax highlighted</span>
-            </a>
-            <a class="pq-thumb" onclick="openPQ('groupby')" href="javascript:void(0)">
-              <div class="pq-thumb-label">Group By summary <span>&#8599;</span></div>
-              <div class="pq-thumb-preview">Category      Sum Sales
-Office Sup.   3,787,330
-Technology    4,744,691</div>
-              <span class="pq-thumb-badge badge-group">Table.Group()</span>
-            </a>
-            <a class="pq-thumb" onclick="openPQ('calccols')" href="javascript:void(0)">
-              <div class="pq-thumb-label">Calculated columns <span>&#8599;</span></div>
-              <div class="pq-thumb-preview">Days to Ship  Margin  Status
-5             26.01%  Profit
-4            -57.90%  Loss</div>
-              <span class="pq-thumb-badge badge-calc">5 new columns</span>
-            </a>
-          </div>
+        <ul class="tl-bullets">
+          <li>Managed 100+ personnel across 7 warehouses — earned early promotion to Cluster Executive within 6 months for consistently exceeding KPI targets.</li>
+          <li>Orchestrated a 33-hour non-stop warehouse reorganisation: restructured layout, redefined pick zones, and repositioned inventory without halting live inbound or outbound operations — reduced pick-and-pack time by ~20%.</li>
+          <li>Trained 100+ staff on standardised inventory management protocols — improved picking accuracy from ~85% to ~95% within 8 weeks.</li>
+          <li>Oversaw procurement cycles and inventory KPI monitoring across the cluster, maintaining zero inventory gap over the tenure.</li>
+          <li>Coordinated with beverage vendors and distributor relationships, managing documentation and inbound logistics at cluster level.</li>
+          <li>Established safety protocols and staff incentive programmes that measurably boosted team productivity and operational consistency.</li>
+        </ul>
+        <div class="tl-metrics">
+          <div class="tl-metric"><span class="tl-metric-num">100+</span><span class="tl-metric-label">Personnel Led</span></div>
+          <div class="tl-metric"><span class="tl-metric-num">+10pp</span><span class="tl-metric-label">Picking Accuracy</span></div>
+          <div class="tl-metric"><span class="tl-metric-num">−20%</span><span class="tl-metric-label">Pack Time</span></div>
+          <div class="tl-metric"><span class="tl-metric-num">7</span><span class="tl-metric-label">Warehouses</span></div>
+        </div>
+        <div class="tl-tags">
+          <span class="tl-tag">Operations Management</span><span class="tl-tag">Warehouse</span><span class="tl-tag">KPI Monitoring</span><span class="tl-tag">Procurement</span><span class="tl-tag">SOP Design</span><span class="tl-tag">Team Leadership</span>
         </div>
       </div>
-
-      <!-- CARD 2: Power BI -->
-      <div class="bento-card bento-2 reveal magnetic-card" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.06">
-        <div class="bento-visual" style="padding:1.25rem 1.25rem 0.5rem;background:var(--bg2)">
-          <div style="width:100%">
-            <div style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:500;font-family:var(--body)">Monthly revenue</div>
-            <div class="mini-bars" style="padding-bottom:24px">
-              <div class="mbar" style="height:52%;background:rgba(201,147,58,.25)"><span class="mbar-label">Jan</span></div>
-              <div class="mbar" style="height:65%;background:rgba(201,147,58,.35)"><span class="mbar-label">Feb</span></div>
-              <div class="mbar" style="height:48%;background:rgba(201,147,58,.25)"><span class="mbar-label">Mar</span></div>
-              <div class="mbar" style="height:78%;background:rgba(201,147,58,.45)"><span class="mbar-label">Apr</span></div>
-              <div class="mbar" style="height:100%;background:rgba(186,117,23,.8)"><span class="mbar-label">May</span><span class="mbar-val">Peak</span></div>
-              <div class="mbar" style="height:60%;background:rgba(201,147,58,.38)"><span class="mbar-label">Jun</span></div>
-              <div class="mbar" style="height:72%;background:rgba(201,147,58,.42)"><span class="mbar-label">Jul</span></div>
-              <div class="mbar" style="height:88%;background:rgba(186,117,23,.6)"><span class="mbar-label">Aug</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="bento-body">
-          <span class="bento-tag tag-amber">Power BI</span>
-          <div class="bento-title">Regional sales dashboard</div>
-          <div class="bento-desc">Interactive dashboard with slicers, drill-through filters and KPI cards tracking monthly revenue &amp; top products.</div>
-          <div class="bento-tools"><span class="bento-tool">Power BI</span><span class="bento-tool">DAX</span><span class="bento-tool">Power Query</span></div>
-          <div class="bento-result"><strong>Result:</strong> Replaced a 40-tab static Excel report.</div>
-        </div>
-      </div>
-
-      <!-- CARD 3: SQL -->
-      <div class="bento-card bento-3 reveal magnetic-card" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.06">
-        <div class="bento-visual" style="background:var(--bg2)">
-          <div class="mini-donut" style="width:100%">
-            <svg width="110" height="110" viewBox="0 0 110 110" style="flex-shrink:0">
-              <circle cx="55" cy="55" r="40" fill="none" stroke="rgba(201,147,58,.15)" stroke-width="20"/>
-              <circle cx="55" cy="55" r="40" fill="none" stroke="#C9933A" stroke-width="20" stroke-dasharray="100 151" stroke-dashoffset="0" transform="rotate(-90 55 55)"/>
-              <circle cx="55" cy="55" r="40" fill="none" stroke="#E8C07A" stroke-width="20" stroke-dasharray="60 191" stroke-dashoffset="-100" transform="rotate(-90 55 55)"/>
-              <circle cx="55" cy="55" r="40" fill="none" stroke="#A3721C" stroke-width="20" stroke-dasharray="42 209" stroke-dashoffset="-160" transform="rotate(-90 55 55)"/>
-              <text x="55" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#1C1710" font-family="Playfair Display,serif">5,000</text>
-              <text x="55" y="64" text-anchor="middle" font-size="9" fill="#7A6E5F" font-family="DM Sans,sans-serif">customers</text>
-            </svg>
-            <div class="donut-items">
-              <div class="donut-row"><div class="donut-swatch" style="background:#C9933A"></div><div class="donut-lbl">High value</div><div class="donut-pct">40%</div></div>
-              <div class="donut-row"><div class="donut-swatch" style="background:#E8C07A"></div><div class="donut-lbl">Mid value</div><div class="donut-pct">27%</div></div>
-              <div class="donut-row"><div class="donut-swatch" style="background:#A3721C"></div><div class="donut-lbl">Low value</div><div class="donut-pct">19%</div></div>
-              <div class="donut-row"><div class="donut-swatch" style="background:rgba(201,147,58,.2)"></div><div class="donut-lbl">Churned</div><div class="donut-pct">14%</div></div>
-            </div>
-          </div>
-        </div>
-        <div class="bento-body">
-          <span class="bento-tag tag-mauve">SQL</span>
-          <div class="bento-title">Customer behavior analysis</div>
-          <div class="bento-desc">Queried 5,000-customer database to uncover churn patterns and top-spending segments using JOINs &amp; subqueries.</div>
-          <div class="bento-tools"><span class="bento-tool">SQL</span><span class="bento-tool">GROUP BY</span><span class="bento-tool">JOINs</span></div>
-          <div class="bento-result"><strong>Result:</strong> Top 40% of customers drove 78% of revenue.</div>
-        </div>
-      </div>
-
-      <!-- CARD 4: Services -->
-      <div class="bento-card bento-4 reveal" style="display:flex;flex-direction:column;justify-content:center;padding:2rem">
-        <span class="bento-tag tag-sage" style="margin-bottom:16px">What I offer</span>
-        <div class="bento-title" style="font-size:22px;margin-bottom:18px;line-height:1.25">Everything you need,<br>nothing you don't.</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <div class="service-item"><span>&#10022;</span> Data cleaning</div>
-          <div class="service-item"><span>&#10022;</span> Power BI dashboards</div>
-          <div class="service-item"><span>&#10022;</span> Excel automation</div>
-          <div class="service-item"><span>&#10022;</span> SQL analysis</div>
-          <div class="service-item"><span>&#10022;</span> Error removal</div>
-          <div class="service-item"><span>&#10022;</span> Google Sheets</div>
-        </div>
-      </div>
-
-      <!-- CARD 5: Chime MFS -->
-      <div class="bento-card bento-5 reveal magnetic-card" data-tilt data-tilt-max="4" data-tilt-speed="400">
-        <div class="bento-visual" style="height:160px;background:linear-gradient(135deg,var(--bg2),var(--bg3));flex-direction:column;align-items:flex-start;padding:1.25rem 1.5rem">
-          <div style="font-size:10px;color:var(--gold-dark);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;font-family:var(--body)">Live survey data &middot; n=417 respondents &middot; Dhaka &amp; Chittagong</div>
-          <div class="chime-kpi-row" style="width:100%">
-            <div class="chime-kpi"><div class="chime-kpi-num">43.2%</div><div class="chime-kpi-lbl">Chime market share</div></div>
-            <div class="chime-kpi"><div class="chime-kpi-num">+697%</div><div class="chime-kpi-lbl">Merchant payment growth</div></div>
-            <div class="chime-kpi"><div class="chime-kpi-num">85%</div><div class="chime-kpi-lbl">DFS adoption intent</div></div>
-            <div class="chime-kpi"><div class="chime-kpi-num">ASD 4.43Bn</div><div class="chime-kpi-lbl">Chime free cash flow</div></div>
-          </div>
-        </div>
-        <div class="bento-body">
-          <span class="bento-tag tag-teal">Strategy &amp; Analysis</span>
-          <div class="bento-title">Chime MFS — competitive strategy report</div>
-          <div class="bento-desc">Full competitive analysis for Chime MFS. Primary survey (n=417), market share breakdown, service line growth ranking, customer segmentation (4 economic tiers &times; 4 personas), and 5 strategic recommendations to defend against SnapTap's G2P monopoly.</div>
-          <div class="bento-tools">
-            <span class="bento-tool">Excel analysis</span><span class="bento-tool">Primary survey</span>
-            <span class="bento-tool">Segmentation</span><span class="bento-tool">Strategy</span>
-          </div>
-          <div class="bento-result"><strong>Key finding:</strong> Chime leads on NPM (3.28% vs 2.63%) and FCF (ASD 4.43Bn vs 0.89Bn) but faces a structural threat — SnapTap holds 75% of G2P via government mandate.</div>
-          <div class="chime-thumbs">
-            <a class="chime-thumb" onclick="openChime('market')" href="javascript:void(0)">
-              <div class="chime-thumb-label">Market share analysis <span>&#8599;</span></div>
-              <div class="chime-thumb-preview">Chime 43.2% &middot; SnapTap 35.3% &middot; PayUp 11.5%<br>NPM 3.28% vs 2.63% &middot; FCF 4.43Bn vs 0.89Bn</div>
-              <span class="chime-thumb-badge">Q1 &middot; n=417</span>
-            </a>
-            <a class="chime-thumb" onclick="openChime('growth')" href="javascript:void(0)">
-              <div class="chime-thumb-label">Service line growth <span>&#8599;</span></div>
-              <div class="chime-thumb-preview">Merchant +697% &middot; P2P +458% &middot; Utility +356%<br>Priority score ranking &middot; 2019&ndash;2023 data</div>
-              <span class="chime-thumb-badge">Q2 &middot; 2019&ndash;2023</span>
-            </a>
-            <a class="chime-thumb" onclick="openChime('segments')" href="javascript:void(0)">
-              <div class="chime-thumb-label">Customer segmentation <span>&#8599;</span></div>
-              <div class="chime-thumb-preview">Emerging 45% &middot; Aspirant 31% &middot; Established 16%<br>Deal-Aware 43% &middot; Lifestyle-Aspiring 30%</div>
-              <span class="chime-thumb-badge">Q3 &middot; 4&times;4 matrix</span>
-            </a>
-            <a class="chime-thumb" onclick="openChime('strategy')" href="javascript:void(0)">
-              <div class="chime-thumb-label">Strategic recommendations <span>&#8599;</span></div>
-              <div class="chime-thumb-preview">5 data-backed moves with measurable KPIs<br>Banking licence moat &middot; G2P reclaim path</div>
-              <span class="chime-thumb-badge">Q4 &middot; 5 recommendations</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CARD 6: Strategy deck -->
-      <div class="bento-card bento-6 reveal magnetic-card" data-tilt data-tilt-max="5" data-tilt-speed="400">
-        <div class="bento-visual" style="height:160px;background:linear-gradient(135deg,var(--bg2),var(--bg3));flex-direction:column;align-items:flex-start;padding:1.25rem">
-          <div style="font-size:10px;color:var(--gold-dark);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;font-family:var(--body)">LightCastle Partners &middot; Confidential &middot; April 2023</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%">
-            <div style="background:var(--gold-pale);border:1px solid rgba(201,147,58,.3);border-radius:8px;padding:8px;text-align:center">
-              <div style="font-family:var(--serif);font-size:22px;font-weight:800;color:var(--gold)">9</div>
-              <div style="font-size:9px;color:var(--muted);font-family:var(--body)">Slide pages</div>
-            </div>
-            <div style="background:var(--gold-pale);border:1px solid rgba(201,147,58,.3);border-radius:8px;padding:8px;text-align:center">
-              <div style="font-family:var(--serif);font-size:22px;font-weight:800;color:var(--gold)">5</div>
-              <div style="font-size:9px;color:var(--muted);font-family:var(--body)">Strategic moves</div>
-            </div>
-          </div>
-        </div>
-        <div class="bento-body">
-          <span class="bento-tag tag-sky">Consulting deck</span>
-          <div class="bento-title">Strategy presentation slides</div>
-          <div class="bento-desc">Executive-ready strategy deck built for the Chime CEO. Covers competitive landscape, service line prioritization, customer personas, 5 strategic recommendations and 5 policy intervention priorities.</div>
-          <div class="bento-tools">
-            <span class="bento-tool">Slide design</span><span class="bento-tool">Executive comms</span><span class="bento-tool">Consulting framework</span>
-          </div>
-          <div class="bento-result"><strong>Deliverable:</strong> 9-page confidential strategy deck — CEO pre-meeting to policy lobbying.</div>
-          <div class="chime-thumbs" style="grid-template-columns:1fr;margin-top:14px">
-            <a class="chime-thumb" onclick="openChime('deck')" href="javascript:void(0)" style="border-color:rgba(55,138,221,.25)">
-              <div class="chime-thumb-label" style="color:#185FA5">View strategy deck overview <span>&#8599;</span></div>
-              <div class="chime-thumb-preview">Market share &middot; Service line growth &middot; Customer segments &middot; Strategic recommendations &middot; Policy interventions &middot; Survey highlights</div>
-              <span class="chime-thumb-badge" style="background:rgba(55,138,221,.1);color:#185FA5;border-color:rgba(55,138,221,.25)">9 slides &middot; Full deck</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </section>
 
-  <div class="ornament reveal"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
-
-  <section class="contact-section reveal" id="contact">
-    <div class="section-header">
-      <div class="section-tag">// let's work together</div>
-      <div class="section-title">Get in touch</div>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <div class="contact-label">Email</div>
-        <div class="contact-val email-copy" onclick="copyEmail()">
-          saffat.hussaini.uk@gmail.com
-          <span style="font-size:13px;opacity:.5">&#9112;</span>
-          <span class="copy-toast" id="copy-toast">Copied!</span>
+    <!-- MSc -->
+    <div class="timeline-item reveal">
+      <div class="timeline-left">
+        <div class="tl-date">Oct 2023 – Nov 2025</div>
+        <div class="tl-company">Univ. of Strathclyde</div>
+        <div class="tl-location">Glasgow, UK</div>
+        <div class="tl-dot" style="margin-top:1rem;"></div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-role">MSc Business Analysis &amp; Consulting</div>
+        <span class="tl-badge">Merit · AACSB · AMBA · EQUIS Triple-Accredited</span>
+        <ul class="tl-bullets">
+          <li>Core modules: Quantitative Business Analysis, Strategy Modelling &amp; Management, Spreadsheet Modelling &amp; Demand Forecasting, Managing Business Operations, Foundations of Operational Research &amp; Business Analysis.</li>
+          <li>Live consulting project for Haggis Hoppers (vehicle rental company) — conducted market growth analysis, built financial forecast models, and delivered expansion feasibility recommendations to a client panel including industry practitioners.</li>
+          <li>Applied advanced Excel modelling, SQL, and Power BI in coursework — directly bridging academic frameworks with real-world analytical workflows.</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="tl-tag">Business Analysis</span><span class="tl-tag">Strategy Modelling</span><span class="tl-tag">Demand Forecasting</span><span class="tl-tag">Operations Research</span><span class="tl-tag">Consulting</span>
         </div>
       </div>
-      <div class="contact-card"><div class="contact-label">Location</div><div class="contact-val">Dhaka, Bangladesh</div></div>
-      <div class="contact-card"><div class="contact-label">Platforms</div><div class="contact-val">Fiverr &amp; Upwork</div></div>
-      <div class="contact-card"><div class="contact-label">Response time</div><div class="contact-val">Within 24 hours</div></div>
     </div>
-  </section>
 
-  <footer>
-    <span>Saffat Hussaini &mdash; Data Freelancer</span>
-    <span>Dhaka, Bangladesh &middot; Open to remote work worldwide</span>
-  </footer>
-</div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="section-eyebrow reveal">03 — Portfolio</div>
+  <h2 class="section-title reveal reveal-delay-1">Selected <em>Projects</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">Hands-on work — built with real datasets, real tools, real output.</p>
+
+  <div class="projects-grid">
+
+    <div class="proj-card col-8 reveal">
+      <div class="proj-header">
+        <span class="proj-num">01 · ★ Featured</span>
+        <a href="https://github.com/saffathussainiuk-ops" target="_blank" class="proj-link">↗</a>
+      </div>
+      <div class="proj-icon">🧹</div>
+      <div class="proj-highlight">★ Excel + Power Query</div>
+      <div class="proj-title">SuperStore Data Cleaning &amp; Analysis</div>
+      <div class="proj-desc">
+        Took the raw, messy Kaggle SuperStore dataset and built a full data cleaning pipeline using Excel Power Query — removed duplicates, fixed formatting inconsistencies, standardised date fields, and restructured the schema. Followed up with PivotTable analysis and a summary dashboard showing regional sales trends, category performance, and profit margins.
+      </div>
+      <div class="proj-footer">
+        <span class="proj-tool">Excel</span>
+        <span class="proj-tool">Power Query</span>
+        <span class="proj-tool">PivotTables</span>
+        <span class="proj-tool">Data Cleaning</span>
+        <span class="proj-tool">Dashboard</span>
+      </div>
+    </div>
+
+    <div class="proj-card col-4 reveal reveal-delay-1">
+      <div class="proj-header">
+        <span class="proj-num">02</span>
+        <a href="https://github.com/saffathussainiuk-ops" target="_blank" class="proj-link">↗</a>
+      </div>
+      <div class="proj-icon">📈</div>
+      <div class="proj-title">Sales Dashboard — Power BI</div>
+      <div class="proj-desc">
+        Multi-visual Power BI dashboard with KPI cards, regional bar charts, and a date slicer. Built on the SuperStore dataset with a clean star-schema model.
+      </div>
+      <div class="proj-footer">
+        <span class="proj-tool">Power BI</span>
+        <span class="proj-tool">DAX</span>
+        <span class="proj-tool">Data Modelling</span>
+      </div>
+    </div>
+
+    <div class="proj-card col-6 reveal">
+      <div class="proj-header">
+        <span class="proj-num">03 · ★ Featured</span>
+        <a href="https://github.com/saffathussainiuk-ops" target="_blank" class="proj-link">↗</a>
+      </div>
+      <div class="proj-icon">🚀</div>
+      <div class="proj-highlight">★ Full-Stack App</div>
+      <div class="proj-title">Sales Analytics Web App</div>
+      <div class="proj-desc">
+        Built a full sales analytics dashboard as a web application using Streamlit (frontend), FastAPI (backend), and SQLite (data layer). Added JWT authentication, bcrypt password hashing, and a seeded demo dataset. Later migrated the data layer to CSV format for Power BI Desktop compatibility.
+      </div>
+      <div class="proj-footer">
+        <span class="proj-tool">Python</span>
+        <span class="proj-tool">Streamlit</span>
+        <span class="proj-tool">FastAPI</span>
+        <span class="proj-tool">SQLite</span>
+        <span class="proj-tool">JWT Auth</span>
+        <span class="proj-tool">Power BI</span>
+      </div>
+    </div>
+
+    <div class="proj-card col-6 reveal reveal-delay-1">
+      <div class="proj-header">
+        <span class="proj-num">04</span>
+        <a href="https://github.com/saffathussainiuk-ops" target="_blank" class="proj-link">↗</a>
+      </div>
+      <div class="proj-icon">🗄️</div>
+      <div class="proj-title">SQL Customer Analysis</div>
+      <div class="proj-desc">
+        Wrote 10+ structured SQL queries on a customer transaction dataset — cohort segmentation by purchase frequency, revenue by region, top SKUs by margin, and month-over-month growth. Documented results with annotated screenshots.
+      </div>
+      <div class="proj-footer">
+        <span class="proj-tool">SQL</span>
+        <span class="proj-tool">Aggregations</span>
+        <span class="proj-tool">Cohort Analysis</span>
+        <span class="proj-tool">MoM Trends</span>
+      </div>
+    </div>
+
+    <div class="proj-card col-4 reveal">
+      <div class="proj-header">
+        <span class="proj-num">05</span>
+        <a href="https://github.com/saffathussainiuk-ops" target="_blank" class="proj-link">↗</a>
+      </div>
+      <div class="proj-icon">📋</div>
+      <div class="proj-title">Excel Lookup Modelling</div>
+      <div class="proj-desc">
+        Advanced Excel formulas — VLOOKUP with MATCH, INDEX-MATCH for two-dimensional lookups, and dynamic named ranges applied to a business reporting use case.
+      </div>
+      <div class="proj-footer">
+        <span class="proj-tool">Excel</span>
+        <span class="proj-tool">INDEX-MATCH</span>
+        <span class="proj-tool">Dynamic Arrays</span>
+      </div>
+    </div>
+
+    <div class="proj-card col-8 reveal reveal-delay-1">
+      <div class="proj-header">
+        <span class="proj-num">06 · Consulting</span>
+        <span></span>
+      </div>
+      <div class="proj-icon">🏢</div>
+      <div class="proj-highlight">★ Live Client Project</div>
+      <div class="proj-title">Haggis Hoppers — Market Expansion Strategy</div>
+      <div class="proj-desc">
+        MSc live consulting engagement (University of Strathclyde) for Haggis Hoppers, a vehicle rental company. Conducted market growth analysis, built financial forecast models using Spreadsheet Modelling techniques, and delivered an expansion feasibility recommendation to a live client panel including industry practitioners. Operated as Business Analyst within a consulting team.
+      </div>
+      <div class="proj-footer">
+        <span class="proj-tool">Business Analysis</span>
+        <span class="proj-tool">Financial Modelling</span>
+        <span class="proj-tool">Excel</span>
+        <span class="proj-tool">Market Analysis</span>
+        <span class="proj-tool">Strategy</span>
+        <span class="proj-tool">Client Presentation</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section id="skills">
+  <div class="section-eyebrow reveal">04 — Technical Toolkit</div>
+  <h2 class="section-title reveal reveal-delay-1">The tools that <em>deliver results.</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">Built through real enterprise delivery and academic application — not just tutorials.</p>
+
+  <div class="skills-wrapper reveal reveal-delay-2">
+    <div class="skill-cat">
+      <div class="skill-cat-title">📊 Spreadsheets &amp; BI</div>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Advanced Excel (Power Query, PivotTables, VBA)</span><span class="skill-bar-pct">95%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Power BI (DAX, Data Modelling)</span><span class="skill-bar-pct">85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Power Pivot &amp; Power Query</span><span class="skill-bar-pct">88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-title">💻 Programming &amp; Data</div>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">SQL (Queries, Aggregation, Joins)</span><span class="skill-bar-pct">80%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Python (pandas, Streamlit, FastAPI)</span><span class="skill-bar-pct">72%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="72"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">MIS Reporting &amp; Documentation</span><span class="skill-bar-pct">92%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-title">🎯 Business Skills</div>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Internal Audit &amp; Risk Assessment</span><span class="skill-bar-pct">90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Operations &amp; Supply Chain Management</span><span class="skill-bar-pct">88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Business Analysis &amp; Consulting</span><span class="skill-bar-pct">82%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-title">🌐 Communication</div>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">English (IELTS 7.5 Band · C1)</span><span class="skill-bar-pct">C1</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Bengali (Native)</span><span class="skill-bar-pct">Native</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="100"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Stakeholder Reporting &amp; Presentation</span><span class="skill-bar-pct">88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDUCATION ─── -->
+<section id="education">
+  <div class="section-eyebrow reveal">05 — Academic Foundation</div>
+  <h2 class="section-title reveal reveal-delay-1">Built on <em>rigorous education.</em></h2>
+
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-icon">🎓</div>
+      <div class="edu-degree">MSc — Business Analysis &amp; Consulting</div>
+      <div class="edu-school">University of Strathclyde, Glasgow, UK</div>
+      <div class="edu-year">2023 – 2025 · Merit</div>
+      <div class="edu-modules">
+        Core: Quantitative Business Analysis · Strategy Modelling &amp; Management · Spreadsheet Modelling &amp; Demand Forecasting · Managing Business Operations · Foundations of Operational Research · Becoming an Effective Business Analyst (live client projects with Accenture, British Airways, NHS, Diageo).
+      </div>
+      <span class="edu-badge">AACSB · AMBA · EQUIS Triple Accredited</span>
+    </div>
+    <div class="edu-card reveal reveal-delay-1">
+      <div class="edu-icon">📚</div>
+      <div class="edu-degree">BBA — Marketing</div>
+      <div class="edu-school">North South University, Dhaka</div>
+      <div class="edu-year">Completed</div>
+      <div class="edu-modules">
+        Marketing strategy, consumer behaviour, research methods, and business communication. Foundation in stakeholder analysis and strategic thinking applied throughout professional career.
+      </div>
+      <span class="edu-badge">NSU · Dhaka</span>
+    </div>
+    <div class="edu-card reveal reveal-delay-2">
+      <div class="edu-icon">🏫</div>
+      <div class="edu-degree">Jhenidah Cadet College</div>
+      <div class="edu-school">Bangladesh Army Cadet College</div>
+      <div class="edu-year">Alumnus</div>
+      <div class="edu-modules">
+        Cadet college education built the discipline, structured thinking, and leadership instincts that underpin every professional role since.
+      </div>
+      <span class="edu-badge">Cadet Alumni</span>
+    </div>
+    <div class="edu-card reveal reveal-delay-3">
+      <div class="edu-icon">📜</div>
+      <div class="edu-degree">Certifications</div>
+      <div class="edu-school">DataCamp · LinkedIn Learning · Microsoft</div>
+      <div class="edu-year">2022 – Present</div>
+      <div class="edu-modules">
+        SQL (Introduction to Advanced) — DataCamp<br>
+        Power BI &amp; Data Visualisation — DataCamp<br>
+        Excel Power Query &amp; Power Pivot — LinkedIn Learning<br>
+        IELTS Academic — Band 7.5 (C1) · Listening 8.5
+      </div>
+      <span class="edu-badge">Continuous Learning</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="contact-card reveal">
+    <div class="contact-title">Ready for your next <em>data challenge?</em></div>
+    <p class="contact-subtitle">
+      Whether you're hiring for a business analyst role, need a freelancer for a data project, or want to collaborate — I'd love to hear from you.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:saffathussaini@email.com" class="contact-pill">
+        <span class="pill-icon">✉️</span> Email Me
+      </a>
+      <a href="https://www.fiverr.com/saffathussaini" target="_blank" class="contact-pill">
+        <span class="pill-icon">🟢</span> Hire on Fiverr
+      </a>
+      <a href="https://www.linkedin.com/in/saffathussaini" target="_blank" class="contact-pill">
+        <span class="pill-icon">💼</span> LinkedIn
+      </a>
+      <a href="https://github.com/saffathussainiuk-ops" target="_blank" class="contact-pill">
+        <span class="pill-icon">🐙</span> GitHub
+      </a>
+      <a href="https://www.upwork.com/freelancers/saffathussaini" target="_blank" class="contact-pill">
+        <span class="pill-icon">🔷</span> Upwork
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-grid reveal reveal-delay-1">
+    <div class="contact-info-card">
+      <div class="ci-label">Location</div>
+      <div class="ci-value">Mirpur DOHS, Dhaka, BD</div>
+    </div>
+    <div class="contact-info-card">
+      <div class="ci-label">Open To</div>
+      <div class="ci-value">Full-time · Remote · Freelance</div>
+    </div>
+    <div class="contact-info-card">
+      <div class="ci-label">English</div>
+      <div class="ci-value">IELTS 7.5 Band · C1 Level</div>
+    </div>
+    <div class="contact-info-card">
+      <div class="ci-label">Response Time</div>
+      <div class="ci-value">Within 24 hours</div>
+    </div>
+    <div class="contact-info-card">
+      <div class="ci-label">Timezone</div>
+      <div class="ci-value">BST (UTC+6)</div>
+    </div>
+    <div class="contact-info-card">
+      <div class="ci-label">References</div>
+      <div class="ci-value">Available on request</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <span>© 2026 S M Saffat Hussaini · Built with intention.</span>
+  <span>
+    <a href="https://saffathussainiuk-ops.github.io/saffathussaini/">saffathussaini.github.io</a>
+  </span>
+</footer>
 
 <script>
-const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-function animCursor(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animCursor);}
-animCursor();
-document.querySelectorAll('.magnetic-card,.magnetic,a,button,.skill-tag,.email-copy,.pq-thumb,.chime-thumb').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-expand'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-expand'));
+// ─── CURSOR ───
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
 });
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),80);obs.unobserve(e.target);}});},{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-const hero=document.getElementById('kinetic-hero');
-window.addEventListener('scroll',()=>{const s=window.scrollY;if(s<600&&hero){hero.style.transform='translateY('+(s*.1)+'px) scale('+(1-s*.00008)+')';hero.style.opacity=1-s/500;}});
-function copyEmail(){navigator.clipboard.writeText('saffat.hussaini.uk@gmail.com').then(()=>{const t=document.getElementById('copy-toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);});}
-document.addEventListener('DOMContentLoaded',()=>{if(window.VanillaTilt)VanillaTilt.init(document.querySelectorAll('[data-tilt]'),{max:6,speed:400,glare:true,'max-glare':.05});});
 
-const pqContent={
-  profile:{title:'Power Query — column quality profile & applied steps',html:`<div style="background:#1e1e1e;font-family:'Segoe UI',sans-serif"><div style="display:flex;border-bottom:1px solid #444;background:#252526"><div style="padding:6px 16px;color:#fff;font-size:11px;border-right:1px solid #333;background:#1e1e1e;border-bottom:2px solid #c9933a">Home</div><div style="padding:6px 16px;color:#ccc;font-size:11px;border-right:1px solid #333">Transform</div><div style="padding:6px 16px;color:#ccc;font-size:11px;border-right:1px solid #333">Add Column</div></div><div style="background:#2d2d2d;border-bottom:1px solid #3c3c3c;padding:4px 10px;color:#9cdcfe;font-size:10px;font-family:Consolas,monospace;white-space:nowrap;overflow:hidden">= Table.TransformColumnTypes(Source, {{"Order Date", type date}, {"Sales", type number}})</div><div style="display:flex"><div style="flex:1;overflow:hidden"><div style="display:flex;background:#2d2d2d;border-bottom:1px solid #3c3c3c"><div style="width:26px;flex-shrink:0;border-right:1px solid #3c3c3c"></div><div style="padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;flex:1;min-width:130px"><span style="color:#4ec9b0;font-size:9px">ABC</span> Order ID</div><div style="padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;flex:1;min-width:110px"><span style="color:#569cd6;font-size:9px">📅</span> Order Date</div><div style="padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;flex:1;min-width:130px"><span style="color:#4ec9b0;font-size:9px">ABC</span> Customer Name</div><div style="padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;flex:1;min-width:100px"><span style="color:#4ec9b0;font-size:9px">ABC</span> Category</div><div style="padding:5px 8px;color:#ccc;font-size:10px;flex:0 0 85px"><span style="color:#b5cea8;font-size:9px">1.2</span> Sales</div></div><div style="display:flex;background:#252526;border-bottom:1px solid #2a2a2a"><div style="width:26px;flex-shrink:0;border-right:1px solid #2a2a2a"></div><div style="padding:5px 8px;border-right:1px solid #2a2a2a;flex:1;min-width:130px"><div style="display:flex;gap:3px;align-items:center;margin-bottom:2px"><div style="width:6px;height:6px;border-radius:50%;background:#c9933a"></div><span style="color:#aaa;font-size:9px;flex:1">Valid</span><span style="color:#ddd;font-size:9px">100%</span></div><div style="display:flex;align-items:flex-end;gap:1px;height:28px;margin:3px 0"><div style="height:60%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:80%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:45%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:90%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:70%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div></div><div style="color:#888;font-size:9px">51,252 distinct</div></div><div style="padding:5px 8px;border-right:1px solid #2a2a2a;flex:1;min-width:110px"><div style="display:flex;gap:3px;align-items:center;margin-bottom:2px"><div style="width:6px;height:6px;border-radius:50%;background:#c9933a"></div><span style="color:#aaa;font-size:9px;flex:1">Valid</span><span style="color:#ddd;font-size:9px">100%</span></div><div style="display:flex;align-items:flex-end;gap:1px;height:28px;margin:3px 0"><div style="height:30%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:70%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:90%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:55%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div></div><div style="color:#888;font-size:9px">1,460 distinct</div></div><div style="padding:5px 8px;border-right:1px solid #2a2a2a;flex:1;min-width:130px"><div style="display:flex;gap:3px;align-items:center;margin-bottom:2px"><div style="width:6px;height:6px;border-radius:50%;background:#c9933a"></div><span style="color:#aaa;font-size:9px;flex:1">Valid</span><span style="color:#ddd;font-size:9px">100%</span></div><div style="display:flex;align-items:flex-end;gap:1px;height:28px;margin:3px 0"><div style="height:55%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:70%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:85%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div></div><div style="color:#888;font-size:9px">795 distinct</div></div><div style="padding:5px 8px;border-right:1px solid #2a2a2a;flex:1;min-width:100px"><div style="display:flex;gap:3px;align-items:center;margin-bottom:2px"><div style="width:6px;height:6px;border-radius:50%;background:#c9933a"></div><span style="color:#aaa;font-size:9px;flex:1">Valid</span><span style="color:#ddd;font-size:9px">100%</span></div><div style="display:flex;align-items:flex-end;gap:1px;height:28px;margin:3px 0"><div style="height:100%;background:#a3721c;flex:1;border-radius:1px 1px 0 0"></div><div style="height:75%;background:#a3721c;flex:1;border-radius:1px 1px 0 0"></div><div style="height:85%;background:#a3721c;flex:1;border-radius:1px 1px 0 0"></div></div><div style="color:#888;font-size:9px">3 distinct</div></div><div style="padding:5px 8px;flex:0 0 85px"><div style="display:flex;gap:3px;align-items:center;margin-bottom:2px"><div style="width:6px;height:6px;border-radius:50%;background:#c9933a"></div><span style="color:#aaa;font-size:9px;flex:1">Valid</span><span style="color:#ddd;font-size:9px">100%</span></div><div style="display:flex;align-items:flex-end;gap:1px;height:28px;margin:3px 0"><div style="height:20%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:60%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div><div style="height:100%;background:#c9933a;flex:1;border-radius:1px 1px 0 0"></div></div><div style="color:#888;font-size:9px">936 distinct</div></div></div><div style="display:flex;border-bottom:1px solid #2a2a2a;background:#1e1e1e"><div style="width:26px;color:#666;font-size:9px;padding:4px;border-right:1px solid #2a2a2a;text-align:right;flex-shrink:0">1</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:130px">AG-2011-2040</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:110px">01/01/2011</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:130px">Toby Braunhardt</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:100px">Office Supplies</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;flex:0 0 85px">408.00</div></div><div style="display:flex;border-bottom:1px solid #2a2a2a;background:#252526"><div style="width:26px;color:#666;font-size:9px;padding:4px;border-right:1px solid #2a2a2a;text-align:right;flex-shrink:0">2</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:130px">IN-2011-47883</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:110px">01/01/2011</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:130px">Joseph Holt</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:100px">Office Supplies</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;flex:0 0 85px">120.00</div></div><div style="display:flex;border-bottom:1px solid #2a2a2a;background:#1e1e1e"><div style="width:26px;color:#666;font-size:9px;padding:4px;border-right:1px solid #2a2a2a;text-align:right;flex-shrink:0">3</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:130px">IT-2011-3647632</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:110px">01/01/2011</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:130px">Eugene Moren</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:100px">Office Supplies</div><div style="padding:4px 8px;color:#f44747;font-size:10px;flex:0 0 85px">-26.06</div></div></div><div style="width:195px;background:#252526;border-left:1px solid #3c3c3c;padding:10px;flex-shrink:0"><div style="color:#ccc;font-size:11px;font-weight:500;border-bottom:1px solid #3c3c3c;padding-bottom:4px;margin-bottom:8px">Applied Steps</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Source</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Rename all columns</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Set correct data types</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Trim and clean text</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Remove duplicate rows</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Add Days to Ship col</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Add Profit Margin col</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Add Profit Status col</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;background:#094771;color:#ccc;font-size:10px;border-radius:2px"><div style="width:5px;height:5px;border-radius:50%;background:#c9933a;flex-shrink:0"></div>Sort by Order Date</div></div></div>`},
-  mcode:{title:'Power Query — advanced editor (M code)',html:`<div style="background:#1e1e1e"><div style="background:#2b2b2b;padding:6px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #444"><div style="color:#ccc;font-size:12px;font-weight:500">Advanced Editor — SuperStore Cleaned</div><div style="display:flex;gap:8px"><div style="padding:3px 14px;border-radius:3px;font-size:11px;background:#3c3c3c;color:#ccc">Cancel</div><div style="padding:3px 14px;border-radius:3px;font-size:11px;background:#c9933a;color:#fff">Done</div></div></div><div style="padding:14px 0;background:#1e1e1e"><div style="display:flex;min-height:18px"><div style="width:34px;text-align:right;padding-right:10px;color:#555;font-size:11px;font-family:Consolas,monospace;flex-shrink:0">1</div><div style="font-family:Consolas,monospace;font-size:11px;line-height:1.6;white-space:pre"><span style="color:#608b4e;font-style:italic">// SuperStore Data Cleaning — Saffat Hussaini</span></div></div><div style="display:flex;min-height:18px"><div style="width:34px;text-align:right;padding-right:10px;color:#555;font-size:11px;font-family:Consolas,monospace;flex-shrink:0">2</div><div style="font-family:Consolas,monospace;font-size:11px;line-height:1.6;white-space:pre"><span style="color:#608b4e;font-style:italic">// 18 steps: types, trim, dedup, calculated columns</span></div></div><div style="display:flex;min-height:18px"><div style="width:34px;text-align:right;padding-right:10px;color:#555;font-size:11px;font-family:Consolas,monospace;flex-shrink:0">4</div><div style="font-family:Consolas,monospace;font-size:11px;line-height:1.6;white-space:pre"><span style="color:#569cd6">let</span></div></div><div style="display:flex;min-height:18px"><div style="width:34px;text-align:right;padding-right:10px;color:#555;font-size:11px;font-family:Consolas,monospace;flex-shrink:0">5</div><div style="font-family:Consolas,monospace;font-size:11px;line-height:1.6;white-space:pre">    <span style="color:#9cdcfe">Source</span> <span style="color:#d4d4d4">=</span> <span style="color:#dcdcaa">Csv.Document</span><span style="color:#d4d4d4">(</span><span style="color:#dcdcaa">File.Contents</span><span style="color:#d4d4d4">(</span><span style="color:#ce9178">"SuperStoreOrders.csv"</span><span style="color:#d4d4d4">),</span></div></div><div style="display:flex;min-height:18px"><div style="width:34px;text-align:right;padding-right:10px;color:#555;font-size:11px;font-family:Consolas,monospace;flex-shrink:0">6</div><div style="font-family:Consolas,monospace;font-size:11px;line-height:1.6;white-space:pre">        <span style="color:#d4d4d4">[</span><span style="color:#9cdcfe">Delimiter</span><span style="color:#d4d4d4">=</span><span style="color:#ce9178">","</span><span style="color:#d4d4d4">,</span> <span style="color:#9cdcfe">Encoding</span><span style="color:#d4d4d4">=</span><span style="color:#b5cea8">65001</span><span style="color:#d4d4d4">]),</span></div></div><div style="display:flex;min-height:18px"><div style="width:34px;text-align:right;padding-right:10px;color:#555;font-size:11px;font-family:Consolas,monospace;flex-shrink:0">9</div><div style="font-family:Consolas,monospace;font-size:11px;line-height:1.6;white-space:pre">    <span style="color:#9cdcfe">Remove_Duplicate_Rows</span> <span style="color:#d4d4d4">=</span> <span style="color:#dcdcaa">Table.Distinct</span><span style="color:#d4d4d4">(</span><span style="color:#9cdcfe">Set_Data_Types</span><span style="color:#d4d4d4">, {</span><span style="color:#ce9178">"Order ID"</span><span style="color:#d4d4d4">,</span> <span style="color:#ce9178">"Product ID"</span><span style="color:#d4d4d4">}),</span></div></div><div style="display:flex;min-height:18px"><div style="width:34px;text-align:right;padding-right:10px;color:#555;font-size:11px;font-family:Consolas,monospace;flex-shrink:0">10</div><div style="font-family:Consolas,monospace;font-size:11px;line-height:1.6;white-space:pre">    <span style="color:#9cdcfe">Add_Days_To_Ship</span> <span style="color:#d4d4d4">=</span> <span style="color:#dcdcaa">Table.AddColumn</span><span style="color:#d4d4d4">(</span><span style="color:#9cdcfe">Remove_Duplicate_Rows</span><span style="color:#d4d4d4">,</span> <span style="color:#ce9178">"Days to Ship"</span><span style="color:#d4d4d4">,</span></div></div><div style="display:flex;min-height:18px"><div style="width:34px;text-align:right;padding-right:10px;color:#555;font-size:11px;font-family:Consolas,monospace;flex-shrink:0">11</div><div style="font-family:Consolas,monospace;font-size:11px;line-height:1.6;white-space:pre">        <span style="color:#569cd6">each</span> <span style="color:#569cd6">try</span> <span style="color:#dcdcaa">Duration.Days</span><span style="color:#d4d4d4">([</span><span style="color:#9cdcfe">Ship Date</span><span style="color:#d4d4d4">]-[</span><span style="color:#9cdcfe">Order Date</span><span style="color:#d4d4d4">])</span> <span style="color:#569cd6">otherwise</span> <span style="color:#569cd6">null</span><span style="color:#d4d4d4">,</span> <span style="color:#4ec9b0">Int64.Type</span><span style="color:#d4d4d4">),</span></div></div><div style="display:flex;min-height:18px"><div style="width:34px;text-align:right;padding-right:10px;color:#555;font-size:11px;font-family:Consolas,monospace;flex-shrink:0">12</div><div style="font-family:Consolas,monospace;font-size:11px;line-height:1.6;white-space:pre">    <span style="color:#9cdcfe">Sort_By_Order_Date</span> <span style="color:#d4d4d4">=</span> <span style="color:#dcdcaa">Table.Sort</span><span style="color:#d4d4d4">(</span><span style="color:#9cdcfe">Add_Days_To_Ship</span><span style="color:#d4d4d4">, {{</span><span style="color:#ce9178">"Order Date"</span><span style="color:#d4d4d4">,</span> <span style="color:#4ec9b0">Order.Ascending</span><span style="color:#d4d4d4">}})</span></div></div><div style="display:flex;min-height:18px"><div style="width:34px;text-align:right;padding-right:10px;color:#555;font-size:11px;font-family:Consolas,monospace;flex-shrink:0">13</div><div style="font-family:Consolas,monospace;font-size:11px;line-height:1.6;white-space:pre"><span style="color:#569cd6">in</span>    <span style="color:#9cdcfe">Sort_By_Order_Date</span></div></div></div></div>`},
-  groupby:{title:'Power Query — group by category summary',html:`<div style="background:#1e1e1e;font-family:'Segoe UI',sans-serif"><div style="background:#2d2d2d;border-bottom:1px solid #3c3c3c;padding:4px 10px;color:#9cdcfe;font-size:10px;font-family:Consolas,monospace;white-space:nowrap;overflow:hidden">= Table.Group(#"Sort by Order Date", {"Category"}, {{"Sum Sales", each List.Sum([Sales]), type nullable number}})</div><div style="display:flex"><div style="flex:1;overflow:hidden"><div style="display:flex;background:#2d2d2d;border-bottom:1px solid #3c3c3c"><div style="width:26px;flex-shrink:0;border-right:1px solid #3c3c3c"></div><div style="padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;flex:1;min-width:150px"><span style="color:#4ec9b0;font-size:9px">ABC</span> Category</div><div style="padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;flex:1;min-width:130px"><span style="color:#b5cea8;font-size:9px">1.2</span> Sum Sales</div><div style="padding:5px 8px;color:#ccc;font-size:10px;flex:1;min-width:110px"><span style="color:#b5cea8;font-size:9px">123</span> Order Count</div></div><div style="display:flex;border-bottom:1px solid #2a2a2a;background:#1e1e1e"><div style="width:26px;color:#666;font-size:9px;padding:4px;border-right:1px solid #2a2a2a;text-align:right;flex-shrink:0">1</div><div style="padding:4px 8px;color:#E8C07A;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:150px;font-weight:500">Office Supplies</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:130px">3,787,330</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;flex:1;min-width:110px">31,247</div></div><div style="display:flex;border-bottom:1px solid #2a2a2a;background:#252526"><div style="width:26px;color:#666;font-size:9px;padding:4px;border-right:1px solid #2a2a2a;text-align:right;flex-shrink:0">2</div><div style="padding:4px 8px;color:#E8C07A;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:150px;font-weight:500">Furniture</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:130px">4,110,884</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;flex:1;min-width:110px">9,870</div></div><div style="display:flex;background:#1e1e1e"><div style="width:26px;color:#666;font-size:9px;padding:4px;border-right:1px solid #2a2a2a;text-align:right;flex-shrink:0">3</div><div style="padding:4px 8px;color:#E8C07A;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:150px;font-weight:500">Technology</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:1;min-width:130px">4,744,691</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;flex:1;min-width:110px">10,135</div></div></div><div style="width:195px;background:#252526;border-left:1px solid #3c3c3c;padding:10px;flex-shrink:0"><div style="color:#ccc;font-size:11px;font-weight:500;border-bottom:1px solid #3c3c3c;padding-bottom:4px;margin-bottom:8px">Applied Steps</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Set correct data types</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Remove duplicate rows</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Sort by Order Date</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;background:#094771;color:#ccc;font-size:10px;border-radius:2px"><div style="width:5px;height:5px;border-radius:50%;background:#c9933a;flex-shrink:0"></div>Group by Category</div></div></div>`},
-  calccols:{title:'Power Query — calculated columns',html:`<div style="background:#1e1e1e;font-family:'Segoe UI',sans-serif"><div style="background:#2d2d2d;border-bottom:1px solid #3c3c3c;padding:4px 10px;color:#9cdcfe;font-size:10px;font-family:Consolas,monospace;white-space:nowrap;overflow:hidden">= Table.AddColumn(#"Add Profit Margin col", "Profit Status", each if [Profit] &gt; 0 then "Profit" else "Loss", type text)</div><div style="display:flex"><div style="flex:1;overflow:hidden"><div style="display:flex;background:#2d2d2d;border-bottom:1px solid #3c3c3c"><div style="width:26px;flex-shrink:0;border-right:1px solid #3c3c3c"></div><div style="padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;flex:0 0 80px"><span style="color:#b5cea8;font-size:9px">1.2</span> Sales</div><div style="padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;flex:0 0 80px"><span style="color:#b5cea8;font-size:9px">1.2</span> Profit</div><div style="padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;background:rgba(201,147,58,.15);color:#E8C07A;flex:0 0 90px"><span style="font-size:9px">+</span> Days to Ship</div><div style="padding:5px 8px;color:#ccc;font-size:10px;border-right:1px solid #3c3c3c;background:rgba(201,147,58,.15);color:#E8C07A;flex:0 0 100px"><span style="font-size:9px">+</span> Profit Margin %</div><div style="padding:5px 8px;background:rgba(201,147,58,.2);color:#c9933a;font-size:10px;flex:0 0 90px;border:1px solid #c9933a"><span style="font-size:9px">+</span> Profit Status</div></div><div style="display:flex;border-bottom:1px solid #2a2a2a;background:#1e1e1e"><div style="width:26px;color:#666;font-size:9px;padding:4px;border-right:1px solid #2a2a2a;text-align:right;flex-shrink:0">1</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:0 0 80px">408.00</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:0 0 80px">106.14</div><div style="padding:4px 8px;color:#E8C07A;font-size:10px;border-right:1px solid #2a2a2a;background:rgba(201,147,58,.1);flex:0 0 90px">5</div><div style="padding:4px 8px;color:#E8C07A;font-size:10px;border-right:1px solid #2a2a2a;background:rgba(201,147,58,.1);flex:0 0 100px">26.01%</div><div style="padding:4px 8px;color:#E8C07A;font-size:10px;flex:0 0 90px">Profit</div></div><div style="display:flex;border-bottom:1px solid #2a2a2a;background:#252526"><div style="width:26px;color:#666;font-size:9px;padding:4px;border-right:1px solid #2a2a2a;text-align:right;flex-shrink:0">2</div><div style="padding:4px 8px;color:#d4d4d4;font-size:10px;border-right:1px solid #2a2a2a;flex:0 0 80px">45.00</div><div style="padding:4px 8px;color:#f44747;font-size:10px;border-right:1px solid #2a2a2a;flex:0 0 80px">-26.06</div><div style="padding:4px 8px;color:#E8C07A;font-size:10px;border-right:1px solid #2a2a2a;background:rgba(201,147,58,.1);flex:0 0 90px">4</div><div style="padding:4px 8px;color:#f44747;font-size:10px;border-right:1px solid #2a2a2a;background:rgba(201,147,58,.1);flex:0 0 100px">-57.90%</div><div style="padding:4px 8px;color:#f44747;font-size:10px;flex:0 0 90px">Loss</div></div></div><div style="width:195px;background:#252526;border-left:1px solid #3c3c3c;padding:10px;flex-shrink:0"><div style="color:#ccc;font-size:11px;font-weight:500;border-bottom:1px solid #3c3c3c;padding-bottom:4px;margin-bottom:8px">Applied Steps</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Add Days to Ship col</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;color:#ccc;font-size:10px"><div style="width:5px;height:5px;border-radius:50%;background:#888;flex-shrink:0"></div>Add Profit Margin col</div><div style="display:flex;align-items:center;gap:5px;padding:3px 4px;background:#094771;color:#ccc;font-size:10px;border-radius:2px"><div style="width:5px;height:5px;border-radius:50%;background:#c9933a;flex-shrink:0"></div>Add Profit Status col</div></div></div>`}
-};
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
 
-function openPQ(key){const d=pqContent[key];document.getElementById('pq-modal-title').textContent=d.title;document.getElementById('pq-modal-content').innerHTML=d.html;document.getElementById('pq-modal').classList.add('open');document.body.style.overflow='hidden';}
-function closePQ(){document.getElementById('pq-modal').classList.remove('open');document.body.style.overflow='';}
-document.getElementById('pq-modal').addEventListener('click',function(e){if(e.target===this)closePQ();});
+document.querySelectorAll('a, button, .problem-card, .proj-card, .edu-card').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+  el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+});
 
-const chimeContent={
-  market:{title:'Q1 — competitive landscape & market share',html:`<div class="cm"><div class="cm-hdr"><div class="cm-logo">Chime MFS Analysis</div><div class="cm-tag">Market share · n=417 · Apr 2023</div></div><div class="cm-body"><div class="cm-title">Chime dominates financially — SnapTap's G2P lock is the structural threat</div><div class="cm-sub">Sources: Primary survey (n=417) · Financial KPIs: Case Appendix Table 2 · Asgard Bank MFS Statistics Mar 2023</div><div class="cm-kpis"><div class="cm-kpi"><div class="cm-kpi-n">198.1 Mn</div><div class="cm-kpi-l">Total MFS accounts</div></div><div class="cm-kpi"><div class="cm-kpi-n">108.5 Bn</div><div class="cm-kpi-l">Monthly txn value (ASD)</div></div><div class="cm-kpi"><div class="cm-kpi-n">18.4%</div><div class="cm-kpi-l">YoY account growth</div></div><div class="cm-kpi"><div class="cm-kpi-n">85%</div><div class="cm-kpi-l">DFS adoption intent</div></div></div><table class="cm-tbl"><thead><tr><th>Provider</th><th>Survey share</th><th>Reg. users</th><th>Active %</th><th>NPM</th><th>FCF (ASD Bn)</th><th>Role</th></tr></thead><tbody><tr><td style="font-weight:600">Chime</td><td><div class="cm-barwrap"><div class="cm-barbg"><div class="cm-barfill" style="width:100%;background:#C9933A"></div></div><span>43.2%</span></div></td><td>68.9 Mn</td><td>88%</td><td style="color:#A3721C;font-weight:600">3.28%</td><td style="color:#A3721C;font-weight:600">4.43</td><td><span class="cm-badge cm-lead">Market Leader</span></td></tr><tr><td style="font-weight:600">SnapTap</td><td><div class="cm-barwrap"><div class="cm-barbg"><div class="cm-barfill" style="width:82%;background:#A32D2D"></div></div><span>35.3%</span></div></td><td>37.3 Mn</td><td>73%</td><td style="color:#A32D2D">2.63%</td><td>0.89</td><td><span class="cm-badge cm-threat">Key Threat</span></td></tr><tr><td>PayUp</td><td><div class="cm-barwrap"><div class="cm-barbg"><div class="cm-barfill" style="width:27%;background:#7A6E5F"></div></div><span>11.5%</span></div></td><td>~23 Mn</td><td>~70%</td><td style="color:#7A6E5F">N/A</td><td>—</td><td><span class="cm-badge cm-minor">Minor</span></td></tr></tbody></table><div class="cm-insight"><strong>Key insight:</strong> Chime outperforms SnapTap on every financial metric — NPM 3.28% vs 2.63%, FCF ASD 4.43Bn vs 0.89Bn, active users 88% vs 73%. The challenge is structural, not operational.</div></div></div>`},
-  growth:{title:'Q2 — service line growth 2019–2023',html:`<div class="cm"><div class="cm-hdr"><div class="cm-logo">Chime MFS Analysis</div><div class="cm-tag">Service line growth · 2019–2023</div></div><div class="cm-body"><div class="cm-title">Merchant payments is the highest-conviction bet — +697% in 4 years</div><div class="cm-sub">Source: Asgard Bank MFS Statistics 1 · Survey n=417 · Mar 2019 to Mar 2023</div><table class="cm-tbl"><thead><tr><th>#</th><th>Service line</th><th>Mar 2019</th><th>Mar 2023</th><th>4-yr growth</th><th>Direction</th></tr></thead><tbody><tr><td style="color:#A3721C;font-weight:700">01</td><td style="font-weight:600">Merchant Payments (P2B)</td><td style="color:#7A6E5F">516.4 Mn</td><td style="color:#A3721C;font-weight:600">4,114.1 Mn</td><td style="color:#A3721C;font-weight:700">+697%</td><td style="color:#A3721C;font-weight:600">HIGHEST PRIORITY</td></tr><tr><td style="color:#7A6E5F">02</td><td>P2P Transfers</td><td style="color:#7A6E5F">5,651 Mn</td><td>31,506.8 Mn</td><td style="color:#A3721C">+458%</td><td>GROW &amp; DEFEND</td></tr><tr><td style="color:#7A6E5F">03</td><td>Utility Bills &amp; Salary</td><td style="color:#7A6E5F">1,114.2 Mn</td><td>5,076.2 Mn</td><td style="color:#7A6E5F">+356%</td><td style="color:#7A6E5F">DEFEND</td></tr><tr><td style="color:#7A6E5F">04</td><td>Talktime Top-up</td><td style="color:#7A6E5F">375.2 Mn</td><td>945.1 Mn</td><td style="color:#7A6E5F">+152%</td><td style="color:#7A6E5F">RETAIN</td></tr><tr><td style="color:#7A6E5F">05</td><td>G2P Transfers</td><td style="color:#7A6E5F">—</td><td style="color:#7A6E5F">—</td><td style="color:#A32D2D">Volatile / Flat</td><td style="color:#A32D2D">POLICY PATH</td></tr></tbody></table><div class="cm-insight"><strong>Strategic rationale:</strong> 72.6% of survey respondents shop online — but e-commerce penetration is still low, creating massive headroom for Chime's merchant payment network.</div></div></div>`},
-  segments:{title:'Q3 — customer segmentation & persona analysis',html:`<div class="cm"><div class="cm-hdr"><div class="cm-logo">Chime MFS Analysis</div><div class="cm-tag">Segmentation · n=417 · 4x4 matrix</div></div><div class="cm-body"><div class="cm-title">Emerging users (45%) dominate — deal-aware behaviour cuts across every tier</div><div class="cm-sub">Segmentation: Monthly household income (4 tiers) x Digital persona (4 types) · Primary field survey 2023</div><table class="cm-tbl"><thead><tr><th>Segment</th><th>n</th><th>Share</th><th>Income</th><th>Chime %</th><th>SnapTap %</th><th>Top persona</th></tr></thead><tbody><tr><td style="font-weight:600">Emerging</td><td>188</td><td>45%</td><td style="color:#7A6E5F">50K-100K</td><td style="color:#A3721C;font-weight:600">45.7%</td><td>38.8%</td><td>Deal-Aware</td></tr><tr><td style="font-weight:600">Aspirant</td><td>130</td><td>31%</td><td style="color:#7A6E5F">&lt;50K</td><td style="color:#A3721C;font-weight:600">40.8%</td><td>32.3%</td><td>Deal-Aware / Lifestyle</td></tr><tr><td style="font-weight:600">Established</td><td>68</td><td>16%</td><td style="color:#7A6E5F">100K-200K</td><td style="color:#A3721C;font-weight:600">39.7%</td><td>35.3%</td><td>Explore / Socialise</td></tr><tr><td style="font-weight:600">Affluent</td><td>31</td><td>8%</td><td style="color:#7A6E5F">&gt;200K</td><td style="color:#A3721C;font-weight:600">45.2%</td><td style="color:#A3721C">19.4%</td><td>Explore new things</td></tr></tbody></table><div class="cm-insight"><strong>Implication:</strong> Chime leads in every segment — but each needs a different product. Emerging users want easy app + talktime. Affluent users want privacy + high limits + remittance.</div></div></div>`},
-  strategy:{title:'Q4 — strategic recommendations',html:`<div class="cm"><div class="cm-hdr"><div class="cm-logo">Chime MFS Analysis</div><div class="cm-tag">5 strategic recommendations</div></div><div class="cm-body"><div class="cm-title">Five moves that compound Chime's advantages before SnapTap can respond</div><div class="cm-sub">Each recommendation is data-backed, segment-targeted, with a measurable KPI</div><table class="cm-tbl"><thead><tr><th>#</th><th>Strategic move</th><th>Data basis</th><th>Target KPI by 2026</th></tr></thead><tbody><tr><td style="color:#A3721C;font-weight:700">01</td><td><strong>Dominate P2B Merchant Payments</strong><br><span style="font-size:10px;color:#7A6E5F">QR onboarding · zero-fee first 6 months · e-commerce SDK</span></td><td style="color:#7A6E5F">+697% growth · 72.6% shop online</td><td style="color:#A3721C">4% to 12% merchant share</td></tr><tr><td style="color:#7A6E5F">02</td><td><strong>Launch Chime Rewards Loyalty</strong><br><span style="font-size:10px;color:#7A6E5F">Earn on P2P / utility · redeem for talktime</span></td><td style="color:#7A6E5F">85% DFS intent · 280/417 want bundles</td><td>+20% MAU in 12 months</td></tr><tr><td style="color:#7A6E5F">03</td><td><strong>Expand Rural Female Agent Network</strong></td><td style="color:#7A6E5F">47.3 Mn rural female accounts underserved</td><td>Female share 34% to 45%</td></tr><tr><td style="color:#7A6E5F">04</td><td><strong>Super-App via Rolling Stones Bank Licence</strong></td><td style="color:#7A6E5F">SnapTap has NO banking licence</td><td>3 new verticals by Q4 2024</td></tr><tr><td style="color:#7A6E5F">05</td><td><strong>Reclaim G2P via Policy and Interoperability</strong></td><td style="color:#7A6E5F">SnapTap holds 75% G2P</td><td>25% G2P market share</td></tr></tbody></table><div class="cm-insight"><strong>Structural moat:</strong> SnapTap is a postal subsidiary with no banking licence. Chime's Rolling Stones Bank parentage enables savings, credit and insurance — products SnapTap can never replicate.</div></div></div>`},
-  deck:{title:'Strategy presentation — full slide deck overview',html:`<div class="cm"><div class="cm-hdr"><div class="cm-logo">Chime MFS — Digital Transformation in Asgard</div><div class="cm-tag">LightCastle Partners · Confidential · April 2023</div></div><div class="cm-body"><div class="cm-title">Competitive strategy deck for Chime MFS</div><div class="cm-sub">Primary survey · 417 respondents · Dhaka and Chittagong · April 2023</div><div class="cm-kpis"><div class="cm-kpi"><div class="cm-kpi-n">9</div><div class="cm-kpi-l">Slide sections</div></div><div class="cm-kpi"><div class="cm-kpi-n">417</div><div class="cm-kpi-l">Survey respondents</div></div><div class="cm-kpi"><div class="cm-kpi-n">5</div><div class="cm-kpi-l">Strategic moves</div></div><div class="cm-kpi"><div class="cm-kpi-n">5</div><div class="cm-kpi-l">Policy priorities</div></div></div><table class="cm-tbl"><thead><tr><th>#</th><th>Section</th><th>What it covers</th></tr></thead><tbody><tr><td style="color:#A3721C">01</td><td style="font-weight:600">Pre-Meeting CEO Questions</td><td style="color:#7A6E5F">3 strategic questions to Francis Castle, CEO — G2P replacement, profitability resilience, banking parent moat</td></tr><tr><td style="color:#A3721C">02</td><td style="font-weight:600">Competitive Landscape and Market</td><td style="color:#7A6E5F">Market share by survey (n=417) + financial KPIs across all four MFS providers</td></tr><tr><td style="color:#A3721C">03</td><td style="font-weight:600">Service Line Growth</td><td style="color:#7A6E5F">+697% merchant payments, +458% P2P, 5-year priority ranking by transaction volume</td></tr><tr><td style="color:#A3721C">04</td><td style="font-weight:600">Customer Segmentation and Profiles</td><td style="color:#7A6E5F">4 economic tiers x 4 behavioral personas · Emerging 45% · Deal-Aware 43%</td></tr><tr><td style="color:#A3721C">05</td><td style="font-weight:600">Strategic Recommendations</td><td style="color:#7A6E5F">5 data-backed moves with measurable KPIs</td></tr><tr><td style="color:#A3721C">06</td><td style="font-weight:600">Policy Interventions</td><td style="color:#7A6E5F">5 lobbying priorities — G2P framework, interoperability, micro-credit licence, fraud act, e-KYC</td></tr><tr><td style="color:#A3721C">07</td><td style="font-weight:600">Survey Data Highlights</td><td style="color:#7A6E5F">85% DFS adoption intent · 72.6% shop online · talktime = #1 reward · 351/417 want easy app</td></tr></tbody></table><div class="cm-insight"><strong>Strategic moat:</strong> Chime's critical advantage is the Rolling Stones Bank parentage. SnapTap cannot offer savings, credit or insurance. With 85% DFS adoption intent and +697% merchant growth, the window to act is narrow.</div></div></div>`}
-};
+// ─── TYPED TEXT ───
+const words = ['Data Analyst', 'Business Analyst', 'Audit Specialist', 'Operations Analyst', 'Freelance Consultant'];
+let wi = 0, ci = 0, deleting = false;
+const typedEl = document.getElementById('typed');
 
-function openChime(key){const d=chimeContent[key];document.getElementById('chime-modal-title').textContent=d.title;document.getElementById('chime-modal-content').innerHTML=d.html;document.getElementById('chime-modal').classList.add('open');document.body.style.overflow='hidden';}
-function closeChime(){document.getElementById('chime-modal').classList.remove('open');document.body.style.overflow='';}
-document.getElementById('chime-modal').addEventListener('click',function(e){if(e.target===this)closeChime();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePQ();closeChime();}});
+function type() {
+  const word = words[wi];
+  if (!deleting) {
+    typedEl.textContent = word.slice(0, ++ci);
+    if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+  } else {
+    typedEl.textContent = word.slice(0, --ci);
+    if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; }
+  }
+  setTimeout(type, deleting ? 60 : 95);
+}
+type();
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── COUNTER ANIMATION ───
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const target = parseInt(el.dataset.target);
+      let current = 0;
+      const step = target / 60;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = Math.floor(current);
+        if (current >= target) clearInterval(timer);
+      }, 16);
+      counterObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+
+// ─── SKILL BARS ───
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.skills-wrapper').forEach(el => barObs.observe(el));
+
+// ─── SMOOTH SCROLL ───
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
 </script>
 </body>
 </html>
