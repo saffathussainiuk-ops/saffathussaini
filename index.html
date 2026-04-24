@@ -104,14 +104,13 @@ section.main:nth-child(even){background:var(--navy);}
 /* PROJECTS */
 .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .proj-card{background:var(--navy2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .3s;}
-.proj-card:not(.wide) .proj-thumb img{max-height:240px;width:100%;object-fit:cover;object-position:top left;}
 .proj-card:hover{border-color:rgba(200,245,58,.3);transform:translateY(-4px);}
 .proj-card.wide{grid-column:span 2;}
-.proj-card.wide .proj-thumb img{max-height:320px;object-fit:cover;object-position:top center;width:100%;}
-.proj-thumb{height:auto;background:#0d1117;display:block;border-bottom:1px solid var(--border);position:relative;overflow:hidden;line-height:0;}
-.proj-thumb img{width:100%;height:auto;display:block;transition:transform .4s ease;}
-.proj-card:hover .proj-thumb img{transform:scale(1.02);}
-.proj-thumb::after{display:none;}
+
+.proj-thumb{background:#0d1117;display:block;border-bottom:1px solid var(--border);overflow:hidden;line-height:0;}.proj-thumb img{width:100%;height:auto;display:block;}.proj-card:hover .proj-thumb img{transform:scale(1.02);transition:transform .5s ease;}
+
+.proj-card:hover 
+
 .proj-body{padding:1.4rem 1.8rem 1.8rem;flex:1;display:flex;flex-direction:column;}
 .proj-cat{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--lime);letter-spacing:.15em;margin-bottom:.5rem;}
 .proj-title{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:.03em;color:var(--white);margin-bottom:.5rem;}
@@ -217,7 +216,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);overflow:hidden
   .hero-photo-inner{width:220px;}
   .hero-name{font-size:clamp(3.5rem,14vw,6rem);}
   .svc-grid,.proj-grid,.process-two,.process-steps,.skills-grid,.exp-item,.ci-strip{grid-template-columns:1fr;}
-  .proj-card.wide{grid-column:span 1;}
+  
   .stats-strip{flex-wrap:wrap;}
   .contact-big{font-size:clamp(2.5rem,14vw,6rem);}
   body{cursor:auto;}.cur,.cur-ring{display:none;}
