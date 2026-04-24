@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="forest">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>S M Saffat Hussaini — Business Analyst & Data Professional</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <style>
 :root {
   --bg: #0C0E14;
@@ -177,7 +180,7 @@ nav {
   letter-spacing: 0.05em;
   margin-bottom: 2rem;
   width: fit-content;
-  animation: fadeUp 0.8s var(--transition) both;
+  animation: fadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) both;
 }
 .badge-dot {
   width: 7px; height: 7px;
@@ -198,7 +201,7 @@ nav {
   letter-spacing: -0.03em;
   color: var(--white);
   margin-bottom: 0.5rem;
-  animation: fadeUp 0.8s 0.1s var(--transition) both;
+  animation: fadeUp 0.8s 0.1s cubic-bezier(0.25,0.46,0.45,0.94) both;
 }
 .hero-name .gold-word { color: var(--gold); font-style: italic; }
 
@@ -209,7 +212,7 @@ nav {
   color: var(--text2);
   margin-bottom: 2rem;
   letter-spacing: -0.01em;
-  animation: fadeUp 0.8s 0.2s var(--transition) both;
+  animation: fadeUp 0.8s 0.2s cubic-bezier(0.25,0.46,0.45,0.94) both;
 }
 .hero-title .typed-word {
   color: var(--gold2);
@@ -226,7 +229,7 @@ nav {
   font-size: 1rem;
   line-height: 1.8;
   margin-bottom: 2.5rem;
-  animation: fadeUp 0.8s 0.3s var(--transition) both;
+  animation: fadeUp 0.8s 0.3s cubic-bezier(0.25,0.46,0.45,0.94) both;
 }
 
 .hero-ctas {
@@ -234,7 +237,7 @@ nav {
   gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 4rem;
-  animation: fadeUp 0.8s 0.4s var(--transition) both;
+  animation: fadeUp 0.8s 0.4s cubic-bezier(0.25,0.46,0.45,0.94) both;
 }
 .btn-primary {
   background: var(--gold);
@@ -273,7 +276,7 @@ nav {
   display: flex;
   gap: 3rem;
   flex-wrap: wrap;
-  animation: fadeUp 0.8s 0.5s var(--transition) both;
+  animation: fadeUp 0.8s 0.5s cubic-bezier(0.25,0.46,0.45,0.94) both;
 }
 .stat-item { }
 .stat-num {
@@ -853,7 +856,7 @@ footer a:hover { color: var(--gold); }
   gap: 8px;
   box-shadow: 0 8px 30px rgba(212,168,67,0.4);
   transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-  animation: floatUp 1s 1s var(--transition) both;
+  animation: floatUp 1s 1s cubic-bezier(0.25,0.46,0.45,0.94) both;
 }
 .hire-float:hover {
   background: var(--gold2);
@@ -871,6 +874,200 @@ footer a:hover { color: var(--gold); }
   to { opacity: 1; transform: none; }
 }
 
+/* ─── THEMES ─── */
+
+/* Theme: Midnight Gold (default — refined) */
+html[data-theme="gold"] {
+  --bg: #0C0E14;
+  --bg2: #12141C;
+  --bg3: #181B24;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --gold: #D4A843;
+  --gold2: #F0C96B;
+  --gold-dim: rgba(212,168,67,0.12);
+  --gold-glow: rgba(212,168,67,0.25);
+  --text: #EDE9E0;
+  --text2: #9A9585;
+  --text3: #5E5B54;
+  --white: #F5F2EC;
+}
+
+/* Theme: Forest Ink — dark green-black + sage */
+html[data-theme="forest"] {
+  --bg: #080E0A;
+  --bg2: #0C1410;
+  --bg3: #111A14;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --gold: oklch(68% 0.13 152);
+  --gold2: oklch(78% 0.13 150);
+  --gold-dim: oklch(68% 0.13 152 / 0.12);
+  --gold-glow: oklch(68% 0.13 152 / 0.25);
+  --text: #E6EDE8;
+  --text2: #8A9E8D;
+  --text3: #526055;
+  --white: #EFF5F0;
+}
+
+/* Theme: Deep Azure — navy-black + electric teal */
+html[data-theme="azure"] {
+  --bg: #080B14;
+  --bg2: #0C1020;
+  --bg3: #10162A;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --gold: oklch(72% 0.15 220);
+  --gold2: oklch(82% 0.13 218);
+  --gold-dim: oklch(72% 0.15 220 / 0.12);
+  --gold-glow: oklch(72% 0.15 220 / 0.25);
+  --text: #E6EBF5;
+  --text2: #8A92B0;
+  --text3: #4E5470;
+  --white: #EEF2FF;
+}
+
+/* Theme: Grounded Professional — warm cream + forest green + terracotta */
+html[data-theme="paper"] {
+  --bg: #F2F0EB;
+  --bg2: #EAE5DA;
+  --bg3: #E2D8C8;
+  --border: rgba(42,49,50,0.09);
+  --border2: rgba(42,49,50,0.16);
+  --gold: #2C5F2D;
+  --gold2: #3D7A3E;
+  --gold-dim: rgba(44,95,45,0.10);
+  --gold-glow: rgba(44,95,45,0.22);
+  --accent2: #B85042;
+  --text: #2A3132;
+  --text2: #5A6162;
+  --text3: #9AA0A1;
+  --white: #2A3132;
+}
+
+html[data-theme="paper"] body {
+  cursor: auto;
+}
+html[data-theme="paper"] .cursor,
+html[data-theme="paper"] .cursor-ring { display: none; }
+html[data-theme="paper"] nav {
+  background: rgba(242,240,235,0.88);
+  border-bottom-color: rgba(42,49,50,0.09);
+}
+html[data-theme="paper"] .hire-float {
+  color: #F2F0EB;
+  background: var(--gold);
+  box-shadow: 0 8px 30px rgba(44,95,45,0.28);
+}
+html[data-theme="paper"] .hire-float:hover { background: var(--gold2); box-shadow: 0 16px 40px rgba(44,95,45,0.36); }
+html[data-theme="paper"] .hire-pulse { background: #F2F0EB; }
+html[data-theme="paper"] section:nth-child(even) { background: var(--bg2); }
+html[data-theme="paper"] .btn-primary { color: #F2F0EB; }
+html[data-theme="paper"] .nav-hire { color: #F2F0EB !important; }
+html[data-theme="paper"] ::-webkit-scrollbar-track { background: var(--bg); }
+html[data-theme="paper"] .tl-metric-num { color: #B85042; }
+html[data-theme="paper"] .stat-gold { color: #B85042 !important; }
+html[data-theme="paper"] .stat-num .stat-gold { color: #B85042 !important; }
+html[data-theme="paper"] .hero-name .gold-word { color: #B85042; }
+html[data-theme="paper"] .hero-title .typed-word { color: #2C5F2D; border-right-color: #2C5F2D; }
+html[data-theme="paper"] .skill-bar-fill { background: linear-gradient(90deg, #2C5F2D, #3D7A3E); }
+
+/* ─── SCROLL PROGRESS BAR ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--gold);
+  z-index: 9999;
+  transition: width 0.1s linear;
+}
+html[data-theme="paper"] .scroll-progress { background: #2C5F2D; }
+
+/* ─── PROJECT CARD IMAGES ─── */
+.proj-img {
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  position: relative;
+  background: var(--bg3);
+}
+.proj-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.3s;
+  filter: brightness(0.95);
+}
+.proj-card:hover .proj-img img {
+  transform: scale(1.04) translateY(-2px);
+  filter: brightness(1.05);
+}
+.proj-card.col-8 .proj-img { height: 220px; }
+
+/* ─── ANIMATED GRADIENT HERO NAME ─── */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+html[data-theme="paper"] .gold-word {
+  background: linear-gradient(135deg, #B85042, #2C5F2D, #B85042);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* ─── CARD ENTRANCE SHIMMER ─── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.proj-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  border-radius: var(--radius);
+}
+.proj-card:hover::after {
+  opacity: 1;
+  animation: shimmer 0.8s ease forwards;
+}
+
+/* ─── FLOATING BADGE ANIMATION ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+.hero-badge { animation: fadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) both, float 4s 1s ease-in-out infinite; }
+
+/* ─── SECTION NUMBER COUNTER ─── */
+.stat-num {
+  position: relative;
+}
+.stat-num::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 1s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.stat-item:hover .stat-num::after { width: 100%; }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
   .nav-links { display: none; }
@@ -887,6 +1084,9 @@ footer a:hover { color: var(--gold); }
 </style>
 </head>
 <body>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- Cursor -->
 <div class="cursor" id="cursor"></div>
@@ -936,7 +1136,7 @@ footer a:hover { color: var(--gold); }
 
   <div class="hero-ctas">
     <a href="#projects" class="btn-primary">See My Work ↓</a>
-    <a href="https://www.fiverr.com/saffathussaini" target="_blank" class="btn-ghost">Hire on Fiverr ↗</a>
+    <a href="https://www.fiverr.com/s/m5lYlRx" target="_blank" class="btn-ghost">Hire on Fiverr ↗</a>
     <a href="#contact" class="btn-ghost">Get in Touch</a>
   </div>
 
@@ -1106,6 +1306,7 @@ footer a:hover { color: var(--gold); }
   <div class="projects-grid">
 
     <div class="proj-card col-8 reveal">
+      <div class="proj-img"><img src="images/portfolio_1_excel_cleaning.png" alt="Excel Data Cleaning project screenshot" loading="lazy"></div>
       <div class="proj-header">
         <span class="proj-num">01 · ★ Featured</span>
         <a href="https://github.com/saffathussainiuk-ops" target="_blank" class="proj-link">↗</a>
@@ -1126,6 +1327,7 @@ footer a:hover { color: var(--gold); }
     </div>
 
     <div class="proj-card col-4 reveal reveal-delay-1">
+      <div class="proj-img"><img src="images/portfolio_2_powerbi_dashboard.png" alt="Power BI Sales Dashboard" loading="lazy"></div>
       <div class="proj-header">
         <span class="proj-num">02</span>
         <a href="https://github.com/saffathussainiuk-ops" target="_blank" class="proj-link">↗</a>
@@ -1164,6 +1366,7 @@ footer a:hover { color: var(--gold); }
     </div>
 
     <div class="proj-card col-6 reveal reveal-delay-1">
+      <div class="proj-img"><img src="images/portfolio_3_sql_analysis.png" alt="SQL Customer Analysis" loading="lazy"></div>
       <div class="proj-header">
         <span class="proj-num">04</span>
         <a href="https://github.com/saffathussainiuk-ops" target="_blank" class="proj-link">↗</a>
@@ -1182,6 +1385,7 @@ footer a:hover { color: var(--gold); }
     </div>
 
     <div class="proj-card col-4 reveal">
+      <div class="proj-img"><img src="images/portfolio_5_hr_powerpivot.png" alt="HR Analytics Dashboard" loading="lazy"></div>
       <div class="proj-header">
         <span class="proj-num">05</span>
         <a href="https://github.com/saffathussainiuk-ops" target="_blank" class="proj-link">↗</a>
@@ -1199,6 +1403,7 @@ footer a:hover { color: var(--gold); }
     </div>
 
     <div class="proj-card col-8 reveal reveal-delay-1">
+      <div class="proj-img"><img src="images/portfolio_4_chime_strategy.png" alt="Chime MFS Competitive Strategy" loading="lazy"></div>
       <div class="proj-header">
         <span class="proj-num">06 · Consulting</span>
         <span></span>
@@ -1360,10 +1565,10 @@ footer a:hover { color: var(--gold); }
       Whether you're hiring for a business analyst role, need a freelancer for a data project, or want to collaborate — I'd love to hear from you.
     </p>
     <div class="contact-links">
-      <a href="mailto:saffathussaini@email.com" class="contact-pill">
+      <a href="/cdn-cgi/l/email-protection#700311161611041805030311191e1930151d11191c5e131f1d" class="contact-pill">
         <span class="pill-icon">✉️</span> Email Me
       </a>
-      <a href="https://www.fiverr.com/saffathussaini" target="_blank" class="contact-pill">
+      <a href="https://www.fiverr.com/s/m5lYlRx" target="_blank" class="contact-pill">
         <span class="pill-icon">🟢</span> Hire on Fiverr
       </a>
       <a href="https://www.linkedin.com/in/saffathussaini" target="_blank" class="contact-pill">
@@ -1414,7 +1619,485 @@ footer a:hover { color: var(--gold); }
   </span>
 </footer>
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/babel">
+
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"theme": "forest"}/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;height:22px;
+    border-radius:6px;cursor:default;padding:0}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((key, val) => {
+    setValues((prev) => ({ ...prev, [key]: val }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel"
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+function TweakColor({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <input type="color" className="twk-swatch" value={value}
+             onChange={(e) => onChange(e.target.value)} />
+    </div>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+
+</script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "forest"
+}/*EDITMODE-END*/;
+
+function PortfolioTweaks() {
+  const [values, set] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    document.documentElement.setAttribute('data-theme', values.theme);
+  }, [values.theme]);
+
+  const themes = [
+    { id: 'gold',   label: 'Midnight Gold',  sub: 'Dark navy + warm gold',      swatch: ['#0C0E14','#D4A843'] },
+    { id: 'forest', label: 'Forest Ink',      sub: 'Deep green + sage',           swatch: ['#080E0A','#5FA86A'] },
+    { id: 'azure',  label: 'Deep Azure',      sub: 'Ink navy + electric teal',    swatch: ['#080B14','#4AB8D4'] },
+    { id: 'paper',  label: 'Warm Paper',      sub: 'Cream light mode + terracotta', swatch: ['#F5F0E8','#B85C38'] },
+  ];
+
+  return (
+    <TweaksPanel title="Colour Themes">
+      <TweakSection label="Choose a palette">
+        <div style={{display:'flex', flexDirection:'column', gap:'8px'}}>
+          {themes.map(t => (
+            <button key={t.id} onClick={() => set('theme', t.id)} style={{
+              display:'flex', alignItems:'center', gap:'12px',
+              padding:'10px 12px', borderRadius:'10px', border:'none', cursor:'pointer',
+              background: values.theme === t.id ? 'rgba(255,255,255,0.12)' : 'transparent',
+              outline: values.theme === t.id ? '1.5px solid rgba(255,255,255,0.3)' : '1px solid rgba(255,255,255,0.08)',
+              transition:'all 0.15s', textAlign:'left', width:'100%'
+            }}>
+              <div style={{display:'flex', gap:'4px', flexShrink:0}}>
+                <div style={{width:'18px',height:'18px',borderRadius:'50%',background:t.swatch[0],border:'1px solid rgba(255,255,255,0.15)'}}></div>
+                <div style={{width:'18px',height:'18px',borderRadius:'50%',background:t.swatch[1],marginLeft:'-6px',border:'1px solid rgba(255,255,255,0.15)'}}></div>
+              </div>
+              <div>
+                <div style={{fontSize:'12px',fontWeight:600,color:'#fff',lineHeight:1.2}}>{t.label}</div>
+                <div style={{fontSize:'11px',color:'rgba(255,255,255,0.5)',marginTop:'2px'}}>{t.sub}</div>
+              </div>
+              {values.theme === t.id && <div style={{marginLeft:'auto',color:'rgba(255,255,255,0.6)',fontSize:'11px'}}>✓</div>}
+            </button>
+          ))}
+        </div>
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<PortfolioTweaks />);
+</script>
+
+<div id="tweaks-root"></div>
+
 <script>
+// ─── SCROLL PROGRESS ───
+const scrollBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  scrollBar.style.width = (scrolled / total * 100) + '%';
+}, { passive: true });
+
 // ─── CURSOR ───
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
