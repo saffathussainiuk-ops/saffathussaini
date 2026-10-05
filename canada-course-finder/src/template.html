@@ -1,0 +1,432 @@
+<title>Canada Course Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky filter rail on the left, results column on the right; stacks to one column on phones.
+   Look: a study-permit file. Cool paper ground, ink-navy text, maple red used only for the key action and price. */
+:root {
+  --paper: #f3f5f7;
+  --card: #ffffff;
+  --ink: #15202e;
+  --ink-2: #4a5a6c;
+  --ink-3: #7b8a9a;
+  --line: #dde3ea;
+  --maple: #c8202f;
+  --maple-soft: #fbe9ea;
+  --spruce: #1d5c55;
+  --spruce-soft: #e3f0ee;
+  --amber: #8a5a00;
+  --amber-soft: #fdf1d8;
+  --f-display: "Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
+  --f-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f141b; --card: #171e27; --ink: #e8edf3; --ink-2: #a9b6c4; --ink-3: #7c8a99; --line: #273241;
+    --maple: #ff6b72; --maple-soft: #3a1b1f; --spruce: #6cc4b8; --spruce-soft: #15302d; --amber: #f0c060; --amber-soft: #33290f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f141b; --card: #171e27; --ink: #e8edf3; --ink-2: #a9b6c4; --ink-3: #7c8a99; --line: #273241;
+  --maple: #ff6b72; --maple-soft: #3a1b1f; --spruce: #6cc4b8; --spruce-soft: #15302d; --amber: #f0c060; --amber-soft: #33290f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; margin: 0; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
+a { color: var(--spruce); }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--spruce); outline-offset: 2px; }
+
+/* header */
+.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; padding-bottom: 22px; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
+.brand { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.leaf { width: 14px; height: 14px; color: var(--maple); }
+h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(28px, 4.2vw, 44px); line-height: 1.05; letter-spacing: -.02em; margin: 6px 0 6px; text-wrap: balance; }
+.lede { color: var(--ink-2); max-width: 58ch; margin: 0; }
+.stats { display: flex; gap: 22px; font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+.stats div { display: grid; }
+.stats b { font-size: 22px; font-weight: 500; }
+.stats span { font-family: var(--f-body); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+
+.layout { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 28px; align-items: start; }
+@media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+
+/* filters */
+.filters { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); display: grid; gap: 18px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; max-height: calc(100vh - 32px); overflow: auto; }
+@media (max-width: 860px) { .filters { position: static; max-height: none; } .filters.collapsed .fbody { display: none; } }
+.fhead { display: flex; justify-content: space-between; align-items: center; }
+.fhead h2 { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; margin: 0; color: var(--ink-2); }
+.toggle-f { display: none; border: 1px solid var(--line); background: transparent; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 13px; }
+@media (max-width: 860px) { .toggle-f { display: inline-block; } }
+.fbody { display: grid; gap: 18px; }
+.field { display: grid; gap: 7px; }
+.field > label, .field > .lab { font-size: 12px; font-weight: 600; color: var(--ink-2); letter-spacing: .02em; }
+.field select, .field input[type=search] { width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); }
+.hint { font-size: 12px; color: var(--ink-3); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 1px solid var(--line); background: var(--paper); border-radius: 999px; padding: 4px 11px; font-size: 13px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+input[type=range] { width: 100%; accent-color: var(--maple); }
+.range-val { font-family: var(--f-data); font-size: 13px; font-variant-numeric: tabular-nums; }
+.reset { justify-self: start; border: 0; background: none; color: var(--maple); padding: 0; cursor: pointer; font-weight: 600; font-size: 13px; }
+
+/* results bar */
+.bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 16px; margin-bottom: 14px; }
+.count { font-size: 14px; color: var(--ink-2); }
+.count b { color: var(--ink); font-family: var(--f-data); font-weight: 500; }
+.bar select { padding: 7px 10px; border: 1px solid var(--line); border-radius: 7px; background: var(--card); }
+.shortbtn { border: 1px solid var(--ink); background: var(--card); border-radius: 7px; padding: 7px 12px; cursor: pointer; font-weight: 600; font-size: 13px; }
+.shortbtn b { font-family: var(--f-data); }
+
+/* cards */
+.list { display: grid; gap: 12px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; display: grid; gap: 12px; min-width: 0; }
+.chead { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.uni { font-size: 13px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+.uni strong { color: var(--ink); font-weight: 600; }
+.tag { font-size: 11px; letter-spacing: .04em; padding: 2px 7px; border-radius: 4px; background: var(--paper); color: var(--ink-2); border: 1px solid var(--line); white-space: nowrap; }
+.tag.qs { font-family: var(--f-data); }
+.tag.warn { background: var(--amber-soft); color: var(--amber); border-color: transparent; }
+.title { font-family: var(--f-display); font-size: 18px; font-weight: 700; line-height: 1.25; margin: 4px 0 0; text-wrap: balance; }
+.specs { font-size: 13px; color: var(--ink-2); margin-top: 4px; }
+.star { flex: none; border: 1px solid var(--line); background: var(--paper); border-radius: 8px; width: 36px; height: 36px; cursor: pointer; display: grid; place-items: center; color: var(--ink-3); }
+.star[aria-pressed="true"] { background: var(--maple-soft); color: var(--maple); border-color: var(--maple); }
+.star svg { width: 18px; height: 18px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 10px 16px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.fact { min-width: 0; }
+.fact .k { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); }
+.fact .v { font-family: var(--f-data); font-size: 14px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.fact .v.price { color: var(--maple); font-weight: 500; }
+.fact .sub { font-size: 12px; color: var(--ink-3); font-family: var(--f-body); }
+.months { display: flex; gap: 3px; flex-wrap: wrap; }
+.mo { font-family: var(--f-data); font-size: 11px; padding: 1px 5px; border-radius: 3px; background: var(--spruce-soft); color: var(--spruce); }
+details { font-size: 14px; }
+summary { cursor: pointer; color: var(--spruce); font-weight: 600; font-size: 13px; width: max-content; }
+.dgrid { display: grid; gap: 10px; margin-top: 10px; }
+.dgrid h4 { margin: 0 0 2px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.dgrid p { margin: 0; white-space: pre-line; color: var(--ink-2); max-width: 75ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; font-size: 13px; }
+.actions a { font-weight: 600; }
+.more { display: block; margin: 16px auto 0; border: 1px solid var(--line); background: var(--card); padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.empty { background: var(--card); border: 1px dashed var(--line); border-radius: var(--r); padding: 28px; text-align: center; color: var(--ink-2); }
+
+/* costs */
+.costs { margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; min-width: 0; }
+.panel h3 { margin: 0 0 4px; font-size: 16px; font-family: var(--f-display); }
+.panel .hint { margin: 0 0 12px; }
+.panel table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.panel td { padding: 7px 0; border-top: 1px solid var(--line); vertical-align: top; }
+.panel td:last-child { text-align: right; font-family: var(--f-data); font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 12px; }
+.foot { margin-top: 28px; font-size: 12.5px; color: var(--ink-3); max-width: 90ch; }
+
+/* shortlist drawer */
+.drawer { position: fixed; inset: auto 0 0 0; background: var(--card); border-top: 1px solid var(--line); box-shadow: 0 -8px 30px rgba(0,0,0,.12); padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px)); max-height: 70vh; overflow: auto; z-index: 5; }
+.drawer .in { max-width: 900px; margin: 0 auto; display: grid; gap: 12px; }
+.drawer textarea { width: 100%; min-height: 140px; font-family: var(--f-data); font-size: 12.5px; padding: 10px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); color: var(--ink); resize: vertical; }
+.drow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.btn { border: 0; background: var(--maple); color: #fff; padding: 9px 16px; border-radius: 7px; font-weight: 700; cursor: pointer; }
+.ghost { border: 1px solid var(--line); background: transparent; padding: 8px 14px; border-radius: 7px; cursor: pointer; }
+@media (prefers-reduced-motion: no-preference) { .card { transition: border-color .15s; } .card:hover { border-color: var(--ink-3); } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="brand"><svg class="leaf" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.6 3.4 2.6-1-0.5 4.1 3.3-1.6-1 3.2 2.5.8-4.4 3.9.8 2.2-4.1-.7.2 5.7h-2l.2-5.7-4.1.7.8-2.2L3.5 10.9 6 10.1 5 6.9l3.3 1.6L7.8 4.4l2.6 1z"/></svg><span id="brandName"></span></div>
+      <h1>Canada Course Finder</h1>
+      <p class="lede">Filter by your IELTS score, budget and intake to see which Canadian programs fit you. Shortlist the ones you like and send the list to your counsellor.</p>
+    </div>
+    <div class="stats" aria-label="Summary">
+      <div><b id="sCourses">0</b><span>Programs</span></div>
+      <div><b id="sUnis">0</b><span>Institutions</span></div>
+      <div><b id="sProv">0</b><span>Provinces</span></div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="filters collapsed" id="filters" aria-label="Filters">
+      <div class="fhead"><h2>Your profile</h2><button class="toggle-f" id="toggleF" aria-expanded="false" aria-controls="fbody">Show filters</button></div>
+      <div class="fbody" id="fbody">
+        <div class="field">
+          <label for="q">Search</label>
+          <input type="search" id="q" placeholder="e.g. data, MBA, Windsor">
+        </div>
+        <div class="field">
+          <span class="lab">Study level</span>
+          <div class="chips" id="levelChips"></div>
+        </div>
+        <div class="field">
+          <label for="fac">Subject area</label>
+          <select id="fac"></select>
+        </div>
+        <div class="field">
+          <label for="prov">Province</label>
+          <select id="prov"></select>
+        </div>
+        <div class="field">
+          <label for="ielts">My IELTS overall</label>
+          <select id="ielts">
+            <option value="">Not taken yet / show all</option>
+            <option value="6">6.0</option><option value="6.5">6.5</option><option value="7">7.0</option><option value="7.5">7.5 or higher</option>
+          </select>
+          <span class="hint">Shows programs whose overall requirement is at or below your score. Band minimums still apply.</span>
+        </div>
+        <div class="field">
+          <label for="budget">Max tuition per year</label>
+          <input type="range" id="budget" min="10000" max="70000" step="1000" value="70000">
+          <span class="range-val" id="budgetVal"></span>
+        </div>
+        <div class="field">
+          <span class="lab">Intake</span>
+          <div class="chips" id="intakeChips"></div>
+        </div>
+        <div class="field">
+          <span class="lab">Other</span>
+          <label class="hint" style="display:flex;gap:8px;align-items:center;color:var(--ink-2)"><input type="checkbox" id="schOnly"> Has a scholarship listed</label>
+        </div>
+        <button class="reset" id="reset">Clear all filters</button>
+      </div>
+    </aside>
+
+    <main>
+      <div class="bar">
+        <div class="count" id="count"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <select id="sort" aria-label="Sort by">
+            <option value="fee">Tuition: low to high</option>
+            <option value="feeDesc">Tuition: high to low</option>
+            <option value="ielts">IELTS: lowest first</option>
+            <option value="uni">Institution A to Z</option>
+          </select>
+          <button class="shortbtn" id="openShort">Shortlist <b id="shortN">0</b></button>
+        </div>
+      </div>
+      <div class="list" id="list"></div>
+      <button class="more" id="more" hidden>Show more programs</button>
+
+      <section class="costs" aria-label="Other costs">
+        <div class="panel">
+          <h3>Fixed costs for a study permit</h3>
+          <p class="hint">Paid by every applicant, on top of tuition.</p>
+          <table id="fixedCosts"></table>
+        </div>
+        <div class="panel">
+          <h3>Funds to show for the visa</h3>
+          <p class="hint">Typical bank solvency guidance, in Bangladeshi taka (lakh).</p>
+          <table id="funds"></table>
+        </div>
+      </section>
+
+      <p class="foot" id="foot"></p>
+    </main>
+  </div>
+</div>
+
+<div class="drawer" id="drawer" hidden role="dialog" aria-label="Your shortlist">
+  <div class="in">
+    <div class="drow"><strong>Your shortlist</strong><button class="ghost" id="closeShort">Close</button></div>
+    <p class="hint" style="margin:0">Copy this list and send it to your counsellor on WhatsApp or email. They will check your eligibility and the latest fees.</p>
+    <textarea id="shortText" readonly aria-label="Shortlist text"></textarea>
+    <div class="drow">
+      <span class="hint" id="copyMsg"></span>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="ghost" id="clearShort">Clear shortlist</button>
+        <a class="ghost" id="waLink" target="_blank" rel="noopener" hidden style="text-decoration:none;color:var(--ink)">Open WhatsApp</a>
+        <button class="btn" id="copyShort">Copy list</button>
+      </div>
+    </div>
+    <p class="hint" id="contactLine" style="margin:0"></p>
+  </div>
+</div>
+
+<script>
+/* ---------- Settings: change these to rebrand the page ---------- */
+const CONFIG = {
+  brand: "International Admission Service",
+  whatsapp: "",          // counsellor number with country code, digits only, e.g. "8801XXXXXXXXX"
+  dataUpdated: "__UPDATED__",
+  usdToCad: __RATE__      // indicative rate used only to compare USD fees with CAD fees
+};
+const DATA = __DATA__;
+const FIXED_COSTS = [["University application fee", "about CAD 120 (BDT 10,812)"], ["Medical test", "BDT 8,000"], ["Study permit application fee", "CAD 235 (BDT 19,270)"], ["Police clearance certificate", "BDT 500"]];
+const FUNDS = [["Single applicant", "30 to 35 lakh"], ["With spouse", "40 to 45 lakh"], ["With spouse and one child", "50 to 55 lakh"]];
+/* ---------------------------------------------------------------- */
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = (n) => n.toLocaleString("en-US");
+const LEVELS = ["Bachelor's", "Master's", "Postgraduate Diploma / Certificate", "Diploma", "Pathway / Foundation"];
+const LEVEL_SHORT = { "Bachelor's": "Bachelor's", "Master's": "Master's", "Postgraduate Diploma / Certificate": "PG diploma", "Diploma": "Diploma", "Pathway / Foundation": "Pathway" };
+const MONTHS = ["Jan", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"];
+DATA.forEach((c, i) => { c.id = i; c.hay = (c.title + " " + c.specs.join(" ") + " " + c.uni + " " + c.prov + " " + c.fac).toLowerCase(); });
+
+const state = { q: "", levels: new Set(), fac: "", prov: "", ielts: "", budget: 70000, intakes: new Set(), sch: false, sort: "fee", shown: 30 };
+let short = new Set();
+try { short = new Set(JSON.parse(localStorage.getItem("cf-short") || "[]")); } catch (e) {}
+const saveShort = () => { try { localStorage.setItem("cf-short", JSON.stringify([...short])); } catch (e) {} };
+
+// header + static panels
+$("#brandName").textContent = CONFIG.brand;
+$("#sCourses").textContent = DATA.length;
+$("#sUnis").textContent = new Set(DATA.map((c) => c.uni)).size;
+$("#sProv").textContent = new Set(DATA.map((c) => c.prov)).size;
+$("#fixedCosts").innerHTML = FIXED_COSTS.map(([a, b]) => `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("");
+$("#funds").innerHTML = FUNDS.map(([a, b]) => `<tr><td>${esc(a)}</td><td>BDT ${esc(b)}</td></tr>`).join("");
+$("#foot").textContent = `Course information last updated ${CONFIG.dataUpdated} by ${CONFIG.brand} counsellors. Fees, scholarships, test scores and intakes change often, so always confirm on the official university page before you apply. Fees shown in US dollars are converted at about ${CONFIG.usdToCad} CAD per USD for comparison only. Programs listed by total fee are shown as an approximate yearly figure.`;
+
+// filter controls
+const levelCounts = (l) => DATA.filter((c) => c.level === l).length;
+$("#levelChips").innerHTML = LEVELS.filter(levelCounts).map((l) => `<button class="chip" data-level="${esc(l)}" aria-pressed="false">${esc(LEVEL_SHORT[l])}</button>`).join("");
+$("#intakeChips").innerHTML = MONTHS.filter((m) => DATA.some((c) => c.intakes.includes(m))).map((m) => `<button class="chip" data-intake="${m}" aria-pressed="false">${m}</button>`).join("");
+const opts = (arr, all) => `<option value="">${all}</option>` + arr.map((v) => `<option value="${esc(v)}">${esc(v)} (${DATA.filter((c) => c.fac === v || c.prov === v).length})</option>`).join("");
+$("#fac").innerHTML = opts([...new Set(DATA.map((c) => c.fac))].sort(), "All subject areas");
+$("#prov").innerHTML = opts([...new Set(DATA.map((c) => c.prov))].sort(), "All provinces");
+
+function budgetLabel() { $("#budgetVal").textContent = state.budget >= 70000 ? "Any amount" : `Up to CAD ${fmt(state.budget)} a year`; }
+budgetLabel();
+
+function matches(c) {
+  if (state.q && !state.q.split(/\s+/).every((w) => c.hay.includes(w))) return false;
+  if (state.levels.size && !state.levels.has(c.level)) return false;
+  if (state.fac && c.fac !== state.fac) return false;
+  if (state.prov && c.prov !== state.prov) return false;
+  if (state.ielts && c.ielts != null && c.ielts > parseFloat(state.ielts)) return false;
+  if (state.budget < 70000 && c.annual > state.budget) return false;
+  if (state.intakes.size && !c.intakes.some((m) => state.intakes.has(m))) return false;
+  if (state.sch && !hasSch(c)) return false;
+  return true;
+}
+const hasSch = (c) => c.sch && !/^(0|none|no funding|0\.00|\$0\.00)$/i.test(c.sch.trim());
+
+const sorters = {
+  fee: (a, b) => a.annual - b.annual,
+  feeDesc: (a, b) => b.annual - a.annual,
+  ielts: (a, b) => (a.ielts ?? 9) - (b.ielts ?? 9) || a.annual - b.annual,
+  uni: (a, b) => a.uni.localeCompare(b.uni) || a.title.localeCompare(b.title),
+};
+
+const starSvg = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z"/></svg>`;
+
+function feeFact(c) {
+  const approx = c.isTotal || c.cur === "USD";
+  const main = `CAD ${fmt(c.annual)}`;
+  const sub = approx ? `<div class="sub">${esc(c.tuition)}</div>` : `<div class="sub">per year</div>`;
+  return `<div class="fact"><div class="k">Tuition${approx ? " (approx.)" : ""}</div><div class="v price">${main}</div>${sub}</div>`;
+}
+
+function card(c) {
+  const on = short.has(c.id);
+  const months = c.suspended ? `<span class="tag warn">Intake suspended</span>` : (c.intakes.length ? `<div class="months">${c.intakes.map((m) => `<span class="mo">${m}</span>`).join("")}</div>` : esc(c.intakeRaw) || "Ask");
+  const specs = c.specs.length ? `<div class="specs">Specialisations: ${esc(c.specs.join(", "))}</div>` : "";
+  const sch = hasSch(c) ? esc(c.sch) : "None listed";
+  const detailBits = [
+    ["English test scores", c.english],
+    ["Academic entry requirement", c.entry],
+    c.deadline && ["Application deadlines", c.deadline],
+    ["Scholarship", sch],
+    c.note && ["Note", c.note],
+  ].filter(Boolean).map(([h, t]) => `<div><h4>${esc(h)}</h4><p>${esc(t)}</p></div>`).join("");
+  return `<article class="card">
+    <div class="chead">
+      <div style="min-width:0">
+        <div class="uni"><strong>${esc(c.uni)}</strong><span>${esc(c.prov)}</span>${c.qs ? `<span class="tag qs">QS ${esc(c.qs)}</span>` : ""}<span class="tag">${esc(LEVEL_SHORT[c.level] || c.level)}</span></div>
+        <h3 class="title">${esc(c.title)}</h3>${specs}
+      </div>
+      <button class="star" data-star="${c.id}" aria-pressed="${on}" aria-label="${on ? "Remove from" : "Add to"} shortlist: ${esc(c.title)}">${starSvg}</button>
+    </div>
+    <div class="facts">
+      ${feeFact(c)}
+      <div class="fact"><div class="k">IELTS overall</div><div class="v">${c.ielts != null ? c.ielts.toFixed(1) : "See details"}</div></div>
+      <div class="fact"><div class="k">Duration</div><div class="v">${esc(c.duration.replace(/Year's/g, "years")) || "Ask"}</div></div>
+      <div class="fact"><div class="k">Intakes</div><div class="v">${months}</div></div>
+      <div class="fact"><div class="k">Deposit</div><div class="v">${esc(c.dep) || "Ask"}</div></div>
+      <div class="fact"><div class="k">App. fee</div><div class="v">${esc(c.fee) && c.fee !== "0" ? esc(c.fee) : "Ask"}</div></div>
+    </div>
+    <div class="actions">
+      <details><summary>Full requirements</summary><div class="dgrid">${detailBits}</div></details>
+      ${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">Course page</a>` : ""}
+    </div>
+  </article>`;
+}
+
+function render() {
+  const res = DATA.filter(matches).sort(sorters[state.sort]);
+  $("#count").innerHTML = `<b>${res.length}</b> of ${DATA.length} programs match`;
+  if (!res.length) {
+    $("#list").innerHTML = `<div class="empty">No programs match all your filters. Try raising your budget, adding an intake, or clearing the subject area.</div>`;
+  } else {
+    $("#list").innerHTML = res.slice(0, state.shown).map(card).join("");
+  }
+  $("#more").hidden = res.length <= state.shown;
+  $("#more").textContent = `Show more programs (${res.length - state.shown} left)`;
+  $("#shortN").textContent = short.size;
+}
+
+// events
+let t;
+$("#q").addEventListener("input", (e) => { clearTimeout(t); t = setTimeout(() => { state.q = e.target.value.trim().toLowerCase(); state.shown = 30; render(); }, 120); });
+$("#fac").addEventListener("change", (e) => { state.fac = e.target.value; state.shown = 30; render(); });
+$("#prov").addEventListener("change", (e) => { state.prov = e.target.value; state.shown = 30; render(); });
+$("#ielts").addEventListener("change", (e) => { state.ielts = e.target.value; state.shown = 30; render(); });
+$("#budget").addEventListener("input", (e) => { state.budget = +e.target.value; budgetLabel(); state.shown = 30; render(); });
+$("#schOnly").addEventListener("change", (e) => { state.sch = e.target.checked; state.shown = 30; render(); });
+$("#sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
+$("#more").addEventListener("click", () => { state.shown += 30; render(); });
+function chipToggle(container, attr, set) {
+  container.addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    const v = b.dataset[attr]; set.has(v) ? set.delete(v) : set.add(v);
+    b.setAttribute("aria-pressed", set.has(v)); state.shown = 30; render();
+  });
+}
+chipToggle($("#levelChips"), "level", state.levels);
+chipToggle($("#intakeChips"), "intake", state.intakes);
+$("#reset").addEventListener("click", () => {
+  Object.assign(state, { q: "", fac: "", prov: "", ielts: "", budget: 70000, sch: false, shown: 30 });
+  state.levels.clear(); state.intakes.clear();
+  ["#q", "#fac", "#prov", "#ielts"].forEach((s) => ($(s).value = ""));
+  $("#budget").value = 70000; $("#schOnly").checked = false; budgetLabel();
+  document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", "false"));
+  render();
+});
+$("#toggleF").addEventListener("click", () => {
+  const f = $("#filters"); const open = f.classList.toggle("collapsed") === false;
+  $("#toggleF").textContent = open ? "Hide filters" : "Show filters"; $("#toggleF").setAttribute("aria-expanded", open);
+});
+$("#list").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-star]"); if (!b) return;
+  const id = +b.dataset.star; short.has(id) ? short.delete(id) : short.add(id);
+  b.setAttribute("aria-pressed", short.has(id)); saveShort(); $("#shortN").textContent = short.size;
+});
+
+function shortText() {
+  const items = DATA.filter((c) => short.has(c.id));
+  if (!items.length) return "Your shortlist is empty. Tap the star on any program to add it.";
+  return `Hello, I am interested in these Canada programs:\n\n` + items.map((c, i) => `${i + 1}. ${c.title}\n   ${c.uni}, ${c.prov}\n   Tuition: ${c.tuition} | IELTS ${c.ielts ?? "see details"} | Intakes: ${c.intakeRaw}${c.url ? "\n   " + c.url : ""}`).join("\n\n") + `\n\nMy IELTS score: \nMy last degree and result: \nPreferred intake: `;
+}
+$("#openShort").addEventListener("click", () => {
+  $("#shortText").value = shortText(); $("#copyMsg").textContent = ""; $("#drawer").hidden = false;
+  const wa = $("#waLink");
+  if (CONFIG.whatsapp) {
+    wa.hidden = false; wa.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(shortText())}`;
+    $("#contactLine").textContent = `Counsellor WhatsApp: +${CONFIG.whatsapp}`;
+  } else { wa.hidden = true; $("#contactLine").textContent = ""; }
+});
+$("#closeShort").addEventListener("click", () => ($("#drawer").hidden = true));
+$("#clearShort").addEventListener("click", () => { short.clear(); saveShort(); $("#shortText").value = shortText(); render(); });
+$("#copyShort").addEventListener("click", () => {
+  const ta = $("#shortText");
+  navigator.clipboard.writeText(ta.value).then(() => ($("#copyMsg").textContent = "Copied. Paste it into WhatsApp or email."))
+    .catch(() => { ta.focus(); ta.select(); $("#copyMsg").textContent = "Text selected. Press copy on your device."; });
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") $("#drawer").hidden = true; });
+
+render();
+</script>

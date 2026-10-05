@@ -1,0 +1,6 @@
+Royal Roads University | MA in Global Leadership at Royal Roads University: duration column holds a fee ('$19,971 CAD')
+Royal Roads University | Master of Arts - Environmental Education and Communication: no IELTS overall score found
+Dalhousie University | Master of Health Administration (MHA): website URL column holds 'CAD 1000-3,000.00'
+University Canada West | Bachelor of Commerce - Accounting: tuition 'CAD 84760.00 /Year' looks unusually high, please check
+University of British Columbia: QS ranking differs between rows (45, 40)
+Dalhousie University: QS ranking differs between rows (283, 293)
