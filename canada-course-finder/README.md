@@ -1,6 +1,6 @@
 # Canada Course Finder
 
-A filterable finder for 269 Canadian programs at 38 institutions, built from the counsellor course sheet. Applicants filter by IELTS, budget, level, subject, province and intake, then shortlist programs and copy the list to a counsellor.
+A course finder for 242 Canadian university programs at 34 universities, built from the counsellor course sheet (colleges and institutes are left out). Applicants filter by IELTS, budget, level, subject, province and intake, then shortlist programs and copy the list to a counsellor.
 
 ## Quick start
 

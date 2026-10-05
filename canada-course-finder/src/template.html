@@ -1,250 +1,603 @@
 <title>Canada Course Finder</title>
+<meta name="description" content="Find Canadian university programs that fit your IELTS score, budget and intake. Built for Bangladeshi applicants.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap">
 <style>
-/* Layout: sticky filter rail on the left, results column on the right; stacks to one column on phones.
-   Look: a study-permit file. Cool paper ground, ink-navy text, maple red used only for the key action and price. */
+/* Layout: a weightless sky. Content floats on glass panes above a pale high-altitude
+   ground (night sky in dark mode). Things drift upward until the applicant turns gravity on. */
 :root {
-  --paper: #f3f5f7;
-  --card: #ffffff;
-  --ink: #15202e;
-  --ink-2: #4a5a6c;
-  --ink-3: #7b8a9a;
-  --line: #dde3ea;
-  --maple: #c8202f;
-  --maple-soft: #fbe9ea;
-  --spruce: #1d5c55;
-  --spruce-soft: #e3f0ee;
-  --amber: #8a5a00;
-  --amber-soft: #fdf1d8;
-  --f-display: "Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
-  --f-body: "Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
-  --f-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --r: 10px;
+  --sky: #e8eff4;          /* page ground */
+  --sky-hi: #f7fafc;       /* top of the sky gradient */
+  --pane: rgba(255, 255, 255, .78);
+  --pane-solid: #ffffff;
+  --ink: #0f1f2d;
+  --ink-2: #41556a;
+  --ink-3: #6f8295;
+  --line: #d2dde6;
+  --line-2: #e3eaf0;
+  --maple: #c8102e;        /* prices and the main action only */
+  --maple-soft: rgba(200, 16, 46, .09);
+  --on-maple: #ffffff;
+  --fit: #0b7f71;          /* fits your profile */
+  --fit-soft: rgba(11, 127, 113, .1);
+  --stretch: #9a5b00;      /* close, but a stretch */
+  --stretch-soft: rgba(154, 91, 0, .1);
+  --halo: 15, 31, 45;      /* shadow colour as r, g, b */
+  --glow: rgba(120, 170, 205, .35);
+  --f-text: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --r: 14px;
+  --r-sm: 9px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #0f141b; --card: #171e27; --ink: #e8edf3; --ink-2: #a9b6c4; --ink-3: #7c8a99; --line: #273241;
-    --maple: #ff6b72; --maple-soft: #3a1b1f; --spruce: #6cc4b8; --spruce-soft: #15302d; --amber: #f0c060; --amber-soft: #33290f;
+    --sky: #08121d; --sky-hi: #0d1b2a; --pane: rgba(18, 32, 47, .78); --pane-solid: #12202f;
+    --ink: #e6eef5; --ink-2: #a8b9c9; --ink-3: #74889b; --line: #213347; --line-2: #1a2a3b;
+    --maple: #f0485c; --maple-soft: rgba(240, 72, 92, .14); --on-maple: #ffffff;
+    --fit: #4fd1b5; --fit-soft: rgba(79, 209, 181, .13); --stretch: #f2b94b; --stretch-soft: rgba(242, 185, 75, .13);
+    --halo: 0, 0, 0; --glow: rgba(79, 209, 181, .14);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --paper: #0f141b; --card: #171e27; --ink: #e8edf3; --ink-2: #a9b6c4; --ink-3: #7c8a99; --line: #273241;
-  --maple: #ff6b72; --maple-soft: #3a1b1f; --spruce: #6cc4b8; --spruce-soft: #15302d; --amber: #f0c060; --amber-soft: #33290f;
+  --sky: #08121d; --sky-hi: #0d1b2a; --pane: rgba(18, 32, 47, .78); --pane-solid: #12202f;
+  --ink: #e6eef5; --ink-2: #a8b9c9; --ink-3: #74889b; --line: #213347; --line-2: #1a2a3b;
+  --maple: #f0485c; --maple-soft: rgba(240, 72, 92, .14); --on-maple: #ffffff;
+  --fit: #4fd1b5; --fit-soft: rgba(79, 209, 181, .13); --stretch: #f2b94b; --stretch-soft: rgba(242, 185, 75, .13);
+  --halo: 0, 0, 0; --glow: rgba(79, 209, 181, .14);
   color-scheme: dark;
 }
+
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-img { max-width: 100%; }
-body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; margin: 0; }
-.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
-a { color: var(--spruce); }
-button, input, select { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--spruce); outline-offset: 2px; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  margin: 0; font-family: var(--f-text); font-size: 15.5px; line-height: 1.55; color: var(--ink);
+  background: var(--sky);
+  background-image: linear-gradient(180deg, var(--sky-hi) 0, var(--sky) 640px);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--fit); outline-offset: 2px; border-radius: 6px; }
+.mono { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; }
+@media (max-width: 520px) { .wrap { padding-inline: 16px; } }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.pane {
+  background: var(--pane); border: 1px solid var(--line); border-radius: var(--r);
+  backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
 
-/* header */
-.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; padding-bottom: 22px; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
-.brand { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; display: flex; align-items: center; gap: 8px; }
-.leaf { width: 14px; height: 14px; color: var(--maple); }
-h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(28px, 4.2vw, 44px); line-height: 1.05; letter-spacing: -.02em; margin: 6px 0 6px; text-wrap: balance; }
-.lede { color: var(--ink-2); max-width: 58ch; margin: 0; }
-.stats { display: flex; gap: 22px; font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+/* ---------- Header ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--sky-hi) 82%, transparent);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line-2);
+}
+.top .wrap { display: flex; align-items: center; gap: 18px; min-height: 62px; }
+.brand { display: flex; align-items: center; gap: 9px; font-weight: 800; letter-spacing: -.01em; text-decoration: none; min-width: 0; }
+.brand svg { width: 22px; height: 22px; color: var(--maple); flex: none; }
+.brand span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav { display: flex; gap: 4px; margin-left: auto; }
+.nav a { text-decoration: none; font-size: 14px; font-weight: 600; color: var(--ink-2); padding: 7px 11px; border-radius: 8px; }
+.nav a:hover { color: var(--ink); background: var(--line-2); }
+.tools { display: flex; gap: 8px; align-items: center; }
+.icon-btn { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px; border: 1px solid var(--line); background: var(--pane-solid); cursor: pointer; }
+.icon-btn svg { width: 18px; height: 18px; }
+.short-btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--pane-solid); font-weight: 700; font-size: 14px; cursor: pointer;
+}
+.short-btn b { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: var(--ink); color: var(--sky); font-size: 12px; display: grid; place-items: center; font-family: var(--f-data); }
+.short-btn.bump { animation: bump .45s ease; }
+@keyframes bump { 40% { transform: translateY(-4px) scale(1.06); } }
+@media (max-width: 860px) { .nav { display: none; } .tools { margin-left: auto; } }
+
+/* ---------- Hero ---------- */
+.hero { padding-block: 44px 28px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 36px; align-items: center; }
+.hero h1 { font-size: clamp(2.3rem, 4.6vw, 4rem); line-height: 1.02; letter-spacing: -.035em; font-weight: 900; margin-top: 14px; }
+.hero h1 em { font-style: normal; color: var(--fit); }
+.hero .lede { font-size: 1.08rem; color: var(--ink-2); max-width: 46ch; margin: 16px 0 0; }
+.quick { margin-top: 24px; padding: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-items: end; box-shadow: 0 18px 40px -22px rgba(var(--halo), .35); }
+.quick .btn-main { grid-column: 1 / -1; }
+.quick label { display: grid; gap: 5px; font-size: 12px; font-weight: 700; color: var(--ink-3); letter-spacing: .04em; text-transform: uppercase; min-width: 0; }
+select, input[type="search"] {
+  width: 100%; height: 42px; padding: 0 12px; border-radius: var(--r-sm); border: 1px solid var(--line);
+  background: var(--pane-solid); font-size: 15px; text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--ink);
+}
+.btn-main {
+  height: 42px; padding: 0 18px; border: 0; border-radius: var(--r-sm); background: var(--maple); color: var(--on-maple);
+  font-weight: 800; cursor: pointer; white-space: nowrap; box-shadow: 0 10px 22px -10px var(--maple);
+}
+.btn-main:hover { filter: brightness(1.06); }
+.btn-ghost { height: 40px; padding: 0 14px; border-radius: var(--r-sm); border: 1px solid var(--line); background: transparent; font-weight: 700; cursor: pointer; }
+.btn-ghost:hover { background: var(--line-2); }
+.stats { display: flex; gap: 28px; margin-top: 22px; flex-wrap: wrap; }
 .stats div { display: grid; }
-.stats b { font-size: 22px; font-weight: 500; }
-.stats span { font-family: var(--f-body); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.stats b { font-family: var(--f-data); font-size: 1.6rem; font-weight: 600; letter-spacing: -.02em; }
+.stats span { font-size: 13px; color: var(--ink-3); }
+@media (max-width: 960px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); }
+  .quick { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) { .quick { grid-template-columns: minmax(0, 1fr); } }
 
-.layout { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 28px; align-items: start; }
-@media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+/* The floating field: real programs drifting upward on a canvas */
+.field {
+  position: relative; height: 440px; border-radius: 22px; overflow: hidden; border: 1px solid var(--line);
+  background: radial-gradient(120% 80% at 50% 110%, var(--glow), transparent 60%), linear-gradient(180deg, var(--pane), transparent);
+}
+.field canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; }
+.field .grav {
+  position: absolute; left: 14px; top: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 9px;
+  height: 38px; padding: 0 14px 0 10px; border-radius: 19px; border: 1px solid var(--line); background: var(--pane-solid);
+  font-weight: 700; font-size: 13.5px; cursor: pointer; box-shadow: 0 8px 20px -12px rgba(var(--halo), .5);
+}
+.grav .sw { width: 30px; height: 18px; border-radius: 9px; background: var(--line); position: relative; transition: background .2s; }
+.grav .sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--pane-solid); box-shadow: 0 1px 3px rgba(var(--halo), .4); transition: transform .2s; }
+.grav[aria-pressed="true"] .sw { background: var(--ink); }
+.grav[aria-pressed="true"] .sw::after { transform: translateX(12px); }
+.field .cap { position: absolute; right: 14px; top: 12px; z-index: 2; font-size: 12px; color: var(--ink-3); background: var(--pane-solid); padding: 4px 9px; border-radius: 12px; border: 1px solid var(--line-2); }
+@media (max-width: 960px) { .field { height: 320px; } }
 
-/* filters */
-.filters { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); display: grid; gap: 18px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; max-height: calc(100vh - 32px); overflow: auto; }
-@media (max-width: 860px) { .filters { position: static; max-height: none; } .filters.collapsed .fbody { display: none; } }
-.fhead { display: flex; justify-content: space-between; align-items: center; }
-.fhead h2 { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; margin: 0; color: var(--ink-2); }
-.toggle-f { display: none; border: 1px solid var(--line); background: transparent; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 13px; }
-@media (max-width: 860px) { .toggle-f { display: inline-block; } }
-.fbody { display: grid; gap: 18px; }
-.field { display: grid; gap: 7px; }
-.field > label, .field > .lab { font-size: 12px; font-weight: 600; color: var(--ink-2); letter-spacing: .02em; }
-.field select, .field input[type=search] { width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); }
-.hint { font-size: 12px; color: var(--ink-3); }
+/* ---------- Sections ---------- */
+section.block { padding-block: 56px 8px; }
+.sec-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+.sec-head h2 { font-size: clamp(1.6rem, 2.8vw, 2.3rem); letter-spacing: -.025em; font-weight: 800; margin-top: 6px; }
+.sec-head p { margin: 6px 0 0; color: var(--ink-2); max-width: 60ch; }
+
+/* ---------- Finder ---------- */
+.finder { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 24px; align-items: start; }
+.filters { position: sticky; top: 80px; padding: 18px; display: grid; gap: 16px; max-height: calc(100vh - 96px); overflow: auto; }
+.filters .fhead { display: flex; justify-content: space-between; align-items: center; }
+.filters h3 { font-size: 16px; }
+.f { display: grid; gap: 7px; min-width: 0; }
+.f > label, .f > .lab { font-size: 12px; font-weight: 700; color: var(--ink-3); letter-spacing: .05em; text-transform: uppercase; }
+.hint { font-size: 12.5px; color: var(--ink-3); line-height: 1.45; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { border: 1px solid var(--line); background: var(--paper); border-radius: 999px; padding: 4px 11px; font-size: 13px; cursor: pointer; }
-.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-input[type=range] { width: 100%; accent-color: var(--maple); }
-.range-val { font-family: var(--f-data); font-size: 13px; font-variant-numeric: tabular-nums; }
-.reset { justify-self: start; border: 0; background: none; color: var(--maple); padding: 0; cursor: pointer; font-weight: 600; font-size: 13px; }
+.chip { border: 1px solid var(--line); background: var(--pane-solid); border-radius: 16px; padding: 5px 11px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--sky); border-color: var(--ink); }
+.check { display: flex; gap: 9px; align-items: flex-start; font-size: 14px; color: var(--ink-2); cursor: pointer; }
+.check input { margin-top: 3px; accent-color: var(--fit); }
+input[type="range"] { width: 100%; accent-color: var(--maple); }
+.range-val { font-family: var(--f-data); font-size: 13.5px; font-weight: 500; }
+.link-btn { border: 0; background: none; padding: 0; color: var(--ink-2); font-weight: 700; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.toggle-f { display: none; }
+@media (max-width: 960px) {
+  .finder { grid-template-columns: minmax(0, 1fr); }
+  .filters { position: static; max-height: none; }
+  .toggle-f { display: inline-block; }
+  .filters.collapsed .fbody { display: none; }
+}
+.fbody { display: grid; gap: 16px; }
 
-/* results bar */
-.bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 16px; margin-bottom: 14px; }
-.count { font-size: 14px; color: var(--ink-2); }
-.count b { color: var(--ink); font-family: var(--f-data); font-weight: 500; }
-.bar select { padding: 7px 10px; border: 1px solid var(--line); border-radius: 7px; background: var(--card); }
-.shortbtn { border: 1px solid var(--ink); background: var(--card); border-radius: 7px; padding: 7px 12px; cursor: pointer; font-weight: 600; font-size: 13px; }
-.shortbtn b { font-family: var(--f-data); }
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.count { font-weight: 700; }
+.count small { font-weight: 500; color: var(--ink-3); font-size: 13.5px; }
+.bar select { width: auto; min-width: 190px; }
+.active { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.active:empty { display: none; }
+.active button { border: 1px dashed var(--line); background: transparent; border-radius: 14px; padding: 3px 10px; font-size: 12.5px; color: var(--ink-2); cursor: pointer; }
+.active button::after { content: " \00d7"; }
 
-/* cards */
-.list { display: grid; gap: 12px; }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; display: grid; gap: 12px; min-width: 0; }
-.chead { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
-.uni { font-size: 13px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
-.uni strong { color: var(--ink); font-weight: 600; }
-.tag { font-size: 11px; letter-spacing: .04em; padding: 2px 7px; border-radius: 4px; background: var(--paper); color: var(--ink-2); border: 1px solid var(--line); white-space: nowrap; }
-.tag.qs { font-family: var(--f-data); }
-.tag.warn { background: var(--amber-soft); color: var(--amber); border-color: transparent; }
-.title { font-family: var(--f-display); font-size: 18px; font-weight: 700; line-height: 1.25; margin: 4px 0 0; text-wrap: balance; }
-.specs { font-size: 13px; color: var(--ink-2); margin-top: 4px; }
-.star { flex: none; border: 1px solid var(--line); background: var(--paper); border-radius: 8px; width: 36px; height: 36px; cursor: pointer; display: grid; place-items: center; color: var(--ink-3); }
-.star[aria-pressed="true"] { background: var(--maple-soft); color: var(--maple); border-color: var(--maple); }
+/* Cards float. Each bobs on its own phase; gravity makes them settle. */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 18px; }
+.card {
+  position: relative; display: grid; gap: 12px; align-content: start; padding: 18px; min-width: 0;
+  background: var(--pane-solid); border: 1px solid var(--line); border-radius: var(--r);
+  box-shadow: 0 22px 34px -26px rgba(var(--halo), .55), 0 2px 6px -4px rgba(var(--halo), .2);
+  transition: translate .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s, border-color .2s;
+  cursor: pointer;
+}
+.card:hover { translate: 0 -8px; box-shadow: 0 38px 46px -28px rgba(var(--halo), .55), 0 2px 6px -4px rgba(var(--halo), .2); border-color: var(--ink-3); }
+@media (prefers-reduced-motion: no-preference) {
+  body:not(.gravity) .card .float { animation: bob 7s ease-in-out infinite; animation-delay: var(--d, 0s); }
+  body.gravity .card { animation: land .7s cubic-bezier(.3, 1.5, .5, 1) backwards; animation-delay: var(--ld, 0s); }
+}
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes land { 0% { translate: 0 -26px; } 100% { translate: 0 0; } }
+.card .float { display: grid; gap: 12px; }
+.c-top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+.uni { font-size: 13px; font-weight: 700; color: var(--ink-2); min-width: 0; }
+.uni .qs { font-family: var(--f-data); font-weight: 500; color: var(--ink-3); margin-left: 6px; font-size: 12px; white-space: nowrap; }
+.card h3 { font-size: 17.5px; line-height: 1.28; letter-spacing: -.01em; font-weight: 800; overflow-wrap: anywhere; }
+.meta { font-size: 13px; color: var(--ink-3); }
+.facts { display: grid; grid-template-columns: 1.25fr .7fr 1fr; gap: 10px; padding-top: 12px; border-top: 1px solid var(--line-2); }
+.facts .k { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.facts .v { font-family: var(--f-data); font-weight: 600; font-size: 14.5px; font-variant-numeric: tabular-nums; }
+.price { color: var(--maple); }
+.facts .sub { font-size: 11.5px; color: var(--ink-3); }
+.months { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 2px; }
+.mo { font-family: var(--f-data); font-size: 11px; padding: 1px 5px; border-radius: 5px; background: var(--line-2); font-weight: 500; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 12px; background: var(--line-2); color: var(--ink-2); }
+.tag.fit { background: var(--fit-soft); color: var(--fit); }
+.tag.stretch { background: var(--stretch-soft); color: var(--stretch); }
+.tag.warn { background: var(--stretch-soft); color: var(--stretch); }
+.star {
+  flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--pane-solid); color: var(--ink-3); cursor: pointer;
+}
 .star svg { width: 18px; height: 18px; }
-.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 10px 16px; padding-top: 12px; border-top: 1px dashed var(--line); }
-.fact { min-width: 0; }
-.fact .k { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); }
-.fact .v { font-family: var(--f-data); font-size: 14px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-.fact .v.price { color: var(--maple); font-weight: 500; }
-.fact .sub { font-size: 12px; color: var(--ink-3); font-family: var(--f-body); }
-.months { display: flex; gap: 3px; flex-wrap: wrap; }
-.mo { font-family: var(--f-data); font-size: 11px; padding: 1px 5px; border-radius: 3px; background: var(--spruce-soft); color: var(--spruce); }
-details { font-size: 14px; }
-summary { cursor: pointer; color: var(--spruce); font-weight: 600; font-size: 13px; width: max-content; }
-.dgrid { display: grid; gap: 10px; margin-top: 10px; }
-.dgrid h4 { margin: 0 0 2px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
-.dgrid p { margin: 0; white-space: pre-line; color: var(--ink-2); max-width: 75ch; }
-.actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; font-size: 13px; }
-.actions a { font-weight: 600; }
-.more { display: block; margin: 16px auto 0; border: 1px solid var(--line); background: var(--card); padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; }
-.empty { background: var(--card); border: 1px dashed var(--line); border-radius: var(--r); padding: 28px; text-align: center; color: var(--ink-2); }
+.star[aria-pressed="true"] { color: var(--maple); border-color: var(--maple); background: var(--maple-soft); }
+.more { display: block; margin: 26px auto 0; }
+.empty { padding: 34px; text-align: center; color: var(--ink-2); }
+.empty b { display: block; font-size: 18px; color: var(--ink); margin-bottom: 6px; }
 
-/* costs */
-.costs { margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-.panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; min-width: 0; }
-.panel h3 { margin: 0 0 4px; font-size: 16px; font-family: var(--f-display); }
-.panel .hint { margin: 0 0 12px; }
-.panel table { width: 100%; border-collapse: collapse; font-size: 14px; }
-.panel td { padding: 7px 0; border-top: 1px solid var(--line); vertical-align: top; }
-.panel td:last-child { text-align: right; font-family: var(--f-data); font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 12px; }
-.foot { margin-top: 28px; font-size: 12.5px; color: var(--ink-3); max-width: 90ch; }
+/* ---------- University constellation ---------- */
+.cloud { display: flex; flex-wrap: wrap; gap: 12px 12px; justify-content: center; padding: 26px 8px; }
+.orb {
+  --s: 1; display: grid; justify-items: center; gap: 2px; text-align: center;
+  padding: calc(10px + 6px * var(--s)) calc(14px + 10px * var(--s)); border-radius: 999px;
+  border: 1px solid var(--line); background: var(--pane-solid); cursor: pointer; max-width: 100%;
+  box-shadow: 0 calc(14px + 14px * var(--s)) 30px -24px rgba(var(--halo), .6);
+  transition: translate .3s cubic-bezier(.2, .8, .2, 1), border-color .2s;
+}
+.orb b { font-size: calc(13px + 4px * var(--s)); letter-spacing: -.01em; line-height: 1.2; }
+.orb span { font-size: 12px; color: var(--ink-3); font-family: var(--f-data); }
+.orb:hover { translate: 0 -6px; border-color: var(--ink-3); }
+@media (prefers-reduced-motion: no-preference) {
+  body:not(.gravity) .orb { animation: drift 9s ease-in-out infinite; animation-delay: var(--d, 0s); }
+}
+@keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 
-/* shortlist drawer */
-.drawer { position: fixed; inset: auto 0 0 0; background: var(--card); border-top: 1px solid var(--line); box-shadow: 0 -8px 30px rgba(0,0,0,.12); padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px)); max-height: 70vh; overflow: auto; z-index: 5; }
-.drawer .in { max-width: 900px; margin: 0 auto; display: grid; gap: 12px; }
-.drawer textarea { width: 100%; min-height: 140px; font-family: var(--f-data); font-size: 12.5px; padding: 10px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); color: var(--ink); resize: vertical; }
-.drow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
-.btn { border: 0; background: var(--maple); color: #fff; padding: 9px 16px; border-radius: 7px; font-weight: 700; cursor: pointer; }
-.ghost { border: 1px solid var(--line); background: transparent; padding: 8px 14px; border-radius: 7px; cursor: pointer; }
-@media (prefers-reduced-motion: no-preference) { .card { transition: border-color .15s; } .card:hover { border-color: var(--ink-3); } }
+/* ---------- Plan ---------- */
+.plan { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; }
+@media (max-width: 960px) { .plan { grid-template-columns: minmax(0, 1fr); } }
+.steps { list-style: none; margin: 0; padding: 22px; display: grid; gap: 0; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 14px; padding-bottom: 18px; position: relative; }
+.steps li:last-child { padding-bottom: 0; }
+.steps li::before {
+  content: counter(s); width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--f-data); font-weight: 600; font-size: 14px; background: var(--pane-solid); border: 1px solid var(--line); position: relative; z-index: 1;
+}
+.steps li:not(:last-child)::after { content: ""; position: absolute; left: 17px; top: 34px; bottom: 0; width: 1px; background: var(--line); }
+.steps b { display: block; font-size: 15.5px; margin-top: 5px; }
+.steps p { margin: 3px 0 0; color: var(--ink-2); font-size: 14.5px; }
+.intakes { padding: 22px; display: grid; gap: 14px; align-content: start; }
+.intakes h3 { font-size: 17px; }
+.in-row { display: grid; grid-template-columns: 54px minmax(0, 1fr) 36px; gap: 12px; align-items: center; }
+.in-row .m { font-family: var(--f-data); font-weight: 600; font-size: 15px; }
+.in-row .track { height: 10px; border-radius: 5px; background: var(--line-2); overflow: hidden; }
+.in-row .track i { display: block; height: 100%; border-radius: 5px; background: var(--fit); }
+.in-row .n { font-family: var(--f-data); font-size: 13px; color: var(--ink-2); text-align: right; }
+.in-row small { grid-column: 2 / -1; margin-top: -8px; font-size: 12.5px; color: var(--ink-3); }
+
+/* ---------- Costs ---------- */
+.costs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 760px) { .costs { grid-template-columns: minmax(0, 1fr); } }
+.costs .pane { padding: 22px; }
+.costs h3 { font-size: 17px; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14.5px; }
+td { padding: 10px 0; border-top: 1px solid var(--line-2); vertical-align: top; }
+td:last-child { text-align: right; font-family: var(--f-data); font-variant-numeric: tabular-nums; padding-left: 14px; }
+
+footer { padding-block: 56px 120px; color: var(--ink-3); font-size: 13.5px; }
+footer .wrap { display: grid; gap: 10px; }
+footer p { margin: 0; max-width: 80ch; }
+
+/* ---------- Program sheet and shortlist ---------- */
+.scrim { position: fixed; inset: 0; z-index: 40; background: rgba(var(--halo), .42); backdrop-filter: blur(3px); }
+.sheet {
+  position: fixed; z-index: 41; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: min(720px, calc(100% - 32px)); max-height: min(86vh, 900px); overflow: auto;
+  background: var(--pane-solid); border: 1px solid var(--line); border-radius: 20px; padding: 26px;
+  box-shadow: 0 40px 80px -30px rgba(var(--halo), .6);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sheet:not([hidden]) { animation: rise .45s cubic-bezier(.2, .9, .25, 1); }
+  .drawer:not([hidden]) { animation: slide .4s cubic-bezier(.2, .9, .25, 1); }
+}
+@keyframes rise { from { opacity: 0; transform: translate(-50%, -42%); } }
+@keyframes slide { from { transform: translateX(40px); opacity: 0; } }
+.sheet-head { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
+.sheet h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); letter-spacing: -.02em; line-height: 1.15; margin-top: 4px; }
+.dl { display: grid; grid-template-columns: 170px minmax(0, 1fr); margin: 20px 0 0; }
+.dl dt, .dl dd { padding: 11px 0; border-top: 1px solid var(--line-2); margin: 0; }
+.dl dt { font-size: 13px; font-weight: 700; color: var(--ink-3); padding-right: 12px; }
+.dl dd { white-space: pre-line; overflow-wrap: anywhere; font-size: 14.5px; }
+@media (max-width: 560px) { .dl { grid-template-columns: minmax(0, 1fr); } .dl dd { border-top: 0; padding-top: 0; } }
+.sheet-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
+.sheet-actions a { font-weight: 700; font-size: 14px; }
+.note { font-size: 12.5px; color: var(--ink-3); margin: 16px 0 0; }
+
+.drawer {
+  position: fixed; z-index: 41; top: 0; right: 0; bottom: 0; width: min(520px, 100%); overflow: auto;
+  background: var(--pane-solid); border-left: 1px solid var(--line);
+  padding: calc(20px + env(safe-area-inset-top, 0px)) 22px calc(24px + env(safe-area-inset-bottom, 0px));
+  display: grid; gap: 16px; align-content: start;
+}
+.drawer > * { min-width: 0; }
+.drawer h2 { font-size: 22px; letter-spacing: -.02em; }
+.s-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 12px 0; border-top: 1px solid var(--line-2); }
+.s-item b { display: block; font-size: 14.5px; line-height: 1.3; }
+.s-item span { font-size: 12.5px; color: var(--ink-3); }
+.s-item .x { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: none; cursor: pointer; color: var(--ink-3); }
+.compare { overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; }
+.compare table { margin: 0; font-size: 13px; min-width: 420px; }
+.compare th, .compare td { padding: 8px 10px; text-align: left; border-top: 1px solid var(--line-2); font-family: var(--f-text); }
+.compare th { font-weight: 700; color: var(--ink-3); font-size: 12px; white-space: nowrap; }
+.compare thead th { border-top: 0; color: var(--ink); font-size: 12.5px; vertical-align: bottom; min-width: 130px; }
+.compare td.num { font-family: var(--f-data); }
+textarea { width: 100%; min-height: 150px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--sky); font-family: var(--f-data); font-size: 12.5px; line-height: 1.5; resize: vertical; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.row .grow { flex: 1; min-width: 0; }
+
+.flyer { position: fixed; z-index: 60; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--maple); pointer-events: none; box-shadow: 0 0 0 6px var(--maple-soft); }
+.toast { position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 70; background: var(--ink); color: var(--sky); padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 14px; max-width: calc(100% - 32px); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 
-<div class="wrap">
-  <header class="top">
-    <div>
-      <div class="brand"><svg class="leaf" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.6 3.4 2.6-1-0.5 4.1 3.3-1.6-1 3.2 2.5.8-4.4 3.9.8 2.2-4.1-.7.2 5.7h-2l.2-5.7-4.1.7.8-2.2L3.5 10.9 6 10.1 5 6.9l3.3 1.6L7.8 4.4l2.6 1z"/></svg><span id="brandName"></span></div>
-      <h1>Canada Course Finder</h1>
-      <p class="lede">Filter by your IELTS score, budget and intake to see which Canadian programs fit you. Shortlist the ones you like and send the list to your counsellor.</p>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.6 3.4 2.6-1-.5 4.1 3.3-1.6-1 3.2 2.5.8-4.4 3.9.8 2.2-4.1-.7.2 5.7h-2l.2-5.7-4.1.7.8-2.2L3.5 10.9 6 10.1 5 6.9l3.3 1.6L7.8 4.4l2.6 1z"/></svg>
+      <span id="brandName"></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#finder">Programs</a>
+      <a href="#universities">Universities</a>
+      <a href="#plan">How it works</a>
+      <a href="#costs">Costs</a>
+    </nav>
+    <div class="tools">
+      <button class="icon-btn" id="themeBtn" aria-label="Switch light or dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="short-btn" id="shortBtn" aria-haspopup="dialog">Shortlist <b id="shortN">0</b></button>
     </div>
-    <div class="stats" aria-label="Summary">
-      <div><b id="sCourses">0</b><span>Programs</span></div>
-      <div><b id="sUnis">0</b><span>Institutions</span></div>
-      <div><b id="sProv">0</b><span>Provinces</span></div>
-    </div>
-  </header>
+  </div>
+</header>
 
-  <div class="layout">
-    <aside class="filters collapsed" id="filters" aria-label="Filters">
-      <div class="fhead"><h2>Your profile</h2><button class="toggle-f" id="toggleF" aria-expanded="false" aria-controls="fbody">Show filters</button></div>
-      <div class="fbody" id="fbody">
-        <div class="field">
-          <label for="q">Search</label>
-          <input type="search" id="q" placeholder="e.g. data, MBA, Windsor">
-        </div>
-        <div class="field">
-          <span class="lab">Study level</span>
-          <div class="chips" id="levelChips"></div>
-        </div>
-        <div class="field">
-          <label for="fac">Subject area</label>
-          <select id="fac"></select>
-        </div>
-        <div class="field">
-          <label for="prov">Province</label>
-          <select id="prov"></select>
-        </div>
-        <div class="field">
-          <label for="ielts">My IELTS overall</label>
-          <select id="ielts">
-            <option value="">Not taken yet / show all</option>
-            <option value="6">6.0</option><option value="6.5">6.5</option><option value="7">7.0</option><option value="7.5">7.5 or higher</option>
-          </select>
-          <span class="hint">Shows programs whose overall requirement is at or below your score. Band minimums still apply.</span>
-        </div>
-        <div class="field">
-          <label for="budget">Max tuition per year</label>
-          <input type="range" id="budget" min="10000" max="70000" step="1000" value="70000">
-          <span class="range-val" id="budgetVal"></span>
-        </div>
-        <div class="field">
-          <span class="lab">Intake</span>
-          <div class="chips" id="intakeChips"></div>
-        </div>
-        <div class="field">
-          <span class="lab">Other</span>
-          <label class="hint" style="display:flex;gap:8px;align-items:center;color:var(--ink-2)"><input type="checkbox" id="schOnly"> Has a scholarship listed</label>
-        </div>
-        <button class="reset" id="reset">Clear all filters</button>
-      </div>
-    </aside>
-
-    <main>
-      <div class="bar">
-        <div class="count" id="count"></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <select id="sort" aria-label="Sort by">
-            <option value="fee">Tuition: low to high</option>
-            <option value="feeDesc">Tuition: high to low</option>
-            <option value="ielts">IELTS: lowest first</option>
-            <option value="uni">Institution A to Z</option>
-          </select>
-          <button class="shortbtn" id="openShort">Shortlist <b id="shortN">0</b></button>
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">For applicants from Bangladesh · Updated <span id="updatedA"></span></div>
+        <h1>Find the Canadian university program that <em>fits you</em>.</h1>
+        <p class="lede">Tell us your IELTS score and yearly budget. We show you the university programs you can apply to now, and the ones that are just a little out of reach.</p>
+        <form class="quick pane" id="quick">
+          <label for="qIelts">My IELTS
+            <select id="qIelts">
+              <option value="">Not taken yet</option>
+              <option value="6">6.0</option><option value="6.5">6.5</option><option value="7">7.0</option><option value="7.5">7.5 or higher</option>
+            </select>
+          </label>
+          <label for="qBudget">My budget a year
+            <select id="qBudget">
+              <option value="">Any amount</option>
+              <option value="15000">Up to CAD 15,000</option><option value="20000">Up to CAD 20,000</option>
+              <option value="25000">Up to CAD 25,000</option><option value="30000">Up to CAD 30,000</option>
+              <option value="40000">Up to CAD 40,000</option>
+            </select>
+          </label>
+          <label for="qLevel">Level
+            <select id="qLevel">
+              <option value="">Any level</option>
+              <option value="Master's">A master's</option>
+              <option value="Bachelor's">A bachelor's</option>
+              <option value="Postgraduate Diploma / Certificate">A postgraduate diploma</option>
+            </select>
+          </label>
+          <button class="btn-main" type="submit">Show my programs</button>
+        </form>
+        <div class="stats" aria-label="What is in the finder">
+          <div><b id="sCourses">0</b><span>university programs</span></div>
+          <div><b id="sUnis">0</b><span>universities</span></div>
+          <div><b id="sProv">0</b><span>provinces</span></div>
+          <div><b id="sFrom">0</b><span>lowest tuition a year</span></div>
         </div>
       </div>
-      <div class="list" id="list"></div>
-      <button class="more" id="more" hidden>Show more programs</button>
+      <div class="field" id="field">
+        <canvas id="sky" aria-label="Programs from the finder drifting upward. Select one to see its details." role="img"></canvas>
+        <span class="cap">Tap a program to open it</span>
+        <button class="grav" id="gravBtn" aria-pressed="false"><span class="sw" aria-hidden="true"></span><span id="gravLabel">Gravity is off</span></button>
+      </div>
+    </div>
+  </section>
 
-      <section class="costs" aria-label="Other costs">
-        <div class="panel">
+  <section class="block" id="finder">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Program finder</div>
+          <h2>Every program here is at a university</h2>
+          <p>Colleges and institutes are left out. Tap a program for entry requirements, scholarships and deposits, and star the ones you like.</p>
+        </div>
+      </div>
+      <div class="finder">
+        <aside class="filters pane collapsed" id="filters" aria-label="Filters">
+          <div class="fhead">
+            <h3>Your profile</h3>
+            <div class="row">
+              <button class="link-btn" id="reset" type="button">Clear all</button>
+              <button class="btn-ghost toggle-f" id="toggleF" aria-expanded="false" aria-controls="fbody">Show filters</button>
+            </div>
+          </div>
+          <div class="fbody" id="fbody">
+            <div class="f">
+              <label for="q">Search</label>
+              <input type="search" id="q" placeholder="Data, MBA, nursing, Windsor" autocomplete="off">
+            </div>
+            <div class="f">
+              <label for="ielts">My IELTS overall</label>
+              <select id="ielts">
+                <option value="">Not taken yet</option>
+                <option value="6">6.0</option><option value="6.5">6.5</option><option value="7">7.0</option><option value="7.5">7.5 or higher</option>
+              </select>
+            </div>
+            <div class="f">
+              <label for="budget">Max tuition a year</label>
+              <input type="range" id="budget" min="8000" max="60000" step="1000" value="60000">
+              <span class="range-val" id="budgetVal"></span>
+            </div>
+            <label class="check"><input type="checkbox" id="stretch" checked> <span>Also show stretch options: IELTS 0.5 higher than mine, or up to 15% over budget</span></label>
+            <div class="f">
+              <span class="lab">Study level</span>
+              <div class="chips" id="levelChips"></div>
+            </div>
+            <div class="f">
+              <label for="fac">Subject area</label>
+              <select id="fac"></select>
+            </div>
+            <div class="f">
+              <label for="prov">Province</label>
+              <select id="prov"></select>
+            </div>
+            <div class="f">
+              <label for="uniSel">University</label>
+              <select id="uniSel"></select>
+            </div>
+            <div class="f">
+              <span class="lab">Intake month</span>
+              <div class="chips" id="intakeChips"></div>
+            </div>
+            <label class="check"><input type="checkbox" id="schOnly"> <span>Has a scholarship listed</span></label>
+          </div>
+        </aside>
+
+        <div>
+          <div class="bar">
+            <div class="count" id="count" aria-live="polite"></div>
+            <label class="sr" for="sort">Sort by</label>
+            <select id="sort">
+              <option value="fit">Best fit first</option>
+              <option value="fee">Tuition: low to high</option>
+              <option value="feeDesc">Tuition: high to low</option>
+              <option value="ielts">IELTS: lowest first</option>
+              <option value="qs">QS ranking: highest first</option>
+              <option value="uni">University: A to Z</option>
+            </select>
+          </div>
+          <div class="active" id="active"></div>
+          <div class="grid" id="list"></div>
+          <button class="btn-ghost more" id="more" hidden>Show more programs</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="universities">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Universities</div>
+          <h2>Where you could study</h2>
+          <p>Bigger means more programs in the finder. Tap a university to see only its programs.</p>
+        </div>
+      </div>
+      <div class="cloud" id="cloud"></div>
+    </div>
+  </section>
+
+  <section class="block" id="plan">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">How it works</div>
+          <h2>From shortlist to study permit</h2>
+          <p>The usual order of things for an applicant from Bangladesh. Your counsellor walks you through each step.</p>
+        </div>
+      </div>
+      <div class="plan">
+        <ol class="steps pane">
+          <li><div><b>Shortlist three to six programs</b><p>Use the finder to match your IELTS, budget and intake. Mix a few strong fits with one or two stretch options.</p></div></li>
+          <li><div><b>Check them with a counsellor</b><p>They compare your academic results with each program's entry requirement and confirm the current fees and scholarships.</p></div></li>
+          <li><div><b>Apply to the universities</b><p>Each application has its own fee, usually about CAD 100 to 150. Send transcripts, test scores and any statement the program asks for.</p></div></li>
+          <li><div><b>Accept an offer and pay the deposit</b><p>Deposits are listed on each program. Keep the receipt, you need it for the visa.</p></div></li>
+          <li><div><b>Get your provincial attestation letter</b><p>Most new students need one from the province. The university requests it for you after you accept the offer. Your counsellor confirms if your program needs it.</p></div></li>
+          <li><div><b>Apply for the study permit</b><p>Medical test, police clearance and proof of funds go in with the application. See the costs below.</p></div></li>
+        </ol>
+        <div class="intakes pane">
+          <h3>When to start applying</h3>
+          <p class="hint" style="margin:-6px 0 0">Programs in the finder by intake month, with a typical window to apply. Each program sets its own deadline, so always check it.</p>
+          <div id="intakeBars" style="display:grid;gap:16px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="costs">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Costs besides tuition</div>
+          <h2>What to budget for the visa</h2>
+        </div>
+      </div>
+      <div class="costs">
+        <div class="pane">
           <h3>Fixed costs for a study permit</h3>
-          <p class="hint">Paid by every applicant, on top of tuition.</p>
+          <p class="hint" style="margin:4px 0 0">Every applicant pays these on top of tuition.</p>
           <table id="fixedCosts"></table>
         </div>
-        <div class="panel">
+        <div class="pane">
           <h3>Funds to show for the visa</h3>
-          <p class="hint">Typical bank solvency guidance, in Bangladeshi taka (lakh).</p>
+          <p class="hint" style="margin:4px 0 0">Typical bank solvency guidance, in Bangladeshi taka (lakh).</p>
           <table id="funds"></table>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
+</main>
 
-      <p class="foot" id="foot"></p>
-    </main>
+<footer>
+  <div class="wrap">
+    <strong id="brandFoot" style="color:var(--ink)"></strong>
+    <p id="foot"></p>
+    <p>University names belong to their universities. This finder is not run by any university.</p>
   </div>
+</footer>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="sheet-head">
+    <div style="min-width:0">
+      <div class="eyebrow" id="sheetUni"></div>
+      <h2 id="sheetTitle"></h2>
+    </div>
+    <button class="icon-btn" id="sheetClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="tags" id="sheetTags" style="margin-top:12px"></div>
+  <dl class="dl" id="sheetDl"></dl>
+  <div class="sheet-actions">
+    <button class="btn-main" id="sheetStar"></button>
+    <a id="sheetLink" target="_blank" rel="noopener">Open the course page</a>
+  </div>
+  <p class="note">Fees, scores and intakes change often. Confirm them on the official university page or with your counsellor before you apply.</p>
 </div>
 
-<div class="drawer" id="drawer" hidden role="dialog" aria-label="Your shortlist">
-  <div class="in">
-    <div class="drow"><strong>Your shortlist</strong><button class="ghost" id="closeShort">Close</button></div>
-    <p class="hint" style="margin:0">Copy this list and send it to your counsellor on WhatsApp or email. They will check your eligibility and the latest fees.</p>
-    <textarea id="shortText" readonly aria-label="Shortlist text"></textarea>
-    <div class="drow">
-      <span class="hint" id="copyMsg"></span>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="ghost" id="clearShort">Clear shortlist</button>
-        <a class="ghost" id="waLink" target="_blank" rel="noopener" hidden style="text-decoration:none;color:var(--ink)">Open WhatsApp</a>
-        <button class="btn" id="copyShort">Copy list</button>
-      </div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" hidden>
+  <div class="row">
+    <h2 class="grow" id="drawerTitle">Your shortlist</h2>
+    <button class="icon-btn" id="drawerClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div id="sList"></div>
+  <div id="sCompare"></div>
+  <div id="sSend" style="display:grid;gap:10px">
+    <p class="hint" style="margin:0">Send this message to your counsellor. Fill in your score, result and intake at the end.</p>
+    <label class="sr" for="shortText">Message for your counsellor</label>
+    <textarea id="shortText"></textarea>
+    <div class="row">
+      <button class="btn-main" id="copyShort">Copy message</button>
+      <a class="btn-ghost" id="waLink" target="_blank" rel="noopener" hidden style="display:inline-grid;place-items:center;text-decoration:none">Open WhatsApp</a>
+      <button class="link-btn" id="clearShort" style="margin-left:auto">Clear shortlist</button>
     </div>
     <p class="hint" id="contactLine" style="margin:0"></p>
   </div>
 </div>
+
+<div class="toast" id="toast" role="status" hidden></div>
 
 <script>
 /* ---------- Settings: change these to rebrand the page ---------- */
@@ -257,176 +610,533 @@ const CONFIG = {
 const DATA = __DATA__;
 const FIXED_COSTS = [["University application fee", "about CAD 120 (BDT 10,812)"], ["Medical test", "BDT 8,000"], ["Study permit application fee", "CAD 235 (BDT 19,270)"], ["Police clearance certificate", "BDT 500"]];
 const FUNDS = [["Single applicant", "30 to 35 lakh"], ["With spouse", "40 to 45 lakh"], ["With spouse and one child", "50 to 55 lakh"]];
+// Typical application windows, shown as guidance only.
+const WINDOWS = { Jan: "Apply roughly April to August of the year before", May: "Apply roughly August to December of the year before", Sep: "Apply roughly October to March before you start", Apr: "Apply roughly August to November before", Jul: "Apply roughly November to February before", Aug: "Apply roughly October to February before", Oct: "Apply roughly February to May before" };
 /* ---------------------------------------------------------------- */
 
-const $ = (s) => document.querySelector(s);
-const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const fmt = (n) => n.toLocaleString("en-US");
-const LEVELS = ["Bachelor's", "Master's", "Postgraduate Diploma / Certificate", "Diploma", "Pathway / Foundation"];
-const LEVEL_SHORT = { "Bachelor's": "Bachelor's", "Master's": "Master's", "Postgraduate Diploma / Certificate": "PG diploma", "Diploma": "Diploma", "Pathway / Foundation": "Pathway" };
-const MONTHS = ["Jan", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"];
-DATA.forEach((c, i) => { c.id = i; c.hay = (c.title + " " + c.specs.join(" ") + " " + c.uni + " " + c.prov + " " + c.fac).toLowerCase(); });
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+const fmt = (n) => Math.round(n).toLocaleString("en-US");
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const MAXB = 60000;
+const LEVELS = ["Master's", "Bachelor's", "Postgraduate Diploma / Certificate", "Diploma", "Pathway / Foundation"];
+const LEVEL_SHORT = { "Postgraduate Diploma / Certificate": "PG diploma", "Pathway / Foundation": "Pathway" };
+const MONTHS = ["Jan", "Apr", "May", "Jul", "Aug", "Sep", "Oct"];
+const NOISE_NOTE = /^(fee|app fee|english req\.*|language-tests|eap\s*tuition)$/i;
 
-const state = { q: "", levels: new Set(), fac: "", prov: "", ielts: "", budget: 70000, intakes: new Set(), sch: false, sort: "fee", shown: 30 };
+DATA.forEach((c) => {
+  c.hay = (c.title + " " + c.specs.join(" ") + " " + c.uni + " " + c.prov + " " + c.fac + " " + c.level).toLowerCase();
+  c.qsN = parseInt(c.qs, 10) || 9999;
+  c.short = c.title.replace(/\s+at\s+(the\s+)?(University|Univeristy).*$/i, "").replace(/\s+/g, " ").trim();
+});
+const hasSch = (c) => c.sch && !/^(0|none|no funding|0\.00|\$0\.00|n\/a)$/i.test(c.sch.trim());
+const okUrl = (u) => /^https?:\/\//i.test(u || "");
+
 let short = new Set();
-try { short = new Set(JSON.parse(localStorage.getItem("cf-short") || "[]")); } catch (e) {}
-const saveShort = () => { try { localStorage.setItem("cf-short", JSON.stringify([...short])); } catch (e) {} };
+try { short = new Set(JSON.parse(localStorage.getItem("ccf-short") || "[]").filter((id) => DATA.some((c) => c.id === id))); } catch (e) {}
+const saveShort = () => { try { localStorage.setItem("ccf-short", JSON.stringify([...short])); } catch (e) {} };
 
-// header + static panels
+const state = { q: "", ielts: "", budget: MAXB, stretch: true, levels: new Set(), fac: "", prov: "", uni: "", intakes: new Set(), sch: false, sort: "fit", shown: 18 };
+
+/* ---------- Static content ---------- */
 $("#brandName").textContent = CONFIG.brand;
-$("#sCourses").textContent = DATA.length;
-$("#sUnis").textContent = new Set(DATA.map((c) => c.uni)).size;
-$("#sProv").textContent = new Set(DATA.map((c) => c.prov)).size;
+$("#brandFoot").textContent = CONFIG.brand;
+$("#updatedA").textContent = CONFIG.dataUpdated;
+$("#foot").textContent = `Course information last updated ${CONFIG.dataUpdated} by ${CONFIG.brand} counsellors. Fees, scholarships, test scores and intakes change often, so always confirm on the official university page before you apply. Fees shown in US dollars are converted at about ${CONFIG.usdToCad} CAD per USD for comparison only. Programs listed by total fee are shown as an approximate yearly figure. Only university programs are listed.`;
 $("#fixedCosts").innerHTML = FIXED_COSTS.map(([a, b]) => `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("");
-$("#funds").innerHTML = FUNDS.map(([a, b]) => `<tr><td>${esc(a)}</td><td>BDT ${esc(b)}</td></tr>`).join("");
-$("#foot").textContent = `Course information last updated ${CONFIG.dataUpdated} by ${CONFIG.brand} counsellors. Fees, scholarships, test scores and intakes change often, so always confirm on the official university page before you apply. Fees shown in US dollars are converted at about ${CONFIG.usdToCad} CAD per USD for comparison only. Programs listed by total fee are shown as an approximate yearly figure.`;
+$("#funds").innerHTML = FUNDS.map(([a, b]) => `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("");
 
-// filter controls
-const levelCounts = (l) => DATA.filter((c) => c.level === l).length;
-$("#levelChips").innerHTML = LEVELS.filter(levelCounts).map((l) => `<button class="chip" data-level="${esc(l)}" aria-pressed="false">${esc(LEVEL_SHORT[l])}</button>`).join("");
-$("#intakeChips").innerHTML = MONTHS.filter((m) => DATA.some((c) => c.intakes.includes(m))).map((m) => `<button class="chip" data-intake="${m}" aria-pressed="false">${m}</button>`).join("");
-const opts = (arr, all) => `<option value="">${all}</option>` + arr.map((v) => `<option value="${esc(v)}">${esc(v)} (${DATA.filter((c) => c.fac === v || c.prov === v).length})</option>`).join("");
-$("#fac").innerHTML = opts([...new Set(DATA.map((c) => c.fac))].sort(), "All subject areas");
+const unis = [...new Set(DATA.map((c) => c.uni))].sort();
+$("#sCourses").textContent = DATA.length;
+$("#sUnis").textContent = unis.length;
+$("#sProv").textContent = new Set(DATA.map((c) => c.prov)).size;
+$("#sFrom").textContent = "CAD " + fmt(Math.min(...DATA.map((c) => c.annual)));
+
+const opts = (list, all) => `<option value="">${all}</option>` + list.map((v) => `<option value="${esc(v)}">${esc(v)}</option>`).join("");
+$("#fac").innerHTML = opts([...new Set(DATA.map((c) => c.fac))].sort(), "All subjects");
 $("#prov").innerHTML = opts([...new Set(DATA.map((c) => c.prov))].sort(), "All provinces");
+$("#uniSel").innerHTML = opts(unis, "All universities");
+const levelsPresent = LEVELS.filter((l) => DATA.some((c) => c.level === l));
+$("#levelChips").innerHTML = levelsPresent.map((l) => `<button class="chip" type="button" data-v="${esc(l)}" aria-pressed="false">${esc(LEVEL_SHORT[l] || l)}</button>`).join("");
+const monthsPresent = MONTHS.filter((m) => DATA.some((c) => c.intakes.includes(m)));
+$("#intakeChips").innerHTML = monthsPresent.map((m) => `<button class="chip" type="button" data-v="${m}" aria-pressed="false">${m}</button>`).join("");
 
-function budgetLabel() { $("#budgetVal").textContent = state.budget >= 70000 ? "Any amount" : `Up to CAD ${fmt(state.budget)} a year`; }
-budgetLabel();
-
-function matches(c) {
+/* ---------- Matching ---------- */
+// 0 = hidden, 1 = stretch, 2 = fits. Profile filters (IELTS, budget) allow stretch; the rest are strict.
+function fit(c) {
+  let why = "";
+  if (state.ielts) {
+    const me = parseFloat(state.ielts);
+    if (c.ielts != null && c.ielts > me && !(state.ielts === "7.5")) {
+      if (state.stretch && c.ielts - me <= 0.5) why = `Needs IELTS ${c.ielts.toFixed(1)}`;
+      else return [0];
+    }
+  }
+  if (state.budget < MAXB && c.annual > state.budget) {
+    if (state.stretch && c.annual <= state.budget * 1.15) why = why ? why + " and more budget" : `CAD ${fmt(c.annual - state.budget)} over budget`;
+    else return [0];
+  }
+  return why ? [1, why] : [2];
+}
+function strict(c) {
   if (state.q && !state.q.split(/\s+/).every((w) => c.hay.includes(w))) return false;
   if (state.levels.size && !state.levels.has(c.level)) return false;
   if (state.fac && c.fac !== state.fac) return false;
   if (state.prov && c.prov !== state.prov) return false;
-  if (state.ielts && c.ielts != null && c.ielts > parseFloat(state.ielts)) return false;
-  if (state.budget < 70000 && c.annual > state.budget) return false;
+  if (state.uni && c.uni !== state.uni) return false;
   if (state.intakes.size && !c.intakes.some((m) => state.intakes.has(m))) return false;
   if (state.sch && !hasSch(c)) return false;
   return true;
 }
-const hasSch = (c) => c.sch && !/^(0|none|no funding|0\.00|\$0\.00)$/i.test(c.sch.trim());
-
+const profileSet = () => state.ielts !== "" || state.budget < MAXB;
 const sorters = {
-  fee: (a, b) => a.annual - b.annual,
-  feeDesc: (a, b) => b.annual - a.annual,
-  ielts: (a, b) => (a.ielts ?? 9) - (b.ielts ?? 9) || a.annual - b.annual,
-  uni: (a, b) => a.uni.localeCompare(b.uni) || a.title.localeCompare(b.title),
+  fit: (a, b) => b.f[0] - a.f[0] || a.c.annual - b.c.annual,
+  fee: (a, b) => a.c.annual - b.c.annual,
+  feeDesc: (a, b) => b.c.annual - a.c.annual,
+  ielts: (a, b) => (a.c.ielts ?? 9) - (b.c.ielts ?? 9) || a.c.annual - b.c.annual,
+  qs: (a, b) => a.c.qsN - b.c.qsN || a.c.annual - b.c.annual,
+  uni: (a, b) => a.c.uni.localeCompare(b.c.uni) || a.c.title.localeCompare(b.c.title),
 };
 
 const starSvg = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z"/></svg>`;
 
-function feeFact(c) {
+function feeBlock(c) {
   const approx = c.isTotal || c.cur === "USD";
-  const main = `CAD ${fmt(c.annual)}`;
-  const sub = approx ? `<div class="sub">${esc(c.tuition)}</div>` : `<div class="sub">per year</div>`;
-  return `<div class="fact"><div class="k">Tuition${approx ? " (approx.)" : ""}</div><div class="v price">${main}</div>${sub}</div>`;
+  return `<div><div class="k">Tuition${approx ? " approx." : ""}</div><div class="v price">CAD ${fmt(c.annual)}</div><div class="sub">a year</div></div>`;
 }
-
-function card(c) {
+function card({ c, f }, i) {
   const on = short.has(c.id);
-  const months = c.suspended ? `<span class="tag warn">Intake suspended</span>` : (c.intakes.length ? `<div class="months">${c.intakes.map((m) => `<span class="mo">${m}</span>`).join("")}</div>` : esc(c.intakeRaw) || "Ask");
-  const specs = c.specs.length ? `<div class="specs">Specialisations: ${esc(c.specs.join(", "))}</div>` : "";
-  const sch = hasSch(c) ? esc(c.sch) : "None listed";
-  const detailBits = [
-    ["English test scores", c.english],
-    ["Academic entry requirement", c.entry],
-    c.deadline && ["Application deadlines", c.deadline],
-    ["Scholarship", sch],
-    c.note && ["Note", c.note],
-  ].filter(Boolean).map(([h, t]) => `<div><h4>${esc(h)}</h4><p>${esc(t)}</p></div>`).join("");
-  return `<article class="card">
-    <div class="chead">
-      <div style="min-width:0">
-        <div class="uni"><strong>${esc(c.uni)}</strong><span>${esc(c.prov)}</span>${c.qs ? `<span class="tag qs">QS ${esc(c.qs)}</span>` : ""}<span class="tag">${esc(LEVEL_SHORT[c.level] || c.level)}</span></div>
-        <h3 class="title">${esc(c.title)}</h3>${specs}
+  const months = c.suspended ? `<span class="sub">Intake suspended</span>` : c.intakes.length ? `<div class="months">${c.intakes.map((m) => `<span class="mo">${m}</span>`).join("")}</div>` : `<span class="sub">Ask</span>`;
+  const tags = [];
+  if (profileSet()) tags.push(f[0] === 2 ? `<span class="tag fit">Fits your profile</span>` : `<span class="tag stretch">Stretch: ${esc(f[1])}</span>`);
+  if (hasSch(c)) tags.push(`<span class="tag">Scholarship listed</span>`);
+  if (c.check) tags.push(`<span class="tag warn">Check details with counsellor</span>`);
+  if (c.suspended) tags.push(`<span class="tag warn">Intake suspended</span>`);
+  const meta = [LEVEL_SHORT[c.level] || c.level, c.prov, c.duration && !/\$|CAD/.test(c.duration) ? c.duration.replace(/'/g, "") : ""].filter(Boolean).join(" · ");
+  return `<article class="card" data-id="${c.id}" style="--d:${(-(i * 1.37) % 7).toFixed(2)}s;--ld:${Math.min(i * 0.03, 0.5).toFixed(2)}s" tabindex="0" aria-label="${esc(c.title)}, ${esc(c.uni)}">
+    <div class="float">
+      <div class="c-top">
+        <div class="uni">${esc(c.uni)}${c.qs ? `<span class="qs">QS ${esc(c.qs)}</span>` : ""}</div>
+        <button class="star" type="button" data-star="${c.id}" aria-pressed="${on}" aria-label="${on ? "Remove from" : "Add to"} shortlist">${starSvg}</button>
       </div>
-      <button class="star" data-star="${c.id}" aria-pressed="${on}" aria-label="${on ? "Remove from" : "Add to"} shortlist: ${esc(c.title)}">${starSvg}</button>
-    </div>
-    <div class="facts">
-      ${feeFact(c)}
-      <div class="fact"><div class="k">IELTS overall</div><div class="v">${c.ielts != null ? c.ielts.toFixed(1) : "See details"}</div></div>
-      <div class="fact"><div class="k">Duration</div><div class="v">${esc(c.duration.replace(/Year's/g, "years")) || "Ask"}</div></div>
-      <div class="fact"><div class="k">Intakes</div><div class="v">${months}</div></div>
-      <div class="fact"><div class="k">Deposit</div><div class="v">${esc(c.dep) || "Ask"}</div></div>
-      <div class="fact"><div class="k">App. fee</div><div class="v">${esc(c.fee) && c.fee !== "0" ? esc(c.fee) : "Ask"}</div></div>
-    </div>
-    <div class="actions">
-      <details><summary>Full requirements</summary><div class="dgrid">${detailBits}</div></details>
-      ${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">Course page</a>` : ""}
+      <h3>${esc(c.short)}</h3>
+      <div class="meta">${esc(meta)}</div>
+      ${tags.length ? `<div class="tags">${tags.join("")}</div>` : ""}
+      <div class="facts">
+        ${feeBlock(c)}
+        <div><div class="k">IELTS</div><div class="v">${c.ielts != null ? c.ielts.toFixed(1) : "Ask"}</div></div>
+        <div><div class="k">Intakes</div>${months}</div>
+      </div>
     </div>
   </article>`;
 }
 
-function render() {
-  const res = DATA.filter(matches).sort(sorters[state.sort]);
-  $("#count").innerHTML = `<b>${res.length}</b> of ${DATA.length} programs match`;
-  if (!res.length) {
-    $("#list").innerHTML = `<div class="empty">No programs match all your filters. Try raising your budget, adding an intake, or clearing the subject area.</div>`;
-  } else {
-    $("#list").innerHTML = res.slice(0, state.shown).map(card).join("");
+let results = [];
+function render(keepShown) {
+  if (!keepShown) state.shown = 18;
+  results = [];
+  for (const c of DATA) {
+    if (!strict(c)) continue;
+    const f = fit(c);
+    if (f[0]) results.push({ c, f });
   }
-  $("#more").hidden = res.length <= state.shown;
-  $("#more").textContent = `Show more programs (${res.length - state.shown} left)`;
-  $("#shortN").textContent = short.size;
+  results.sort(sorters[state.sort]);
+  const fits = results.filter((r) => r.f[0] === 2).length;
+  const n = results.length;
+  $("#count").innerHTML = n
+    ? `${n} program${n === 1 ? "" : "s"}${profileSet() && state.stretch ? ` <small>${fits} fit, ${n - fits} stretch</small>` : ""}`
+    : "No programs match";
+  $("#list").innerHTML = n
+    ? results.slice(0, state.shown).map(card).join("")
+    : `<div class="empty pane"><b>Nothing matches all of that.</b>Try a higher budget, switch on stretch options, or clear a filter or two.</div>`;
+  $("#more").hidden = n <= state.shown;
+  $("#more").textContent = `Show more programs (${n - state.shown} left)`;
+  renderActive();
 }
 
-// events
-let t;
-$("#q").addEventListener("input", (e) => { clearTimeout(t); t = setTimeout(() => { state.q = e.target.value.trim().toLowerCase(); state.shown = 30; render(); }, 120); });
-$("#fac").addEventListener("change", (e) => { state.fac = e.target.value; state.shown = 30; render(); });
-$("#prov").addEventListener("change", (e) => { state.prov = e.target.value; state.shown = 30; render(); });
-$("#ielts").addEventListener("change", (e) => { state.ielts = e.target.value; state.shown = 30; render(); });
-$("#budget").addEventListener("input", (e) => { state.budget = +e.target.value; budgetLabel(); state.shown = 30; render(); });
-$("#schOnly").addEventListener("change", (e) => { state.sch = e.target.checked; state.shown = 30; render(); });
+function renderActive() {
+  const a = [];
+  if (state.q) a.push(["q", `“${state.q}”`]);
+  if (state.ielts) a.push(["ielts", `IELTS ${parseFloat(state.ielts).toFixed(1)}`]);
+  if (state.budget < MAXB) a.push(["budget", `Up to CAD ${fmt(state.budget)}`]);
+  state.levels.forEach((l) => a.push(["level:" + l, LEVEL_SHORT[l] || l]));
+  if (state.fac) a.push(["fac", state.fac]);
+  if (state.prov) a.push(["prov", state.prov]);
+  if (state.uni) a.push(["uni", state.uni]);
+  state.intakes.forEach((m) => a.push(["intake:" + m, m + " intake"]));
+  if (state.sch) a.push(["sch", "Scholarship listed"]);
+  $("#active").innerHTML = a.map(([k, t]) => `<button type="button" data-clear="${esc(k)}" aria-label="Remove filter ${esc(t)}">${esc(t)}</button>`).join("");
+}
+
+/* ---------- Sync controls with state ---------- */
+function budgetLabel() { $("#budgetVal").textContent = state.budget >= MAXB ? "Any amount" : `Up to CAD ${fmt(state.budget)} a year`; }
+function syncControls() {
+  $("#q").value = state.q; $("#ielts").value = state.ielts; $("#budget").value = state.budget; budgetLabel();
+  $("#stretch").checked = state.stretch; $("#fac").value = state.fac; $("#prov").value = state.prov; $("#uniSel").value = state.uni;
+  $("#schOnly").checked = state.sch; $("#sort").value = state.sort;
+  document.querySelectorAll("#levelChips .chip").forEach((b) => b.setAttribute("aria-pressed", state.levels.has(b.dataset.v)));
+  document.querySelectorAll("#intakeChips .chip").forEach((b) => b.setAttribute("aria-pressed", state.intakes.has(b.dataset.v)));
+  $("#qIelts").value = state.ielts;
+  $("#qBudget").value = [15000, 20000, 25000, 30000, 40000].includes(state.budget) ? String(state.budget) : "";
+  $("#qLevel").value = state.levels.size === 1 ? [...state.levels][0] : "";
+}
+budgetLabel();
+
+let qTimer;
+$("#q").addEventListener("input", (e) => { clearTimeout(qTimer); qTimer = setTimeout(() => { state.q = e.target.value.trim().toLowerCase(); render(); }, 120); });
+$("#ielts").addEventListener("change", (e) => { state.ielts = e.target.value; syncControls(); render(); });
+$("#budget").addEventListener("input", (e) => { state.budget = +e.target.value; budgetLabel(); render(); });
+$("#budget").addEventListener("change", syncControls);
+$("#stretch").addEventListener("change", (e) => { state.stretch = e.target.checked; render(); });
+$("#fac").addEventListener("change", (e) => { state.fac = e.target.value; render(); });
+$("#prov").addEventListener("change", (e) => { state.prov = e.target.value; render(); });
+$("#uniSel").addEventListener("change", (e) => { state.uni = e.target.value; render(); });
+$("#schOnly").addEventListener("change", (e) => { state.sch = e.target.checked; render(); });
 $("#sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
-$("#more").addEventListener("click", () => { state.shown += 30; render(); });
-function chipToggle(container, attr, set) {
-  container.addEventListener("click", (e) => {
-    const b = e.target.closest("button"); if (!b) return;
-    const v = b.dataset[attr]; set.has(v) ? set.delete(v) : set.add(v);
-    b.setAttribute("aria-pressed", set.has(v)); state.shown = 30; render();
+function chipToggle(sel, set) {
+  $(sel).addEventListener("click", (e) => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    set.has(b.dataset.v) ? set.delete(b.dataset.v) : set.add(b.dataset.v);
+    b.setAttribute("aria-pressed", set.has(b.dataset.v)); syncControls(); render();
   });
 }
-chipToggle($("#levelChips"), "level", state.levels);
-chipToggle($("#intakeChips"), "intake", state.intakes);
+chipToggle("#levelChips", state.levels);
+chipToggle("#intakeChips", state.intakes);
+$("#more").addEventListener("click", () => { state.shown += 18; render(true); });
 $("#reset").addEventListener("click", () => {
-  Object.assign(state, { q: "", fac: "", prov: "", ielts: "", budget: 70000, sch: false, shown: 30 });
-  state.levels.clear(); state.intakes.clear();
-  ["#q", "#fac", "#prov", "#ielts"].forEach((s) => ($(s).value = ""));
-  $("#budget").value = 70000; $("#schOnly").checked = false; budgetLabel();
-  document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", "false"));
-  render();
+  Object.assign(state, { q: "", ielts: "", budget: MAXB, stretch: true, fac: "", prov: "", uni: "", sch: false, sort: "fit" });
+  state.levels.clear(); state.intakes.clear(); syncControls(); render();
+});
+$("#active").addEventListener("click", (e) => {
+  const k = e.target.closest("[data-clear]")?.dataset.clear; if (!k) return;
+  if (k.startsWith("level:")) state.levels.delete(k.slice(6));
+  else if (k.startsWith("intake:")) state.intakes.delete(k.slice(7));
+  else if (k === "budget") state.budget = MAXB;
+  else if (k === "sch") state.sch = false;
+  else state[k] = "";
+  syncControls(); render();
 });
 $("#toggleF").addEventListener("click", () => {
-  const f = $("#filters"); const open = f.classList.toggle("collapsed") === false;
+  const open = $("#filters").classList.toggle("collapsed") === false;
   $("#toggleF").textContent = open ? "Hide filters" : "Show filters"; $("#toggleF").setAttribute("aria-expanded", open);
 });
+$("#quick").addEventListener("submit", (e) => {
+  e.preventDefault();
+  state.ielts = $("#qIelts").value;
+  state.budget = $("#qBudget").value ? +$("#qBudget").value : MAXB;
+  state.levels.clear(); if ($("#qLevel").value) state.levels.add($("#qLevel").value);
+  state.sort = "fit"; syncControls(); render();
+  $("#finder").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+});
+
+/* ---------- Shortlist ---------- */
+function toast(msg) {
+  const t = $("#toast"); t.textContent = msg; t.hidden = false;
+  clearTimeout(toast.t); toast.t = setTimeout(() => (t.hidden = true), 2600);
+}
+function fly(fromEl) {
+  const btn = $("#shortBtn");
+  const bump = () => { btn.classList.remove("bump"); void btn.offsetWidth; btn.classList.add("bump"); };
+  if (reduced || !fromEl) return bump();
+  const a = fromEl.getBoundingClientRect(), b = btn.getBoundingClientRect();
+  const x0 = a.left + a.width / 2, y0 = a.top + a.height / 2, dx = b.left + b.width / 2 - x0, dy = b.top + b.height / 2 - y0;
+  const dot = document.createElement("span"); dot.className = "flyer"; dot.style.left = x0 + "px"; dot.style.top = y0 + "px";
+  document.body.append(dot);
+  // It rises, the way everything on this page does.
+  dot.animate([
+    { transform: "translate(0,0) scale(1)" },
+    { transform: `translate(${dx * 0.35}px, ${Math.min(dy, 0) * 0.55 - 40}px) scale(1.25)`, offset: 0.45 },
+    { transform: `translate(${dx}px, ${dy}px) scale(.35)`, opacity: 0.4 },
+  ], { duration: 760, easing: "cubic-bezier(.25,.7,.3,1)" }).onfinish = () => { dot.remove(); bump(); };
+}
+function toggleStar(id, el) {
+  const adding = !short.has(id);
+  adding ? short.add(id) : short.delete(id);
+  saveShort(); updateShortCount();
+  document.querySelectorAll(`[data-star="${id}"]`).forEach((b) => { b.setAttribute("aria-pressed", adding); b.setAttribute("aria-label", (adding ? "Remove from" : "Add to") + " shortlist"); });
+  if (adding) fly(el); else toast("Removed from your shortlist");
+  if (!$("#drawer").hidden) renderDrawer();
+}
+function updateShortCount() { $("#shortN").textContent = short.size; }
+updateShortCount();
+
 $("#list").addEventListener("click", (e) => {
-  const b = e.target.closest("[data-star]"); if (!b) return;
-  const id = +b.dataset.star; short.has(id) ? short.delete(id) : short.add(id);
-  b.setAttribute("aria-pressed", short.has(id)); saveShort(); $("#shortN").textContent = short.size;
+  const s = e.target.closest("[data-star]");
+  if (s) { e.stopPropagation(); toggleStar(+s.dataset.star, s); return; }
+  const card = e.target.closest(".card"); if (card) openSheet(+card.dataset.id, card);
+});
+$("#list").addEventListener("keydown", (e) => {
+  if ((e.key === "Enter" || e.key === " ") && e.target.classList.contains("card")) { e.preventDefault(); openSheet(+e.target.dataset.id, e.target); }
 });
 
 function shortText() {
   const items = DATA.filter((c) => short.has(c.id));
-  if (!items.length) return "Your shortlist is empty. Tap the star on any program to add it.";
-  return `Hello, I am interested in these Canada programs:\n\n` + items.map((c, i) => `${i + 1}. ${c.title}\n   ${c.uni}, ${c.prov}\n   Tuition: ${c.tuition} | IELTS ${c.ielts ?? "see details"} | Intakes: ${c.intakeRaw}${c.url ? "\n   " + c.url : ""}`).join("\n\n") + `\n\nMy IELTS score: \nMy last degree and result: \nPreferred intake: `;
+  if (!items.length) return "";
+  return `Hello, I am interested in these Canadian university programs:\n\n` + items.map((c, i) =>
+    `${i + 1}. ${c.title}\n   ${c.uni}, ${c.prov}\n   Tuition: ${c.tuition} | IELTS ${c.ielts ?? "see details"} | Intakes: ${c.intakeRaw || "ask"}${okUrl(c.url) ? "\n   " + c.url : ""}`
+  ).join("\n\n") + `\n\nMy IELTS score: \nMy last degree and result: \nPreferred intake: `;
 }
-$("#openShort").addEventListener("click", () => {
-  $("#shortText").value = shortText(); $("#copyMsg").textContent = ""; $("#drawer").hidden = false;
+function renderDrawer() {
+  const items = DATA.filter((c) => short.has(c.id));
+  $("#sList").innerHTML = items.length
+    ? items.map((c) => `<div class="s-item"><div style="min-width:0"><b>${esc(c.short)}</b><span>${esc(c.uni)} · <span class="mono price">CAD ${fmt(c.annual)}</span> a year</span></div><button class="x" data-star="${c.id}" aria-label="Remove ${esc(c.short)}">&times;</button></div>`).join("")
+    : `<div class="empty" style="padding:24px 0"><b>No programs yet</b>Tap the star on any program to add it here.</div>`;
+  $("#sCompare").innerHTML = items.length > 1 ? compareTable(items) : "";
+  $("#sSend").hidden = !items.length;
+  $("#shortText").value = shortText();
   const wa = $("#waLink");
   if (CONFIG.whatsapp) {
     wa.hidden = false; wa.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(shortText())}`;
     $("#contactLine").textContent = `Counsellor WhatsApp: +${CONFIG.whatsapp}`;
   } else { wa.hidden = true; $("#contactLine").textContent = ""; }
-});
-$("#closeShort").addEventListener("click", () => ($("#drawer").hidden = true));
-$("#clearShort").addEventListener("click", () => { short.clear(); saveShort(); $("#shortText").value = shortText(); render(); });
+}
+function compareTable(items) {
+  const rows = [
+    ["Tuition a year", (c) => `<span class="price">CAD ${fmt(c.annual)}</span>`, true],
+    ["IELTS", (c) => (c.ielts != null ? c.ielts.toFixed(1) : "Ask"), true],
+    ["Intakes", (c) => esc(c.intakes.join(", ") || "Ask"), false],
+    ["Duration", (c) => esc(/\$|CAD/.test(c.duration) ? "Ask" : c.duration.replace(/'/g, "") || "Ask"), false],
+    ["Scholarship", (c) => esc(hasSch(c) ? c.sch : "None listed"), false],
+    ["Deposit", (c) => esc(c.dep || "Ask"), false],
+    ["QS ranking", (c) => esc(c.qs || "Not ranked"), true],
+  ];
+  return `<div class="compare"><table><thead><tr><th></th>${items.map((c) => `<th>${esc(c.short)}<br><span class="hint">${esc(c.uni)}</span></th>`).join("")}</tr></thead><tbody>${rows.map(([k, f, num]) => `<tr><th>${k}</th>${items.map((c) => `<td class="${num ? "num" : ""}">${f(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
+let lastFocus = null;
+function openLayer(el) {
+  lastFocus = document.activeElement;
+  $("#scrim").hidden = false; el.hidden = false; document.body.style.overflow = "hidden";
+  el.querySelector(".icon-btn").focus();
+}
+function closeLayers() {
+  $("#scrim").hidden = true; $("#sheet").hidden = true; $("#drawer").hidden = true; document.body.style.overflow = "";
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
+$("#shortBtn").addEventListener("click", () => { renderDrawer(); $("#sheet").hidden = true; openLayer($("#drawer")); });
+$("#drawerClose").addEventListener("click", closeLayers);
+$("#sheetClose").addEventListener("click", closeLayers);
+$("#scrim").addEventListener("click", closeLayers);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLayers(); });
+$("#sList").addEventListener("click", (e) => { const s = e.target.closest("[data-star]"); if (s) { toggleStar(+s.dataset.star); render(true); } });
+$("#clearShort").addEventListener("click", () => { short.clear(); saveShort(); updateShortCount(); renderDrawer(); render(true); toast("Shortlist cleared"); });
 $("#copyShort").addEventListener("click", () => {
   const ta = $("#shortText");
-  navigator.clipboard.writeText(ta.value).then(() => ($("#copyMsg").textContent = "Copied. Paste it into WhatsApp or email."))
-    .catch(() => { ta.focus(); ta.select(); $("#copyMsg").textContent = "Text selected. Press copy on your device."; });
+  navigator.clipboard.writeText(ta.value).then(() => toast("Copied. Paste it into WhatsApp or email."))
+    .catch(() => { ta.focus(); ta.select(); toast("Text selected. Use copy on your device."); });
 });
-document.addEventListener("keydown", (e) => { if (e.key === "Escape") $("#drawer").hidden = true; });
+
+/* ---------- Program sheet ---------- */
+let sheetId = null;
+function openSheet(id, from) {
+  const c = DATA.find((x) => x.id === id); if (!c) return;
+  sheetId = id;
+  $("#sheetUni").textContent = c.uni + (c.qs ? ` · QS ${c.qs}` : "");
+  $("#sheetTitle").textContent = c.title;
+  const f = fit(c), tags = [];
+  if (profileSet()) tags.push(f[0] === 2 ? `<span class="tag fit">Fits your profile</span>` : f[0] === 1 ? `<span class="tag stretch">Stretch: ${esc(f[1])}</span>` : `<span class="tag warn">Outside your profile</span>`);
+  tags.push(`<span class="tag">${esc(c.level)}</span>`, `<span class="tag">${esc(c.fac)}</span>`, `<span class="tag">${esc(c.prov)}</span>`);
+  if (c.check) tags.push(`<span class="tag warn">Some details need checking with a counsellor</span>`);
+  $("#sheetTags").innerHTML = tags.join("");
+  const approx = c.isTotal || c.cur === "USD";
+  const rows = [
+    ["Tuition", `<span class="mono price" style="font-weight:600">CAD ${fmt(c.annual)} a year${approx ? " (approx.)" : ""}</span>${approx || c.tuition ? `\n<span class="hint">Listed as: ${esc(c.tuition)}</span>` : ""}`],
+    ["Intakes", c.suspended ? "Intake suspended for now" : esc(c.intakes.join(", ") || c.intakeRaw || "Ask your counsellor")],
+    ["Duration", esc(/\$|CAD/.test(c.duration) ? "Ask your counsellor" : c.duration.replace(/'/g, "") || "Ask your counsellor")],
+    ["English tests", esc(c.english || "Ask your counsellor")],
+    ["Academic entry", esc(c.entry || "Ask your counsellor")],
+    ["Scholarship", esc(hasSch(c) ? c.sch : "None listed")],
+    ["Tuition deposit", esc(c.dep || "Ask your counsellor")],
+    ["Application fee", esc(c.fee || "Ask your counsellor")],
+  ];
+  if (c.specs.length) rows.splice(1, 0, ["Specialisations", esc(c.specs.join(", "))]);
+  if (c.deadline && !NOISE_NOTE.test(c.deadline.trim())) rows.push(["Deadlines", esc(c.deadline)]);
+  if (c.note && !NOISE_NOTE.test(c.note.trim())) rows.push(["Good to know", esc(c.note)]);
+  $("#sheetDl").innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+  const link = $("#sheetLink");
+  link.hidden = !okUrl(c.url); if (okUrl(c.url)) link.href = c.url;
+  setSheetStar();
+  $("#drawer").hidden = true;
+  openLayer($("#sheet"));
+}
+function setSheetStar() {
+  const on = short.has(sheetId);
+  $("#sheetStar").textContent = on ? "Remove from shortlist" : "Add to shortlist";
+}
+$("#sheetStar").addEventListener("click", (e) => { toggleStar(sheetId, e.currentTarget); setSheetStar(); });
+
+/* ---------- Universities ---------- */
+(function cloud() {
+  const by = {};
+  DATA.forEach((c) => { (by[c.uni] ||= []).push(c); });
+  const max = Math.max(...Object.values(by).map((a) => a.length));
+  const list = Object.entries(by).sort((a, b) => b[1].length - a[1].length);
+  // Interleave large and small so the cloud does not read as a ranked list.
+  const order = []; let i = 0, j = list.length - 1;
+  while (i <= j) { order.push(list[i++]); if (i <= j) order.push(list[j--]); }
+  $("#cloud").innerHTML = order.map(([u, a], k) => {
+    const s = Math.sqrt(a.length / max).toFixed(2);
+    const from = Math.min(...a.map((c) => c.annual));
+    return `<button class="orb" type="button" data-uni="${esc(u)}" style="--s:${s};--d:${(-(k * 1.9) % 9).toFixed(2)}s"><b>${esc(u)}</b><span>${a.length} program${a.length === 1 ? "" : "s"} · from CAD ${fmt(from)}</span></button>`;
+  }).join("");
+  $("#cloud").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-uni]"); if (!b) return;
+    state.uni = b.dataset.uni; syncControls(); render();
+    $("#finder").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+  });
+})();
+
+/* ---------- Intake planner ---------- */
+(function intakes() {
+  const counts = monthsPresent.map((m) => [m, DATA.filter((c) => c.intakes.includes(m)).length]).filter(([, n]) => n >= 3).sort((a, b) => b[1] - a[1]);
+  const max = Math.max(...counts.map(([, n]) => n));
+  $("#intakeBars").innerHTML = counts.map(([m, n]) => `<div class="in-row"><span class="m">${m}</span><span class="track"><i style="width:${(n / max * 100).toFixed(1)}%"></i></span><span class="n">${n}</span><small>${esc(WINDOWS[m] || "")}</small></div>`).join("");
+})();
+
+/* ---------- Theme ---------- */
+$("#themeBtn").addEventListener("click", () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem("ccf-theme", root.dataset.theme); } catch (e) {}
+  sky.readColors();
+});
+try { const t = localStorage.getItem("ccf-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+
+/* ---------- The floating field ---------- */
+const sky = (function () {
+  const field = $("#field"), cv = $("#sky"), ctx = cv.getContext("2d");
+  let W = 0, H = 0, dpr = 1, pills = [], gravity = false, running = false, visible = true, last = 0;
+  const pointer = { x: -999, y: -999 };
+  const col = {};
+  function readColors() {
+    const s = getComputedStyle(document.documentElement);
+    ["--pane-solid", "--ink", "--ink-2", "--ink-3", "--line", "--maple", "--fit", "--halo"].forEach((k) => (col[k] = s.getPropertyValue(k).trim()));
+    if (!running) draw();
+  }
+  function pick() {
+    // A spread of real programs: cheapest, best ranked, and a random mix.
+    const pool = [...DATA].sort(() => Math.random() - 0.5);
+    const chosen = new Map();
+    [...DATA].sort((a, b) => a.annual - b.annual).slice(0, 4).forEach((c) => chosen.set(c.id, c));
+    [...DATA].sort((a, b) => a.qsN - b.qsN).slice(0, 4).forEach((c) => chosen.set(c.id, c));
+    for (const c of pool) { if (chosen.size >= (W < 520 ? 14 : 22)) break; chosen.set(c.id, c); }
+    return [...chosen.values()];
+  }
+  function label(c, kind) {
+    if (kind === 1) return { t: `CAD ${fmt(c.annual)}`, sub: c.uni.replace(/^University of /, "U of "), mono: true };
+    if (kind === 2 && c.ielts) return { t: `IELTS ${c.ielts.toFixed(1)}`, sub: c.short.slice(0, 26), mono: true };
+    const t = c.short.length > 34 ? c.short.slice(0, 33).trim() + "…" : c.short;
+    return { t, sub: c.uni, mono: false };
+  }
+  function build() {
+    const r = field.getBoundingClientRect();
+    W = r.width; H = r.height; dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const list = pick();
+    pills = list.map((c, i) => {
+      const kind = i % 5 === 1 ? 1 : i % 5 === 3 ? 2 : 0;
+      const L = label(c, kind);
+      ctx.font = `${L.mono ? "600 13px " + "IBM Plex Mono, monospace" : "700 13.5px Schibsted Grotesk, Arial, sans-serif"}`;
+      const tw = ctx.measureText(L.t).width;
+      ctx.font = "500 11px Schibsted Grotesk, Arial, sans-serif";
+      const sw = Math.min(ctx.measureText(L.sub).width, 200);
+      const w = Math.min(Math.max(tw, sw) + 30, W - 20), h = 46;
+      return { c, kind, L, w, h, x: Math.random() * (W - w), y: Math.random() * (H + 120) - 20, vx: 0, vy: 0, lift: 0.18 + Math.random() * 0.32, ph: Math.random() * 6.28, z: 0.75 + Math.random() * 0.25 };
+    });
+    if (reduced) { pills.forEach((p) => { p.y = Math.random() * (H - p.h - 60) + 10; }); draw(); }
+  }
+  function rr(x, y, w, h, r) {
+    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+  function step(dt, t) {
+    const k = Math.min(dt / 16.7, 2.5);
+    for (const p of pills) {
+      if (!gravity) {
+        p.vy += (-p.lift - p.vy) * 0.03 * k;
+        p.vx += Math.sin(t * 0.0006 + p.ph) * 0.012 * k; p.vx *= 0.97;
+      } else { p.vy += 0.42 * k; p.vx *= 0.985; }
+      const dx = p.x + p.w / 2 - pointer.x, dy = p.y + p.h / 2 - pointer.y, d = Math.hypot(dx, dy);
+      if (d < 110 && d > 0) { const f = (1 - d / 110) * 0.6 * k; p.vx += (dx / d) * f; p.vy += (dy / d) * f; }
+      p.x += p.vx * k; p.y += p.vy * k;
+      if (p.x < 6) { p.x = 6; p.vx = Math.abs(p.vx) * 0.5; }
+      if (p.x + p.w > W - 6) { p.x = W - 6 - p.w; p.vx = -Math.abs(p.vx) * 0.5; }
+      if (!gravity) {
+        if (p.y + p.h < -8) { p.y = H + 10 + Math.random() * 40; p.x = Math.random() * (W - p.w); p.vx = 0; }
+      } else if (p.y + p.h > H) { p.y = H - p.h; p.vy = Math.abs(p.vy) > 1.2 ? -p.vy * 0.32 : 0; p.vx *= 0.85; }
+    }
+    if (gravity) {
+      for (let it = 0; it < 4; it++) {
+        for (let i = 0; i < pills.length; i++) for (let j = i + 1; j < pills.length; j++) {
+          const a = pills[i], b = pills[j];
+          const ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+          const oy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+          if (ox <= 0 || oy <= 0) continue;
+          if (oy < ox) {
+            const up = a.y < b.y ? a : b, dn = up === a ? b : a;
+            up.y -= oy; if (up.vy > dn.vy) up.vy = dn.vy * 0.5;
+            up.vx += (up.x + up.w / 2 < dn.x + dn.w / 2 ? -0.08 : 0.08); // slide off edges a little
+          } else {
+            const l = a.x < b.x ? a : b, r = l === a ? b : a;
+            l.x -= ox / 2; r.x += ox / 2; const v = (l.vx + r.vx) / 2; l.vx = v - 0.1; r.vx = v + 0.1;
+          }
+        }
+      }
+    }
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of pills) {
+      ctx.save();
+      ctx.shadowColor = `rgba(${col["--halo"] || "15,31,45"}, ${gravity ? 0.18 : 0.22})`;
+      ctx.shadowBlur = gravity ? 6 : 22 * p.z; ctx.shadowOffsetY = gravity ? 2 : 14 * p.z;
+      rr(p.x, p.y, p.w, p.h, 23); ctx.fillStyle = col["--pane-solid"]; ctx.fill();
+      ctx.restore();
+      rr(p.x + 0.5, p.y + 0.5, p.w - 1, p.h - 1, 22.5);
+      ctx.strokeStyle = p.kind === 1 ? col["--maple"] : col["--line"]; ctx.lineWidth = 1; ctx.stroke();
+      ctx.textBaseline = "alphabetic";
+      ctx.fillStyle = p.kind === 1 ? col["--maple"] : p.kind === 2 ? col["--fit"] : col["--ink"];
+      ctx.font = p.L.mono ? "600 13px IBM Plex Mono, monospace" : "700 13.5px Schibsted Grotesk, Arial, sans-serif";
+      ctx.fillText(p.L.t, p.x + 15, p.y + 20, p.w - 30);
+      ctx.fillStyle = col["--ink-3"]; ctx.font = "500 11px Schibsted Grotesk, Arial, sans-serif";
+      ctx.fillText(p.L.sub, p.x + 15, p.y + 35, p.w - 30);
+    }
+  }
+  function loop(t) {
+    if (!running) return;
+    const dt = last ? Math.min(t - last, 50) : 16.7; last = t;
+    step(dt, t); draw();
+    requestAnimationFrame(loop);
+  }
+  function start() { if (running || reduced || !visible || document.hidden) return; running = true; last = 0; requestAnimationFrame(loop); }
+  function stop() { running = false; }
+  function hit(x, y) { for (let i = pills.length - 1; i >= 0; i--) { const p = pills[i]; if (x >= p.x && x <= p.x + p.w && y >= p.y && y <= p.y + p.h) return p; } return null; }
+  function local(e) { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+  cv.addEventListener("pointermove", (e) => { const [x, y] = local(e); pointer.x = x; pointer.y = y; cv.style.cursor = hit(x, y) ? "pointer" : "default"; });
+  cv.addEventListener("pointerleave", () => { pointer.x = pointer.y = -999; });
+  cv.addEventListener("click", (e) => { const p = hit(...local(e)); if (p) openSheet(p.c.id, $("#gravBtn")); });
+  $("#gravBtn").addEventListener("click", () => {
+    gravity = !gravity;
+    $("#gravBtn").setAttribute("aria-pressed", gravity);
+    $("#gravLabel").textContent = gravity ? "Gravity is on" : "Gravity is off";
+    document.body.classList.toggle("gravity", gravity);
+    if (!gravity) pills.forEach((p) => { p.vy = -(3 + Math.random() * 4); p.vx = (Math.random() - 0.5) * 2; });
+    if (reduced) {
+      // No motion: jump straight to the end state.
+      if (gravity) { let x = 8, y = H - 54; pills.forEach((p) => { if (x + p.w > W - 8) { x = 8; y -= 50; } p.x = x; p.y = y; x += p.w + 6; }); }
+      else pills.forEach((p) => { p.y = Math.random() * (H - p.h - 60) + 10; p.x = Math.random() * (W - p.w); });
+      draw();
+    }
+  });
+  new IntersectionObserver((en) => { visible = en[0].isIntersecting; visible ? start() : stop(); }).observe(field);
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+  let rt; new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(() => { const r = field.getBoundingClientRect(); if (Math.abs(r.width - W) > 2 || Math.abs(r.height - H) > 2) { build(); if (!running) draw(); } }, 120); }).observe(field);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => readColors());
+  readColors(); build(); draw(); start();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { build(); draw(); });
+  return { readColors };
+})();
 
 render();
 </script>
