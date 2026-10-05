@@ -14,11 +14,11 @@ scripts/parse.py        Sheet export -> data/courses.json (+ data/issues.txt wit
 src/template.html       The page: HTML, CSS and JS, with __DATA__, __RATE__ and __UPDATED__ placeholders
 scripts/build.py        template + courses.json -> dist/index.html (a standalone page)
 dist/index.html         The built page. Open it in a browser or host it anywhere static
+```
 
 build.py keeps university programs only (`is_university`): colleges, polytechnics and
 institutes are dropped at build time, so courses.json still holds every row. Rows named in
 data/issues.txt get `check: true` and show a "check with counsellor" tag.
-```
 
 ## Commands
 
@@ -52,7 +52,6 @@ No dependencies beyond Python 3 standard library. Open `dist/index.html` in a br
 ## Design
 
 Theme: "anti-gravity". Program pills drift upward on the hero canvas, cards and university orbs float, a starred program rises into the shortlist. The "Gravity" switch drops the pills into a pile and settles the cards. All motion stops under prefers-reduced-motion.
-
 
 Tokens are in the `:root` block at the top of `src/template.html`, with matching dark-mode values. Fonts: Schibsted Grotesk (text) and IBM Plex Mono (numbers) from Google Fonts. Maple red is reserved for prices and the main action. Must work at 400px phone width with no horizontal scroll.
 
